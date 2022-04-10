@@ -172,6 +172,8 @@ public class AdminInsurance extends javax.swing.JPanel {
         btnfwdtoAgent = new javax.swing.JButton();
         btnDecline = new javax.swing.JButton();
 
+        jPanel1.setBackground(new java.awt.Color(0, 51, 51));
+
         btnAddAgent.setText("Add Agent");
         btnAddAgent.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -224,6 +226,9 @@ public class AdminInsurance extends javax.swing.JPanel {
 
         CardLayout.setLayout(new java.awt.CardLayout());
 
+        AddAgent.setBackground(new java.awt.Color(51, 153, 0));
+
+        jLabel2.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
         jLabel2.setText("Adding Agent");
 
         lblFirstNameAI.setText("First Name:");
@@ -252,6 +257,7 @@ public class AdminInsurance extends javax.swing.JPanel {
             }
         });
 
+        jButton2.setBackground(new java.awt.Color(153, 153, 153));
         jButton2.setText("Add Agent");
         jButton2.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -310,7 +316,7 @@ public class AdminInsurance extends javax.swing.JPanel {
                     .addComponent(txtIAPassword, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(32, 32, 32)
                 .addComponent(jButton2)
-                .addContainerGap(225, Short.MAX_VALUE))
+                .addContainerGap(256, Short.MAX_VALUE))
         );
 
         CardLayout.add(AddAgent, "card2");
