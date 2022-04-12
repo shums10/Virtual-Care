@@ -96,6 +96,8 @@ public class InsuranceCommittie extends javax.swing.JPanel {
         btnDeclineIC = new javax.swing.JButton();
         btnLogoutIC = new javax.swing.JButton();
 
+        setBackground(new java.awt.Color(0, 255, 255));
+
         tblViewInsuranceRequest.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null, null, null},
@@ -142,30 +144,31 @@ public class InsuranceCommittie extends javax.swing.JPanel {
         this.setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addGap(200, 200, 200)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 664, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(86, 86, 86))
             .addGroup(layout.createSequentialGroup()
-                .addGap(200, 200, 200)
-                .addComponent(btnLogoutIC)
-                .addGap(45, 45, 45)
-                .addComponent(btnApproveIC)
-                .addGap(139, 139, 139)
-                .addComponent(btnDeclineIC)
-                .addGap(60, 60, 60))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(117, 117, 117)
+                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 664, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(282, 282, 282)
+                        .addComponent(btnLogoutIC)
+                        .addGap(45, 45, 45)
+                        .addComponent(btnApproveIC)
+                        .addGap(45, 45, 45)
+                        .addComponent(btnDeclineIC)))
+                .addGap(169, 169, 169))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(44, 44, 44)
+                .addGap(39, 39, 39)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 192, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(29, 29, 29)
+                .addGap(32, 32, 32)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnApproveIC)
                     .addComponent(btnDeclineIC)
                     .addComponent(btnLogoutIC))
-                .addGap(70, 70, 70))
+                .addContainerGap())
         );
     }// </editor-fold>//GEN-END:initComponents
 
