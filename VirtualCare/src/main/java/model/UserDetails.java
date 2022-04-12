@@ -26,9 +26,10 @@ public class UserDetails{
     }
     private String DOB, FirstName, LastName, Street, City, Email, Password;
 
-    ArrayList<DoctorDetails> Appointments = new ArrayList<>();
+    ArrayList<DoctorDetails> Appointments = new ArrayList<DoctorDetails>();
     
     public void AddAppointments(DoctorDetails d){
+        System.out.println("Appointment Added: " + d.getFirstName());
         Appointments.add(d);
     }
     

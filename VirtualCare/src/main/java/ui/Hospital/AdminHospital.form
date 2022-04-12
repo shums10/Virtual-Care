@@ -1,11 +1,6 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 
 <Form version="1.5" maxVersion="1.9" type="org.netbeans.modules.form.forminfo.JPanelFormInfo">
-  <Properties>
-    <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
-      <Color blue="66" green="0" red="0" type="rgb"/>
-    </Property>
-  </Properties>
   <AuxValues>
     <AuxValue name="FormSettings_autoResourcing" type="java.lang.Integer" value="0"/>
     <AuxValue name="FormSettings_autoSetComponentName" type="java.lang.Boolean" value="false"/>
@@ -21,18 +16,23 @@
   <Layout>
     <DimensionLayout dim="0">
       <Group type="103" groupAlignment="0" attributes="0">
-          <Group type="102" attributes="0">
-              <Component id="jPanelLeft" min="-2" pref="215" max="-2" attributes="0"/>
+          <Group type="102" alignment="0" attributes="0">
               <Group type="103" groupAlignment="0" attributes="0">
                   <Group type="102" attributes="0">
-                      <EmptySpace pref="20" max="32767" attributes="0"/>
+                      <EmptySpace max="-2" attributes="0"/>
+                      <Component id="lblHospitalLogo" min="-2" pref="164" max="-2" attributes="0"/>
+                  </Group>
+                  <Component id="jPanelLeft" alignment="0" min="-2" pref="215" max="-2" attributes="0"/>
+              </Group>
+              <EmptySpace max="32767" attributes="0"/>
+              <Group type="103" groupAlignment="0" attributes="0">
+                  <Group type="102" alignment="1" attributes="0">
                       <Component id="cardPanel" min="-2" pref="742" max="-2" attributes="0"/>
                       <EmptySpace max="-2" attributes="0"/>
                   </Group>
-                  <Group type="102" alignment="0" attributes="0">
-                      <EmptySpace min="-2" pref="174" max="-2" attributes="0"/>
+                  <Group type="102" alignment="1" attributes="0">
                       <Component id="lblHeaderHospital" min="-2" pref="369" max="-2" attributes="0"/>
-                      <EmptySpace max="32767" attributes="0"/>
+                      <EmptySpace min="-2" pref="171" max="-2" attributes="0"/>
                   </Group>
               </Group>
           </Group>
@@ -43,11 +43,15 @@
           <Group type="102" attributes="0">
               <Group type="103" groupAlignment="0" attributes="0">
                   <Group type="102" attributes="0">
-                      <Component id="lblHeaderHospital" min="-2" pref="59" max="-2" attributes="0"/>
-                      <EmptySpace type="separate" pref="67" max="32767" attributes="0"/>
-                      <Component id="cardPanel" min="-2" pref="1058" max="-2" attributes="0"/>
+                      <EmptySpace min="-2" pref="17" max="-2" attributes="0"/>
+                      <Component id="lblHospitalLogo" min="-2" pref="102" max="-2" attributes="0"/>
                   </Group>
-                  <Component id="jPanelLeft" pref="1184" max="32767" attributes="0"/>
+                  <Component id="lblHeaderHospital" alignment="0" min="-2" pref="59" max="-2" attributes="0"/>
+              </Group>
+              <EmptySpace max="32767" attributes="0"/>
+              <Group type="103" groupAlignment="0" max="-2" attributes="0">
+                  <Component id="jPanelLeft" pref="1058" max="32767" attributes="0"/>
+                  <Component id="cardPanel" pref="1058" max="32767" attributes="0"/>
               </Group>
               <EmptySpace max="-2" attributes="0"/>
           </Group>
@@ -55,11 +59,15 @@
     </DimensionLayout>
   </Layout>
   <SubComponents>
-    <Container class="javax.swing.JPanel" name="jPanelLeft">
+    <Component class="javax.swing.JLabel" name="lblHospitalLogo">
       <Properties>
         <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
-          <Color blue="33" green="33" red="0" type="rgb"/>
+          <Color blue="0" green="99" red="cc" type="rgb"/>
         </Property>
+      </Properties>
+    </Component>
+    <Container class="javax.swing.JPanel" name="jPanelLeft">
+      <Properties>
         <Property name="preferredSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
           <Dimension value="[1000, 1000]"/>
         </Property>
@@ -68,48 +76,51 @@
       <Layout>
         <DimensionLayout dim="0">
           <Group type="103" groupAlignment="0" attributes="0">
-              <Group type="102" alignment="0" attributes="0">
-                  <EmptySpace min="-2" pref="16" max="-2" attributes="0"/>
+              <Group type="102" attributes="0">
                   <Group type="103" groupAlignment="0" attributes="0">
                       <Group type="102" alignment="0" attributes="0">
-                          <EmptySpace min="-2" pref="2" max="-2" attributes="0"/>
-                          <Group type="103" groupAlignment="0" attributes="0">
-                              <Component id="btnOrderMedicines" linkSize="1" min="-2" max="-2" attributes="0"/>
-                              <Component id="btnInsuranceFunds" linkSize="1" min="-2" max="-2" attributes="0"/>
-                              <Component id="btnLogout" alignment="0" min="-2" pref="167" max="-2" attributes="0"/>
-                          </Group>
+                          <EmptySpace min="-2" pref="14" max="-2" attributes="0"/>
+                          <Component id="btnInsuranceFunds" min="-2" max="-2" attributes="0"/>
                       </Group>
-                      <Group type="102" alignment="1" attributes="0">
-                          <Group type="103" groupAlignment="1" attributes="0">
-                              <Component id="lblHospitalLogo" alignment="1" min="-2" pref="163" max="-2" attributes="0"/>
-                              <Group type="103" groupAlignment="0" attributes="0">
-                                  <Component id="btnAddDoctors" linkSize="1" min="-2" max="-2" attributes="0"/>
-                                  <Component id="btnViewDoctors" linkSize="1" min="-2" max="-2" attributes="0"/>
-                              </Group>
-                          </Group>
-                          <EmptySpace min="-2" pref="6" max="-2" attributes="0"/>
+                      <Group type="102" alignment="0" attributes="0">
+                          <EmptySpace min="-2" pref="36" max="-2" attributes="0"/>
+                          <Component id="btnOrderMedicines" min="-2" max="-2" attributes="0"/>
                       </Group>
                   </Group>
-                  <EmptySpace min="-2" pref="24" max="-2" attributes="0"/>
+                  <EmptySpace max="-2" attributes="0"/>
+              </Group>
+              <Group type="102" alignment="1" attributes="0">
+                  <EmptySpace max="-2" attributes="0"/>
+                  <Group type="103" groupAlignment="0" attributes="0">
+                      <Group type="102" alignment="1" attributes="0">
+                          <Group type="103" groupAlignment="0" attributes="0">
+                              <Component id="btnAddDoctors" min="-2" max="-2" attributes="0"/>
+                              <Component id="btnViewDoctors" min="-2" max="-2" attributes="0"/>
+                          </Group>
+                          <EmptySpace min="-2" pref="39" max="-2" attributes="0"/>
+                      </Group>
+                      <Group type="102" alignment="1" attributes="0">
+                          <Component id="btnLogout" min="-2" pref="167" max="-2" attributes="0"/>
+                          <EmptySpace max="-2" attributes="0"/>
+                      </Group>
+                  </Group>
               </Group>
           </Group>
         </DimensionLayout>
         <DimensionLayout dim="1">
           <Group type="103" groupAlignment="0" attributes="0">
               <Group type="102" alignment="0" attributes="0">
-                  <EmptySpace min="-2" pref="22" max="-2" attributes="0"/>
-                  <Component id="lblHospitalLogo" min="-2" pref="95" max="-2" attributes="0"/>
-                  <EmptySpace type="separate" max="-2" attributes="0"/>
+                  <EmptySpace min="-2" pref="137" max="-2" attributes="0"/>
                   <Component id="btnAddDoctors" min="-2" max="-2" attributes="0"/>
                   <EmptySpace type="unrelated" max="-2" attributes="0"/>
                   <Component id="btnViewDoctors" min="-2" max="-2" attributes="0"/>
-                  <EmptySpace type="separate" max="-2" attributes="0"/>
+                  <EmptySpace type="unrelated" max="-2" attributes="0"/>
                   <Component id="btnOrderMedicines" min="-2" max="-2" attributes="0"/>
-                  <EmptySpace type="separate" max="-2" attributes="0"/>
+                  <EmptySpace type="unrelated" max="-2" attributes="0"/>
                   <Component id="btnInsuranceFunds" min="-2" max="-2" attributes="0"/>
-                  <EmptySpace type="separate" max="-2" attributes="0"/>
+                  <EmptySpace min="-2" pref="267" max="-2" attributes="0"/>
                   <Component id="btnLogout" min="-2" max="-2" attributes="0"/>
-                  <EmptySpace pref="857" max="32767" attributes="0"/>
+                  <EmptySpace max="32767" attributes="0"/>
               </Group>
           </Group>
         </DimensionLayout>
@@ -117,9 +128,6 @@
       <SubComponents>
         <Component class="javax.swing.JButton" name="btnAddDoctors">
           <Properties>
-            <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
-              <Color blue="99" green="99" red="99" type="rgb"/>
-            </Property>
             <Property name="text" type="java.lang.String" value="ADD Doctors"/>
           </Properties>
           <Events>
@@ -128,9 +136,6 @@
         </Component>
         <Component class="javax.swing.JButton" name="btnViewDoctors">
           <Properties>
-            <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
-              <Color blue="99" green="99" red="99" type="rgb"/>
-            </Property>
             <Property name="text" type="java.lang.String" value="VIEW Doctors"/>
           </Properties>
           <Events>
@@ -139,9 +144,6 @@
         </Component>
         <Component class="javax.swing.JButton" name="btnOrderMedicines">
           <Properties>
-            <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
-              <Color blue="99" green="99" red="99" type="rgb"/>
-            </Property>
             <Property name="text" type="java.lang.String" value="ORDER Medicines"/>
           </Properties>
           <Events>
@@ -150,9 +152,6 @@
         </Component>
         <Component class="javax.swing.JButton" name="btnInsuranceFunds">
           <Properties>
-            <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
-              <Color blue="99" green="99" red="99" type="rgb"/>
-            </Property>
             <Property name="text" type="java.lang.String" value="Request Insurance Funds"/>
           </Properties>
           <Events>
@@ -161,24 +160,11 @@
         </Component>
         <Component class="javax.swing.JButton" name="btnLogout">
           <Properties>
-            <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
-              <Color blue="99" green="99" red="99" type="rgb"/>
-            </Property>
             <Property name="text" type="java.lang.String" value="Logout"/>
           </Properties>
           <Events>
             <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnLogoutActionPerformed"/>
           </Events>
-        </Component>
-        <Component class="javax.swing.JLabel" name="lblHospitalLogo">
-          <Properties>
-            <Property name="maximumSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
-              <Dimension value="[10, 10]"/>
-            </Property>
-            <Property name="minimumSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
-              <Dimension value="[10, 10]"/>
-            </Property>
-          </Properties>
         </Component>
       </SubComponents>
     </Container>
@@ -219,11 +205,6 @@
           </Layout>
           <SubComponents>
             <Container class="javax.swing.JPanel" name="jPanel1">
-              <Properties>
-                <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
-                  <Color blue="66" green="0" red="0" type="rgb"/>
-                </Property>
-              </Properties>
 
               <Layout>
                 <DimensionLayout dim="0">
@@ -307,9 +288,6 @@
                 </Container>
                 <Component class="javax.swing.JButton" name="btnDeleteAH">
                   <Properties>
-                    <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
-                      <Color blue="99" green="99" red="99" type="rgb"/>
-                    </Property>
                     <Property name="text" type="java.lang.String" value="Delete"/>
                   </Properties>
                   <Events>
@@ -321,11 +299,6 @@
           </SubComponents>
         </Container>
         <Container class="javax.swing.JPanel" name="OrderMedicines">
-          <Properties>
-            <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
-              <Color blue="66" green="0" red="0" type="rgb"/>
-            </Property>
-          </Properties>
           <Constraints>
             <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignCardLayout" value="org.netbeans.modules.form.compat2.layouts.DesignCardLayout$CardConstraintsDescription">
               <CardConstraints cardName="card4"/>
@@ -416,9 +389,6 @@
             </Component>
             <Component class="javax.swing.JButton" name="btnOrder">
               <Properties>
-                <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
-                  <Color blue="99" green="99" red="99" type="rgb"/>
-                </Property>
                 <Property name="text" type="java.lang.String" value="Order"/>
               </Properties>
               <Events>
@@ -497,9 +467,6 @@
             </Container>
             <Component class="javax.swing.JButton" name="btnPhDeleteOrder">
               <Properties>
-                <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
-                  <Color blue="99" green="99" red="99" type="rgb"/>
-                </Property>
                 <Property name="text" type="java.lang.String" value="Delete"/>
               </Properties>
               <Events>
@@ -508,11 +475,234 @@
             </Component>
           </SubComponents>
         </Container>
+        <Container class="javax.swing.JPanel" name="AddDoctors">
+          <Properties>
+            <Property name="preferredSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
+              <Dimension value="[1000, 1000]"/>
+            </Property>
+          </Properties>
+          <Constraints>
+            <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignCardLayout" value="org.netbeans.modules.form.compat2.layouts.DesignCardLayout$CardConstraintsDescription">
+              <CardConstraints cardName="card2"/>
+            </Constraint>
+          </Constraints>
+
+          <Layout>
+            <DimensionLayout dim="0">
+              <Group type="103" groupAlignment="0" attributes="0">
+                  <Group type="102" alignment="1" attributes="0">
+                      <EmptySpace max="32767" attributes="0"/>
+                      <Component id="lblAddDoctors" min="-2" max="-2" attributes="0"/>
+                      <EmptySpace min="-2" pref="303" max="-2" attributes="0"/>
+                  </Group>
+                  <Group type="102" alignment="0" attributes="0">
+                      <EmptySpace min="-2" pref="174" max="-2" attributes="0"/>
+                      <Group type="103" groupAlignment="1" attributes="0">
+                          <Component id="lblTime" alignment="1" min="-2" max="-2" attributes="0"/>
+                          <Component id="lblFirstName" alignment="1" min="-2" max="-2" attributes="0"/>
+                          <Component id="lblAvailableDays" alignment="1" min="-2" max="-2" attributes="0"/>
+                          <Component id="lblLastName" alignment="1" min="-2" max="-2" attributes="0"/>
+                          <Component id="lblFees" alignment="1" min="-2" max="-2" attributes="0"/>
+                          <Component id="lblRatings" alignment="1" min="-2" max="-2" attributes="0"/>
+                          <Component id="lblRatings1" alignment="1" min="-2" max="-2" attributes="0"/>
+                          <Component id="lblRatings2" alignment="1" min="-2" max="-2" attributes="0"/>
+                      </Group>
+                      <EmptySpace min="-2" pref="33" max="-2" attributes="0"/>
+                      <Group type="103" groupAlignment="0" attributes="0">
+                          <Component id="txtFees" alignment="0" min="-2" pref="159" max="-2" attributes="0"/>
+                          <Group type="102" alignment="0" attributes="0">
+                              <Component id="txtFirstNameAH" min="-2" pref="159" max="-2" attributes="0"/>
+                              <EmptySpace type="separate" max="-2" attributes="0"/>
+                              <Component id="lblDepartment" min="-2" max="-2" attributes="0"/>
+                              <EmptySpace type="separate" max="-2" attributes="0"/>
+                              <Component id="cmbBoxDepartment" min="-2" max="-2" attributes="0"/>
+                          </Group>
+                          <Component id="txtTime" alignment="0" min="-2" pref="159" max="-2" attributes="0"/>
+                          <Component id="txtRatings" alignment="0" min="-2" pref="159" max="-2" attributes="0"/>
+                          <Component id="txtAvailableDays" alignment="0" min="-2" pref="159" max="-2" attributes="0"/>
+                          <Component id="txtLastNameAH" alignment="0" min="-2" pref="159" max="-2" attributes="0"/>
+                          <Group type="103" alignment="0" groupAlignment="1" max="-2" attributes="0">
+                              <Component id="txtPasswordAH" alignment="0" max="32767" attributes="0"/>
+                              <Component id="txtEmailIdAH" alignment="0" pref="159" max="32767" attributes="0"/>
+                          </Group>
+                          <Group type="102" alignment="0" attributes="0">
+                              <EmptySpace min="-2" pref="9" max="-2" attributes="0"/>
+                              <Component id="btnRegisterDoctor" min="-2" max="-2" attributes="0"/>
+                          </Group>
+                      </Group>
+                      <EmptySpace pref="72" max="32767" attributes="0"/>
+                  </Group>
+              </Group>
+            </DimensionLayout>
+            <DimensionLayout dim="1">
+              <Group type="103" groupAlignment="0" attributes="0">
+                  <Group type="102" alignment="0" attributes="0">
+                      <EmptySpace min="-2" pref="25" max="-2" attributes="0"/>
+                      <Component id="lblAddDoctors" min="-2" max="-2" attributes="0"/>
+                      <EmptySpace min="-2" pref="64" max="-2" attributes="0"/>
+                      <Group type="103" groupAlignment="3" attributes="0">
+                          <Component id="lblFirstName" alignment="3" min="-2" max="-2" attributes="0"/>
+                          <Component id="txtFirstNameAH" alignment="3" min="-2" max="-2" attributes="0"/>
+                          <Component id="lblDepartment" alignment="3" min="-2" max="-2" attributes="0"/>
+                          <Component id="cmbBoxDepartment" alignment="3" min="-2" max="-2" attributes="0"/>
+                      </Group>
+                      <EmptySpace type="separate" max="-2" attributes="0"/>
+                      <Group type="103" groupAlignment="3" attributes="0">
+                          <Component id="lblLastName" alignment="3" min="-2" max="-2" attributes="0"/>
+                          <Component id="txtLastNameAH" alignment="3" min="-2" max="-2" attributes="0"/>
+                      </Group>
+                      <EmptySpace min="-2" pref="11" max="-2" attributes="0"/>
+                      <Group type="103" groupAlignment="3" attributes="0">
+                          <Component id="lblAvailableDays" alignment="3" min="-2" max="-2" attributes="0"/>
+                          <Component id="txtAvailableDays" alignment="3" min="-2" max="-2" attributes="0"/>
+                      </Group>
+                      <EmptySpace type="separate" max="-2" attributes="0"/>
+                      <Group type="103" groupAlignment="3" attributes="0">
+                          <Component id="lblTime" alignment="3" min="-2" max="-2" attributes="0"/>
+                          <Component id="txtTime" alignment="3" min="-2" max="-2" attributes="0"/>
+                      </Group>
+                      <EmptySpace type="separate" max="-2" attributes="0"/>
+                      <Group type="103" groupAlignment="3" attributes="0">
+                          <Component id="lblFees" alignment="3" min="-2" max="-2" attributes="0"/>
+                          <Component id="txtFees" alignment="3" min="-2" max="-2" attributes="0"/>
+                      </Group>
+                      <EmptySpace min="-2" pref="17" max="-2" attributes="0"/>
+                      <Group type="103" groupAlignment="3" attributes="0">
+                          <Component id="lblRatings" alignment="3" min="-2" max="-2" attributes="0"/>
+                          <Component id="txtRatings" alignment="3" min="-2" max="-2" attributes="0"/>
+                      </Group>
+                      <EmptySpace type="separate" max="-2" attributes="0"/>
+                      <Group type="103" groupAlignment="3" attributes="0">
+                          <Component id="txtEmailIdAH" alignment="3" min="-2" max="-2" attributes="0"/>
+                          <Component id="lblRatings1" alignment="3" min="-2" max="-2" attributes="0"/>
+                      </Group>
+                      <EmptySpace type="separate" max="-2" attributes="0"/>
+                      <Group type="103" groupAlignment="3" attributes="0">
+                          <Component id="lblRatings2" alignment="3" min="-2" max="-2" attributes="0"/>
+                          <Component id="txtPasswordAH" alignment="3" min="-2" max="-2" attributes="0"/>
+                      </Group>
+                      <EmptySpace type="separate" max="-2" attributes="0"/>
+                      <Component id="btnRegisterDoctor" min="-2" max="-2" attributes="0"/>
+                      <EmptySpace max="32767" attributes="0"/>
+                  </Group>
+              </Group>
+            </DimensionLayout>
+          </Layout>
+          <SubComponents>
+            <Component class="javax.swing.JTextField" name="txtFees">
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="txtFeesActionPerformed"/>
+              </Events>
+            </Component>
+            <Component class="javax.swing.JLabel" name="lblRatings2">
+              <Properties>
+                <Property name="text" type="java.lang.String" value="Password:"/>
+              </Properties>
+            </Component>
+            <Component class="javax.swing.JTextField" name="txtEmailIdAH">
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="txtEmailIdAHActionPerformed"/>
+              </Events>
+            </Component>
+            <Component class="javax.swing.JLabel" name="lblLastName">
+              <Properties>
+                <Property name="text" type="java.lang.String" value="Last Name:"/>
+              </Properties>
+            </Component>
+            <Component class="javax.swing.JComboBox" name="cmbBoxDepartment">
+              <Properties>
+                <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
+                  <StringArray count="4">
+                    <StringItem index="0" value="Item 1"/>
+                    <StringItem index="1" value="Item 2"/>
+                    <StringItem index="2" value="Item 3"/>
+                    <StringItem index="3" value="Item 4"/>
+                  </StringArray>
+                </Property>
+              </Properties>
+              <AuxValues>
+                <AuxValue name="JavaCodeGenerator_TypeParameters" type="java.lang.String" value="&lt;String&gt;"/>
+              </AuxValues>
+            </Component>
+            <Component class="javax.swing.JTextField" name="txtFirstNameAH">
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="txtFirstNameAHActionPerformed"/>
+              </Events>
+            </Component>
+            <Component class="javax.swing.JLabel" name="lblFees">
+              <Properties>
+                <Property name="text" type="java.lang.String" value="Fees:"/>
+              </Properties>
+            </Component>
+            <Component class="javax.swing.JTextField" name="txtLastNameAH">
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="txtLastNameAHActionPerformed"/>
+              </Events>
+            </Component>
+            <Component class="javax.swing.JLabel" name="lblRatings1">
+              <Properties>
+                <Property name="text" type="java.lang.String" value="Email Id:"/>
+              </Properties>
+            </Component>
+            <Component class="javax.swing.JLabel" name="lblAddDoctors">
+              <Properties>
+                <Property name="text" type="java.lang.String" value="Add Doctors"/>
+              </Properties>
+            </Component>
+            <Component class="javax.swing.JTextField" name="txtRatings">
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="txtRatingsActionPerformed"/>
+              </Events>
+            </Component>
+            <Component class="javax.swing.JLabel" name="lblFirstName">
+              <Properties>
+                <Property name="text" type="java.lang.String" value="First Name:"/>
+              </Properties>
+            </Component>
+            <Component class="javax.swing.JButton" name="btnRegisterDoctor">
+              <Properties>
+                <Property name="text" type="java.lang.String" value="Register Doctor"/>
+              </Properties>
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnRegisterDoctorActionPerformed"/>
+              </Events>
+            </Component>
+            <Component class="javax.swing.JLabel" name="lblDepartment">
+              <Properties>
+                <Property name="text" type="java.lang.String" value="Department"/>
+              </Properties>
+            </Component>
+            <Component class="javax.swing.JTextField" name="txtTime">
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="txtTimeActionPerformed"/>
+              </Events>
+            </Component>
+            <Component class="javax.swing.JLabel" name="lblTime">
+              <Properties>
+                <Property name="text" type="java.lang.String" value="Time:"/>
+              </Properties>
+            </Component>
+            <Component class="javax.swing.JLabel" name="lblRatings">
+              <Properties>
+                <Property name="text" type="java.lang.String" value="Ratings:"/>
+              </Properties>
+            </Component>
+            <Component class="javax.swing.JLabel" name="lblAvailableDays">
+              <Properties>
+                <Property name="text" type="java.lang.String" value="Workings Days:"/>
+              </Properties>
+            </Component>
+            <Component class="javax.swing.JTextField" name="txtAvailableDays">
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="txtAvailableDaysActionPerformed"/>
+              </Events>
+            </Component>
+            <Component class="javax.swing.JPasswordField" name="txtPasswordAH">
+            </Component>
+          </SubComponents>
+        </Container>
         <Container class="javax.swing.JPanel" name="ReuestInsuranceFunds">
           <Properties>
-            <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
-              <Color blue="66" green="0" red="0" type="rgb"/>
-            </Property>
             <Property name="preferredSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
               <Dimension value="[1000, 1000]"/>
             </Property>
@@ -551,7 +741,7 @@
                               <Component id="btnSend" min="-2" max="-2" attributes="0"/>
                           </Group>
                       </Group>
-                      <EmptySpace pref="452" max="32767" attributes="0"/>
+                      <EmptySpace pref="194" max="32767" attributes="0"/>
                   </Group>
               </Group>
             </DimensionLayout>
@@ -585,9 +775,6 @@
           <SubComponents>
             <Component class="javax.swing.JButton" name="btnSend">
               <Properties>
-                <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
-                  <Color blue="99" green="99" red="99" type="rgb"/>
-                </Property>
                 <Property name="text" type="java.lang.String" value="Send"/>
               </Properties>
               <Events>
@@ -596,9 +783,6 @@
             </Component>
             <Component class="javax.swing.JLabel" name="lblAmount">
               <Properties>
-                <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
-                  <Color blue="99" green="99" red="99" type="rgb"/>
-                </Property>
                 <Property name="text" type="java.lang.String" value="Amount:"/>
               </Properties>
             </Component>
@@ -609,9 +793,6 @@
             </Component>
             <Component class="javax.swing.JLabel" name="lblPatientId">
               <Properties>
-                <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
-                  <Color blue="99" green="99" red="99" type="rgb"/>
-                </Property>
                 <Property name="text" type="java.lang.String" value="Patient id:"/>
               </Properties>
             </Component>
@@ -622,17 +803,11 @@
             </Component>
             <Component class="javax.swing.JLabel" name="lblOrganisation">
               <Properties>
-                <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
-                  <Color blue="99" green="99" red="99" type="rgb"/>
-                </Property>
                 <Property name="text" type="java.lang.String" value="Organisation:"/>
               </Properties>
             </Component>
             <Component class="javax.swing.JComboBox" name="cmbBoxOrgansation">
               <Properties>
-                <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
-                  <Color blue="99" green="99" red="99" type="rgb"/>
-                </Property>
                 <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
                   <StringArray count="4">
                     <StringItem index="0" value="Item 1"/>
@@ -696,248 +871,10 @@
             </Container>
           </SubComponents>
         </Container>
-        <Container class="javax.swing.JPanel" name="AddDoctors">
-          <Properties>
-            <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
-              <Color blue="66" green="0" red="0" type="rgb"/>
-            </Property>
-            <Property name="preferredSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
-              <Dimension value="[1000, 1000]"/>
-            </Property>
-          </Properties>
-          <Constraints>
-            <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignCardLayout" value="org.netbeans.modules.form.compat2.layouts.DesignCardLayout$CardConstraintsDescription">
-              <CardConstraints cardName="card2"/>
-            </Constraint>
-          </Constraints>
-
-          <Layout>
-            <DimensionLayout dim="0">
-              <Group type="103" groupAlignment="0" attributes="0">
-                  <Group type="102" alignment="0" attributes="0">
-                      <EmptySpace min="-2" pref="174" max="-2" attributes="0"/>
-                      <Group type="103" groupAlignment="1" attributes="0">
-                          <Component id="lblTime" alignment="1" min="-2" max="-2" attributes="0"/>
-                          <Component id="lblFirstName" alignment="1" min="-2" max="-2" attributes="0"/>
-                          <Component id="lblAvailableDays" alignment="1" min="-2" max="-2" attributes="0"/>
-                          <Component id="lblLastName" alignment="1" min="-2" max="-2" attributes="0"/>
-                          <Component id="lblFees" alignment="1" min="-2" max="-2" attributes="0"/>
-                          <Component id="lblRatings" alignment="1" min="-2" max="-2" attributes="0"/>
-                          <Component id="lblRatings1" alignment="1" min="-2" max="-2" attributes="0"/>
-                          <Component id="lblRatings2" alignment="1" min="-2" max="-2" attributes="0"/>
-                      </Group>
-                      <EmptySpace min="-2" pref="33" max="-2" attributes="0"/>
-                      <Group type="103" groupAlignment="0" attributes="0">
-                          <Component id="txtFees" alignment="0" min="-2" pref="159" max="-2" attributes="0"/>
-                          <Group type="102" alignment="0" attributes="0">
-                              <Component id="txtFirstNameAH" min="-2" pref="159" max="-2" attributes="0"/>
-                              <EmptySpace type="separate" max="-2" attributes="0"/>
-                              <Component id="lblDepartment" min="-2" max="-2" attributes="0"/>
-                              <EmptySpace type="separate" max="-2" attributes="0"/>
-                              <Component id="cmbBoxDepartment" min="-2" max="-2" attributes="0"/>
-                          </Group>
-                          <Component id="txtTime" alignment="0" min="-2" pref="159" max="-2" attributes="0"/>
-                          <Component id="txtRatings" alignment="0" min="-2" pref="159" max="-2" attributes="0"/>
-                          <Component id="txtAvailableDays" alignment="0" min="-2" pref="159" max="-2" attributes="0"/>
-                          <Component id="txtLastNameAH" alignment="0" min="-2" pref="159" max="-2" attributes="0"/>
-                          <Group type="103" alignment="0" groupAlignment="1" max="-2" attributes="0">
-                              <Component id="txtPasswordAH" alignment="0" max="32767" attributes="0"/>
-                              <Component id="txtEmailIdAH" alignment="0" pref="159" max="32767" attributes="0"/>
-                          </Group>
-                          <Group type="102" alignment="0" attributes="0">
-                              <EmptySpace min="-2" pref="9" max="-2" attributes="0"/>
-                              <Component id="btnRegisterDoctor" min="-2" max="-2" attributes="0"/>
-                          </Group>
-                      </Group>
-                      <EmptySpace max="32767" attributes="0"/>
-                  </Group>
-                  <Group type="102" alignment="1" attributes="0">
-                      <EmptySpace max="32767" attributes="0"/>
-                      <Component id="lblAddDoctors" min="-2" pref="631" max="-2" attributes="0"/>
-                      <EmptySpace min="-2" pref="241" max="-2" attributes="0"/>
-                  </Group>
-              </Group>
-            </DimensionLayout>
-            <DimensionLayout dim="1">
-              <Group type="103" groupAlignment="0" attributes="0">
-                  <Group type="102" alignment="0" attributes="0">
-                      <EmptySpace min="-2" pref="25" max="-2" attributes="0"/>
-                      <Component id="lblAddDoctors" min="-2" pref="82" max="-2" attributes="0"/>
-                      <EmptySpace max="-2" attributes="0"/>
-                      <Group type="103" groupAlignment="3" attributes="0">
-                          <Component id="lblFirstName" alignment="3" min="-2" max="-2" attributes="0"/>
-                          <Component id="txtFirstNameAH" alignment="3" min="-2" max="-2" attributes="0"/>
-                          <Component id="lblDepartment" alignment="3" min="-2" max="-2" attributes="0"/>
-                          <Component id="cmbBoxDepartment" alignment="3" min="-2" max="-2" attributes="0"/>
-                      </Group>
-                      <EmptySpace type="separate" max="-2" attributes="0"/>
-                      <Group type="103" groupAlignment="3" attributes="0">
-                          <Component id="lblLastName" alignment="3" min="-2" max="-2" attributes="0"/>
-                          <Component id="txtLastNameAH" alignment="3" min="-2" max="-2" attributes="0"/>
-                      </Group>
-                      <EmptySpace min="-2" pref="11" max="-2" attributes="0"/>
-                      <Group type="103" groupAlignment="3" attributes="0">
-                          <Component id="lblAvailableDays" alignment="3" min="-2" max="-2" attributes="0"/>
-                          <Component id="txtAvailableDays" alignment="3" min="-2" max="-2" attributes="0"/>
-                      </Group>
-                      <EmptySpace type="separate" max="-2" attributes="0"/>
-                      <Group type="103" groupAlignment="3" attributes="0">
-                          <Component id="lblTime" alignment="3" min="-2" max="-2" attributes="0"/>
-                          <Component id="txtTime" alignment="3" min="-2" max="-2" attributes="0"/>
-                      </Group>
-                      <EmptySpace type="separate" max="-2" attributes="0"/>
-                      <Group type="103" groupAlignment="3" attributes="0">
-                          <Component id="lblFees" alignment="3" min="-2" max="-2" attributes="0"/>
-                          <Component id="txtFees" alignment="3" min="-2" max="-2" attributes="0"/>
-                      </Group>
-                      <EmptySpace min="-2" pref="17" max="-2" attributes="0"/>
-                      <Group type="103" groupAlignment="3" attributes="0">
-                          <Component id="lblRatings" alignment="3" min="-2" max="-2" attributes="0"/>
-                          <Component id="txtRatings" alignment="3" min="-2" max="-2" attributes="0"/>
-                      </Group>
-                      <EmptySpace type="separate" max="-2" attributes="0"/>
-                      <Group type="103" groupAlignment="3" attributes="0">
-                          <Component id="txtEmailIdAH" alignment="3" min="-2" max="-2" attributes="0"/>
-                          <Component id="lblRatings1" alignment="3" min="-2" max="-2" attributes="0"/>
-                      </Group>
-                      <EmptySpace type="separate" max="-2" attributes="0"/>
-                      <Group type="103" groupAlignment="3" attributes="0">
-                          <Component id="lblRatings2" alignment="3" min="-2" max="-2" attributes="0"/>
-                          <Component id="txtPasswordAH" alignment="3" min="-2" max="-2" attributes="0"/>
-                      </Group>
-                      <EmptySpace type="separate" max="-2" attributes="0"/>
-                      <Component id="btnRegisterDoctor" min="-2" max="-2" attributes="0"/>
-                      <EmptySpace pref="607" max="32767" attributes="0"/>
-                  </Group>
-              </Group>
-            </DimensionLayout>
-          </Layout>
-          <SubComponents>
-            <Component class="javax.swing.JTextField" name="txtFees">
-              <Events>
-                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="txtFeesActionPerformed"/>
-              </Events>
-            </Component>
-            <Component class="javax.swing.JLabel" name="lblRatings2">
-              <Properties>
-                <Property name="text" type="java.lang.String" value="Password:"/>
-              </Properties>
-            </Component>
-            <Component class="javax.swing.JTextField" name="txtEmailIdAH">
-              <Events>
-                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="txtEmailIdAHActionPerformed"/>
-              </Events>
-            </Component>
-            <Component class="javax.swing.JLabel" name="lblLastName">
-              <Properties>
-                <Property name="text" type="java.lang.String" value="Last Name:"/>
-              </Properties>
-            </Component>
-            <Component class="javax.swing.JComboBox" name="cmbBoxDepartment">
-              <Properties>
-                <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
-                  <StringArray count="4">
-                    <StringItem index="0" value="Item 1"/>
-                    <StringItem index="1" value="Item 2"/>
-                    <StringItem index="2" value="Item 3"/>
-                    <StringItem index="3" value="Item 4"/>
-                  </StringArray>
-                </Property>
-              </Properties>
-              <AuxValues>
-                <AuxValue name="JavaCodeGenerator_TypeParameters" type="java.lang.String" value="&lt;String&gt;"/>
-              </AuxValues>
-            </Component>
-            <Component class="javax.swing.JTextField" name="txtFirstNameAH">
-              <Events>
-                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="txtFirstNameAHActionPerformed"/>
-              </Events>
-            </Component>
-            <Component class="javax.swing.JLabel" name="lblFees">
-              <Properties>
-                <Property name="text" type="java.lang.String" value="Fees:"/>
-              </Properties>
-            </Component>
-            <Component class="javax.swing.JTextField" name="txtLastNameAH">
-              <Events>
-                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="txtLastNameAHActionPerformed"/>
-              </Events>
-            </Component>
-            <Component class="javax.swing.JLabel" name="lblRatings1">
-              <Properties>
-                <Property name="text" type="java.lang.String" value="Email Id:"/>
-              </Properties>
-            </Component>
-            <Component class="javax.swing.JLabel" name="lblAddDoctors">
-              <Properties>
-                <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
-                  <Color blue="99" green="99" red="99" type="rgb"/>
-                </Property>
-                <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
-                  <Font name="Segoe UI" size="18" style="1"/>
-                </Property>
-                <Property name="text" type="java.lang.String" value="Add Doctors"/>
-              </Properties>
-            </Component>
-            <Component class="javax.swing.JTextField" name="txtRatings">
-              <Events>
-                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="txtRatingsActionPerformed"/>
-              </Events>
-            </Component>
-            <Component class="javax.swing.JLabel" name="lblFirstName">
-              <Properties>
-                <Property name="text" type="java.lang.String" value="First Name:"/>
-              </Properties>
-            </Component>
-            <Component class="javax.swing.JButton" name="btnRegisterDoctor">
-              <Properties>
-                <Property name="text" type="java.lang.String" value="Register Doctor"/>
-              </Properties>
-              <Events>
-                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnRegisterDoctorActionPerformed"/>
-              </Events>
-            </Component>
-            <Component class="javax.swing.JLabel" name="lblDepartment">
-              <Properties>
-                <Property name="text" type="java.lang.String" value="Department"/>
-              </Properties>
-            </Component>
-            <Component class="javax.swing.JTextField" name="txtTime">
-              <Events>
-                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="txtTimeActionPerformed"/>
-              </Events>
-            </Component>
-            <Component class="javax.swing.JLabel" name="lblTime">
-              <Properties>
-                <Property name="text" type="java.lang.String" value="Time:"/>
-              </Properties>
-            </Component>
-            <Component class="javax.swing.JLabel" name="lblRatings">
-              <Properties>
-                <Property name="text" type="java.lang.String" value="Ratings:"/>
-              </Properties>
-            </Component>
-            <Component class="javax.swing.JLabel" name="lblAvailableDays">
-              <Properties>
-                <Property name="text" type="java.lang.String" value="Workings Days:"/>
-              </Properties>
-            </Component>
-            <Component class="javax.swing.JTextField" name="txtAvailableDays">
-              <Events>
-                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="txtAvailableDaysActionPerformed"/>
-              </Events>
-            </Component>
-            <Component class="javax.swing.JPasswordField" name="txtPasswordAH">
-            </Component>
-          </SubComponents>
-        </Container>
       </SubComponents>
     </Container>
     <Component class="javax.swing.JLabel" name="lblHeaderHospital">
       <Properties>
-        <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
-          <Font name="Segoe UI" size="18" style="1"/>
-        </Property>
         <Property name="text" type="java.lang.String" value="Welcome to "/>
       </Properties>
     </Component>

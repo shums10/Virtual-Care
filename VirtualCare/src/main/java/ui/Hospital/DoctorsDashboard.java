@@ -119,11 +119,7 @@ public class DoctorsDashboard extends javax.swing.JPanel {
         addPrescribtion = new javax.swing.JPanel();
         txtAddPrescribtion = new javax.swing.JTextField();
 
-        setBackground(new java.awt.Color(102, 102, 102));
-
         jLabel1.setText("Doctors Dashboard");
-
-        sidePanel.setBackground(new java.awt.Color(0, 51, 51));
 
         jButton1.setText("View Patients");
         jButton1.addActionListener(new java.awt.event.ActionListener() {
@@ -161,8 +157,6 @@ public class DoctorsDashboard extends javax.swing.JPanel {
         );
 
         cardLayout.setLayout(new java.awt.CardLayout());
-
-        viewPatients.setBackground(new java.awt.Color(0, 0, 102));
 
         tblViewPatientsDD.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
