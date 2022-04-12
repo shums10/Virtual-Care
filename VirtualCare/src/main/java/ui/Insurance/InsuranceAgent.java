@@ -110,6 +110,8 @@ public class InsuranceAgent extends javax.swing.JPanel {
         btnDeclineIA = new javax.swing.JButton();
         btnLogOutIA = new javax.swing.JButton();
 
+        setBackground(new java.awt.Color(51, 255, 255));
+
         tblViewInsuranceRequest.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null, null},
@@ -165,12 +167,12 @@ public class InsuranceAgent extends javax.swing.JPanel {
                     .addGroup(layout.createSequentialGroup()
                         .addGap(259, 259, 259)
                         .addComponent(btnForward)
-                        .addGap(117, 117, 117)
+                        .addGap(59, 59, 59)
                         .addComponent(btnDeclineIA))
                     .addGroup(layout.createSequentialGroup()
                         .addGap(22, 22, 22)
                         .addComponent(btnLogOutIA)))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(259, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
