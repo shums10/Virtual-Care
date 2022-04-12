@@ -110,6 +110,8 @@ public class InsuranceAgent extends javax.swing.JPanel {
         btnDeclineIA = new javax.swing.JButton();
         btnLogOutIA = new javax.swing.JButton();
 
+        setBackground(new java.awt.Color(51, 153, 0));
+
         tblViewInsuranceRequest.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null, null},
@@ -131,6 +133,7 @@ public class InsuranceAgent extends javax.swing.JPanel {
         });
         jScrollPane1.setViewportView(tblViewInsuranceRequest);
 
+        btnForward.setBackground(new java.awt.Color(153, 153, 153));
         btnForward.setText("Forward to Committie");
         btnForward.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -138,6 +141,7 @@ public class InsuranceAgent extends javax.swing.JPanel {
             }
         });
 
+        btnDeclineIA.setBackground(new java.awt.Color(153, 153, 153));
         btnDeclineIA.setText("Decline");
         btnDeclineIA.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -157,7 +161,7 @@ public class InsuranceAgent extends javax.swing.JPanel {
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap(83, Short.MAX_VALUE)
+                .addContainerGap(87, Short.MAX_VALUE)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 664, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(50, 50, 50))
             .addGroup(layout.createSequentialGroup()
