@@ -13,10 +13,12 @@ public class AdminSystem extends javax.swing.JPanel {
     /**
      * Creates new form AdminSystem
      */
-    public AdminSystem() {
+    public AdminSystem(AdminDetails a) {
         initComponents();
+        this.a = a;
     }
 
+    AdminDetails a;
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always

@@ -35,14 +35,6 @@ public class SignUp extends javax.swing.JPanel {
         try {
             db.store(u);
             System.out.println("Stored " + u.getFirstName());
-//            ObjectSet result = db.queryByExample(UserDetails.class);
-//            Iterator itr = result.iterator();
-//            
-//            while(itr.hasNext()){
-//                UserDetails ut = new UserDetails();
-//                ut=(UserDetails)itr.next();
-//                System.out.println(ut.getFirstName());
-//            }
         }
         finally {
             db.close();

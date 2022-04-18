@@ -5,6 +5,8 @@
 package ui.User;
 
 import com.db4o.*;
+import com.db4o.ext.DatabaseClosedException;
+import com.db4o.ext.Db4oIOException;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.Arrays;
@@ -12,6 +14,8 @@ import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
 import javax.swing.JOptionPane;
+import ui.Admin.AdminDetails;
+import ui.Admin.AdminSystem;
 
 /**
  *
@@ -25,39 +29,67 @@ public class UserSystem extends javax.swing.JFrame {
     public UserSystem() {
         initComponents();
         PopulateHashMap();
+        setAdminElementsVisibility(false);
     }
-    HashMap<String, UserDetails> Map = new HashMap<>();
+    HashMap<String, UserDetails> UserMap = new HashMap<>();
+    HashMap<String, AdminDetails> AdminMap = new HashMap<>();
+    
+    void setAdminElementsVisibility(boolean visibility){
+        lblEnterprise.setVisible(visibility);
+        cmbBoxEnterprise.setVisible(visibility);
+        lblOrg.setVisible(visibility);
+        cmbBoxOrg.setVisible(visibility);
+    }
     
     void clearallfields(){
         txtUserEmail.setText("");
         txtPassword.setText("");
+        buttonGroup1.clearSelection();
+        setAdminElementsVisibility(false);
     }
     
+    
     void PopulateHashMap(){
-        HashMap<String, UserDetails> Map = new HashMap<>();
+        HashMap<String, UserDetails> UserMap = new HashMap<>();
+        HashMap<String, AdminDetails> AdminMap = new HashMap<>();
         
         Path currentRelativePath = Paths.get("");
         String s = currentRelativePath.toAbsolutePath().toString();
-        String FILEPath = s + "/Databases/Users.db";
-        ObjectContainer db = Db4oEmbedded.openFile(Db4oEmbedded.newConfiguration(), FILEPath);
+        String UserFILEPath = s + "/Databases/Users.db";
+        String AdminFILEPath = s + "/Databases/Admins.db";
+        
+        ObjectContainer Userdb = Db4oEmbedded.openFile(Db4oEmbedded.newConfiguration(), UserFILEPath);
+        ObjectContainer Admindb = Db4oEmbedded.openFile(Db4oEmbedded.newConfiguration(), AdminFILEPath);
         
         UserDetails u;
+        AdminDetails a;
         try {
-            List<UserDetails> result = db.query(UserDetails.class);
-
-            if(result.isEmpty())
+            List<UserDetails> userresult = Userdb.query(UserDetails.class);
+            List<AdminDetails> adminresult = Userdb.query(AdminDetails.class);
+            if(userresult.isEmpty() && adminresult.isEmpty())
                 return;
 
-            Iterator itr = result.iterator();
-            while(itr.hasNext()){
-                u = (UserDetails)itr.next();
-                Map.put(u.getEmail(), u);
+            Iterator useritr = userresult.iterator();
+            while(useritr.hasNext()){
+                u = (UserDetails)useritr.next();
+                UserMap.put(u.getEmail(), u);
+            }
+            
+            Iterator adminitr = adminresult.iterator();
+            while(adminitr.hasNext()){
+                a = (AdminDetails)adminitr.next();
+                AdminMap.put(a.getEmail(), a);
             }
         }
-        finally{
-            db.close();
+        catch(DatabaseClosedException | Db4oIOException E){
+            JOptionPane.showMessageDialog(this, "Database Error.");
         }
-        this.Map = Map;
+        finally{
+            Userdb.close();
+            Admindb.close();
+        }
+        this.UserMap = UserMap;
+        this.AdminMap = AdminMap;
     }
     /**
      * This method is called from within the constructor to initialize the form.
@@ -83,7 +115,7 @@ public class UserSystem extends javax.swing.JFrame {
         rdBtnAdmin = new javax.swing.JRadioButton();
         hiddenPanel = new javax.swing.JPanel();
         cmbBoxOrg = new javax.swing.JComboBox<>();
-        jLabel2 = new javax.swing.JLabel();
+        lblOrg = new javax.swing.JLabel();
         lblEnterprise = new javax.swing.JLabel();
         txtPassword = new javax.swing.JPasswordField();
         jPanel2 = new javax.swing.JPanel();
@@ -136,8 +168,13 @@ public class UserSystem extends javax.swing.JFrame {
 
         buttonGroup1.add(rdBtnAdmin);
         rdBtnAdmin.setText("Admin");
+        rdBtnAdmin.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                rdBtnAdminActionPerformed(evt);
+            }
+        });
 
-        jLabel2.setText("Organisation");
+        lblOrg.setText("Organisation");
 
         javax.swing.GroupLayout hiddenPanelLayout = new javax.swing.GroupLayout(hiddenPanel);
         hiddenPanel.setLayout(hiddenPanelLayout);
@@ -150,14 +187,14 @@ public class UserSystem extends javax.swing.JFrame {
                         .addComponent(cmbBoxOrg, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(hiddenPanelLayout.createSequentialGroup()
                         .addGap(18, 18, 18)
-                        .addComponent(jLabel2)))
+                        .addComponent(lblOrg)))
                 .addContainerGap(89, Short.MAX_VALUE))
         );
         hiddenPanelLayout.setVerticalGroup(
             hiddenPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, hiddenPanelLayout.createSequentialGroup()
                 .addContainerGap(23, Short.MAX_VALUE)
-                .addComponent(jLabel2)
+                .addComponent(lblOrg)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(cmbBoxOrg, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(28, 28, 28))
@@ -306,23 +343,39 @@ public class UserSystem extends javax.swing.JFrame {
 
     private void rdBtnUserActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rdBtnUserActionPerformed
         // TODO add your handling code here:
+        setAdminElementsVisibility(false);
     }//GEN-LAST:event_rdBtnUserActionPerformed
 
     private void btnSignInActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSignInActionPerformed
         // TODO add your handling code here:
-        UserDetails u = Map.get(txtUserEmail.getText().trim());
-        if(u == null){
+        UserDetails u = UserMap.get(txtUserEmail.getText().trim());
+        AdminDetails a = AdminMap.get(txtUserEmail.getText().trim());
+        if(txtUserEmail.getText().trim().equals("SysAdmin@virtualcare.com") && String.valueOf(txtPassword.getPassword()).equals("SysAdmin") && rdBtnAdmin.isSelected()){
+            AdminSystem Dashboard = new AdminSystem(a);
+            SplitPane.setRightComponent(Dashboard);
+        }
+        else if((rdBtnUser.isSelected() && u == null) || (rdBtnAdmin.isSelected() && a == null)){
             JOptionPane.showMessageDialog(this, "Email Doesn't Exist. Please Signup.");
         }
-        else{
+        else if(rdBtnAdmin.isSelected()){
+                if(!Arrays.toString(txtPassword.getPassword()).equals(a.getPassword()) || !a.getEnterprise().equalsIgnoreCase(cmbBoxEnterprise.getSelectedItem().toString()))
+                    JOptionPane.showMessageDialog(this, "Incorrect Password. Try Again.");
+                else if(!a.getOrganization().equalsIgnoreCase(cmbBoxOrg.getSelectedItem().toString())){
+                    JOptionPane.showMessageDialog(this, "Choose Correct Organization. Try Again.");
+                }
+        }
+        else if (rdBtnUser.isSelected()){
             if(!Arrays.toString(txtPassword.getPassword()).equals(u.getPassword()))
                 JOptionPane.showMessageDialog(this, "Incorrect Password. Try Again.");
             else{
                 UserDashboard Dashboard = new UserDashboard(u);
                 SplitPane.setRightComponent(Dashboard);
-                clearallfields();
             }
         }
+        else{
+            JOptionPane.showMessageDialog(this, "Select type of user.");
+        }
+        clearallfields();
     }//GEN-LAST:event_btnSignInActionPerformed
 
     private void btnLogInActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLogInActionPerformed
@@ -330,6 +383,11 @@ public class UserSystem extends javax.swing.JFrame {
         SplitPane.setRightComponent(LogInPanel);
         PopulateHashMap();
     }//GEN-LAST:event_btnLogInActionPerformed
+
+    private void rdBtnAdminActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rdBtnAdminActionPerformed
+        // TODO add your handling code here:
+        setAdminElementsVisibility(true);
+    }//GEN-LAST:event_rdBtnAdminActionPerformed
 
     /**
      * @param args the command line arguments
@@ -378,9 +436,9 @@ public class UserSystem extends javax.swing.JFrame {
     private javax.swing.JPanel hiddenPanel;
     private javax.swing.JFrame jFrame1;
     private javax.swing.JLabel jLabel1;
-    private javax.swing.JLabel jLabel2;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JLabel lblEnterprise;
+    private javax.swing.JLabel lblOrg;
     private javax.swing.JLabel lblSignIn;
     private javax.swing.JLabel lblUserEmail;
     private javax.swing.JLabel lblVirtualCare;
