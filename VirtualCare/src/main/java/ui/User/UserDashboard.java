@@ -4,6 +4,8 @@
  */
 package ui.User;
 
+import model.UserDetails;
+
 /**
  *
  * @author shubhampatil
@@ -29,23 +31,375 @@ public class UserDashboard extends javax.swing.JPanel {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        jPanel1 = new javax.swing.JPanel();
+        btnViewAppointments = new javax.swing.JButton();
+        btnAccount = new javax.swing.JButton();
+        btnDashboard = new javax.swing.JButton();
+        btnRequestFund = new javax.swing.JButton();
+        cardLayout = new javax.swing.JPanel();
+        AccountDetails = new javax.swing.JPanel();
+        lblReenterPassword = new javax.swing.JLabel();
+        lblFirstName = new javax.swing.JLabel();
+        lblAge = new javax.swing.JLabel();
+        lblEmailId = new javax.swing.JLabel();
+        lblStreet = new javax.swing.JLabel();
+        lblLastName = new javax.swing.JLabel();
+        lblCity1 = new javax.swing.JLabel();
+        lblCity2 = new javax.swing.JLabel();
+        lblPassword = new javax.swing.JLabel();
+        lblVirtualCare1 = new javax.swing.JLabel();
+        txtCityUAD = new javax.swing.JTextField();
+        txtEmailIdUAD = new javax.swing.JTextField();
+        txtStreetUAD = new javax.swing.JTextField();
+        txtFirstNameUAD = new javax.swing.JTextField();
+        txtPinCodeUAD = new javax.swing.JTextField();
+        txtLastNameUAD = new javax.swing.JTextField();
+        txtPasswordUAD = new javax.swing.JPasswordField();
+        txtReenterPasswordUAD = new javax.swing.JPasswordField();
+        txtDobUAD = new com.toedter.calendar.JDateChooser();
+        jButton1UAD = new javax.swing.JButton();
+        btnUpdateUAD = new javax.swing.JButton();
+        lblPhoneNumber = new javax.swing.JLabel();
+        txtPhoneNumberAD = new javax.swing.JTextField();
+        ViewAppointments = new javax.swing.JPanel();
+        lblVirtualCare2 = new javax.swing.JLabel();
+        jScrollPane2 = new javax.swing.JScrollPane();
+        tableViewAppointment = new javax.swing.JTable();
+        btnJoinVirtually = new javax.swing.JButton();
+        ViewPrescription = new javax.swing.JButton();
+        lblPrescription = new javax.swing.JLabel();
+        UserDB = new javax.swing.JPanel();
+        jLabel1 = new javax.swing.JLabel();
+        btnView = new javax.swing.JButton();
         lblVirtualCare = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
         tableHospitals = new javax.swing.JTable();
-        cmbBoxTreatment = new javax.swing.JComboBox<>();
-        cmbBoxCity = new javax.swing.JComboBox<>();
-        cmbBoxPrices = new javax.swing.JComboBox<>();
-        btnView = new javax.swing.JButton();
-        jLabel1 = new javax.swing.JLabel();
-        lblCity = new javax.swing.JLabel();
         lblPrices = new javax.swing.JLabel();
+        cmbBoxCity = new javax.swing.JComboBox<>();
+        cmbBoxTreatment = new javax.swing.JComboBox<>();
         lblPrices1 = new javax.swing.JLabel();
         jComboBox1 = new javax.swing.JComboBox<>();
-        jPanel1 = new javax.swing.JPanel();
-        jButton1 = new javax.swing.JButton();
-        jButton2 = new javax.swing.JButton();
+        lblCity = new javax.swing.JLabel();
+        cmbBoxPrices = new javax.swing.JComboBox<>();
+        BookAppointment = new javax.swing.JPanel();
+        lblHeaderHospital = new javax.swing.JLabel();
+        lblHospitalLogo = new javax.swing.JLabel();
+        jScrollPane3 = new javax.swing.JScrollPane();
+        tableDoctors = new javax.swing.JTable();
+        btnBookAppointment = new javax.swing.JButton();
+        lblVirtualCare3 = new javax.swing.JLabel();
+        FundRequest = new javax.swing.JPanel();
+        lblVirtualCare4 = new javax.swing.JLabel();
+        lblAnnualIncome = new javax.swing.JLabel();
+        txtAnnualIncome = new javax.swing.JTextField();
+        lblExplanation = new javax.swing.JLabel();
+        txtExplanation = new javax.swing.JTextField();
+        btnRequest = new javax.swing.JButton();
+        lblRequestAmount = new javax.swing.JLabel();
+        txtRequestAmount = new javax.swing.JTextField();
 
         setBackground(new java.awt.Color(102, 102, 255));
+
+        jPanel1.setBackground(new java.awt.Color(0, 102, 204));
+
+        btnViewAppointments.setText("View Appointments");
+        btnViewAppointments.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnViewAppointmentsActionPerformed(evt);
+            }
+        });
+
+        btnAccount.setText("Account");
+        btnAccount.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnAccountActionPerformed(evt);
+            }
+        });
+
+        btnDashboard.setText("Dashboard");
+
+        btnRequestFund.setText("Request Fund Help");
+
+        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
+        jPanel1.setLayout(jPanel1Layout);
+        jPanel1Layout.setHorizontalGroup(
+            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addGap(35, 35, 35)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(btnRequestFund)
+                    .addComponent(btnDashboard)
+                    .addComponent(btnAccount)
+                    .addComponent(btnViewAppointments))
+                .addContainerGap(40, Short.MAX_VALUE))
+        );
+        jPanel1Layout.setVerticalGroup(
+            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addGap(72, 72, 72)
+                .addComponent(btnAccount)
+                .addGap(18, 18, 18)
+                .addComponent(btnViewAppointments)
+                .addGap(26, 26, 26)
+                .addComponent(btnDashboard)
+                .addGap(31, 31, 31)
+                .addComponent(btnRequestFund)
+                .addContainerGap(559, Short.MAX_VALUE))
+        );
+
+        cardLayout.setLayout(new java.awt.CardLayout());
+
+        lblReenterPassword.setText("Re-enter Password:");
+
+        lblFirstName.setText("First Name:");
+
+        lblAge.setText("Date of Birth");
+
+        lblEmailId.setText("Email Id:");
+
+        lblStreet.setText("Street:");
+
+        lblLastName.setText("Last Name:");
+
+        lblCity1.setText("PinCode:");
+
+        lblCity2.setText("City:");
+
+        lblPassword.setText("Password:");
+
+        lblVirtualCare1.setFont(new java.awt.Font("Lucida Grande", 1, 14)); // NOI18N
+        lblVirtualCare1.setText("VIRTUAL CARE");
+
+        txtCityUAD.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtCityUADActionPerformed(evt);
+            }
+        });
+
+        txtEmailIdUAD.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtEmailIdUADActionPerformed(evt);
+            }
+        });
+
+        txtStreetUAD.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtStreetUADActionPerformed(evt);
+            }
+        });
+
+        txtFirstNameUAD.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtFirstNameUADActionPerformed(evt);
+            }
+        });
+
+        txtPinCodeUAD.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtPinCodeUADActionPerformed(evt);
+            }
+        });
+
+        txtLastNameUAD.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtLastNameUADActionPerformed(evt);
+            }
+        });
+
+        jButton1UAD.setText("EDIT");
+
+        btnUpdateUAD.setText("UPDATE");
+
+        lblPhoneNumber.setText("Phone Number:");
+
+        txtPhoneNumberAD.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtPhoneNumberADActionPerformed(evt);
+            }
+        });
+
+        javax.swing.GroupLayout AccountDetailsLayout = new javax.swing.GroupLayout(AccountDetails);
+        AccountDetails.setLayout(AccountDetailsLayout);
+        AccountDetailsLayout.setHorizontalGroup(
+            AccountDetailsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, AccountDetailsLayout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(lblVirtualCare1, javax.swing.GroupLayout.PREFERRED_SIZE, 115, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(350, 350, 350))
+            .addGroup(AccountDetailsLayout.createSequentialGroup()
+                .addGroup(AccountDetailsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(AccountDetailsLayout.createSequentialGroup()
+                        .addGap(350, 350, 350)
+                        .addComponent(jButton1UAD)
+                        .addGap(40, 40, 40)
+                        .addComponent(btnUpdateUAD))
+                    .addGroup(AccountDetailsLayout.createSequentialGroup()
+                        .addGroup(AccountDetailsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(AccountDetailsLayout.createSequentialGroup()
+                                .addGap(270, 270, 270)
+                                .addGroup(AccountDetailsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                    .addComponent(lblFirstName)
+                                    .addComponent(lblLastName)
+                                    .addComponent(lblStreet)
+                                    .addComponent(lblCity2)
+                                    .addComponent(lblCity1)
+                                    .addComponent(lblEmailId)
+                                    .addComponent(lblPassword)
+                                    .addComponent(lblReenterPassword)
+                                    .addComponent(lblPhoneNumber)))
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, AccountDetailsLayout.createSequentialGroup()
+                                .addGap(187, 187, 187)
+                                .addComponent(lblAge)))
+                        .addGap(47, 47, 47)
+                        .addGroup(AccountDetailsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addGroup(AccountDetailsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                .addGroup(AccountDetailsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                    .addGroup(AccountDetailsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                        .addComponent(txtEmailIdUAD)
+                                        .addComponent(txtPasswordUAD)
+                                        .addComponent(txtReenterPasswordUAD, javax.swing.GroupLayout.PREFERRED_SIZE, 144, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                    .addGroup(AccountDetailsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                        .addComponent(txtLastNameUAD, javax.swing.GroupLayout.DEFAULT_SIZE, 144, Short.MAX_VALUE)
+                                        .addComponent(txtFirstNameUAD)))
+                                .addComponent(txtDobUAD, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 144, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(txtPinCodeUAD, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 144, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(txtCityUAD, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 144, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(txtStreetUAD, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 144, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(txtPhoneNumberAD, javax.swing.GroupLayout.PREFERRED_SIZE, 144, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                .addContainerGap(240, Short.MAX_VALUE))
+        );
+        AccountDetailsLayout.setVerticalGroup(
+            AccountDetailsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(AccountDetailsLayout.createSequentialGroup()
+                .addGap(24, 24, 24)
+                .addComponent(lblVirtualCare1, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(74, 74, 74)
+                .addGroup(AccountDetailsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(AccountDetailsLayout.createSequentialGroup()
+                        .addComponent(txtFirstNameUAD, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)
+                        .addGroup(AccountDetailsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(txtLastNameUAD, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(lblLastName)))
+                    .addComponent(lblFirstName))
+                .addGap(19, 19, 19)
+                .addGroup(AccountDetailsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(txtDobUAD, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(lblAge))
+                .addGap(14, 14, 14)
+                .addGroup(AccountDetailsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(lblPhoneNumber)
+                    .addComponent(txtPhoneNumberAD, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(16, 16, 16)
+                .addGroup(AccountDetailsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(lblStreet)
+                    .addComponent(txtStreetUAD, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(18, 18, 18)
+                .addGroup(AccountDetailsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(lblCity2)
+                    .addComponent(txtCityUAD, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(18, 18, 18)
+                .addGroup(AccountDetailsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(lblCity1)
+                    .addComponent(txtPinCodeUAD, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(18, 18, 18)
+                .addGroup(AccountDetailsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(lblEmailId)
+                    .addComponent(txtEmailIdUAD, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(18, 18, 18)
+                .addGroup(AccountDetailsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(lblPassword)
+                    .addComponent(txtPasswordUAD, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(10, 10, 10)
+                .addGroup(AccountDetailsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(lblReenterPassword)
+                    .addComponent(txtReenterPasswordUAD, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(38, 38, 38)
+                .addGroup(AccountDetailsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jButton1UAD)
+                    .addComponent(btnUpdateUAD))
+                .addContainerGap(27, Short.MAX_VALUE))
+        );
+
+        cardLayout.add(AccountDetails, "card4");
+
+        lblVirtualCare2.setFont(new java.awt.Font("Lucida Grande", 1, 14)); // NOI18N
+        lblVirtualCare2.setText("VIRTUAL CARE");
+
+        tableViewAppointment.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null}
+            },
+            new String [] {
+                "HospitalName", "Doctor", "Location", "Time"
+            }
+        ) {
+            boolean[] canEdit = new boolean [] {
+                false, false, false, false
+            };
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
+        });
+        jScrollPane2.setViewportView(tableViewAppointment);
+
+        btnJoinVirtually.setText("Join Virtually");
+
+        ViewPrescription.setText("View Prescription");
+
+        lblPrescription.setBackground(new java.awt.Color(204, 204, 255));
+
+        javax.swing.GroupLayout ViewAppointmentsLayout = new javax.swing.GroupLayout(ViewAppointments);
+        ViewAppointments.setLayout(ViewAppointmentsLayout);
+        ViewAppointmentsLayout.setHorizontalGroup(
+            ViewAppointmentsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(ViewAppointmentsLayout.createSequentialGroup()
+                .addGroup(ViewAppointmentsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jScrollPane2, javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addGroup(ViewAppointmentsLayout.createSequentialGroup()
+                        .addGap(38, 38, 38)
+                        .addComponent(btnJoinVirtually)
+                        .addGap(38, 38, 38)
+                        .addComponent(ViewPrescription)
+                        .addGap(0, 465, Short.MAX_VALUE)))
+                .addContainerGap())
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, ViewAppointmentsLayout.createSequentialGroup()
+                .addGap(0, 0, Short.MAX_VALUE)
+                .addComponent(lblVirtualCare2, javax.swing.GroupLayout.PREFERRED_SIZE, 115, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(264, 264, 264))
+            .addGroup(ViewAppointmentsLayout.createSequentialGroup()
+                .addGap(46, 46, 46)
+                .addComponent(lblPrescription, javax.swing.GroupLayout.PREFERRED_SIZE, 602, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        );
+        ViewAppointmentsLayout.setVerticalGroup(
+            ViewAppointmentsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(ViewAppointmentsLayout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(lblVirtualCare2, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGroup(ViewAppointmentsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(ViewAppointmentsLayout.createSequentialGroup()
+                        .addGap(27, 27, 27)
+                        .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 105, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(ViewAppointmentsLayout.createSequentialGroup()
+                        .addGap(162, 162, 162)
+                        .addGroup(ViewAppointmentsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(btnJoinVirtually)
+                            .addComponent(ViewPrescription))))
+                .addGap(28, 28, 28)
+                .addComponent(lblPrescription, javax.swing.GroupLayout.PREFERRED_SIZE, 267, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(109, Short.MAX_VALUE))
+        );
+
+        cardLayout.add(ViewAppointments, "card4");
+
+        jLabel1.setText("Treatment");
+
+        btnView.setText("View");
 
         lblVirtualCare.setFont(new java.awt.Font("Lucida Grande", 1, 14)); // NOI18N
         lblVirtualCare.setText("VIRTUAL CARE");
@@ -71,6 +425,10 @@ public class UserDashboard extends javax.swing.JPanel {
         });
         jScrollPane1.setViewportView(tableHospitals);
 
+        lblPrices.setText("Prices");
+
+        cmbBoxCity.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+
         cmbBoxTreatment.setToolTipText("");
         cmbBoxTreatment.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         cmbBoxTreatment.addActionListener(new java.awt.event.ActionListener() {
@@ -79,58 +437,222 @@ public class UserDashboard extends javax.swing.JPanel {
             }
         });
 
-        cmbBoxCity.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
-
-        cmbBoxPrices.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
-
-        btnView.setText("View");
-
-        jLabel1.setText("Treatment");
-
-        lblCity.setText("City");
-
-        lblPrices.setText("Prices");
-
         lblPrices1.setText("Ratings");
 
         jComboBox1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
 
-        jPanel1.setBackground(new java.awt.Color(0, 102, 204));
+        lblCity.setText("City");
 
-        jButton1.setText("View Appointments");
-        jButton1.addActionListener(new java.awt.event.ActionListener() {
+        cmbBoxPrices.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+
+        javax.swing.GroupLayout UserDBLayout = new javax.swing.GroupLayout(UserDB);
+        UserDB.setLayout(UserDBLayout);
+        UserDBLayout.setHorizontalGroup(
+            UserDBLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 823, Short.MAX_VALUE)
+            .addGroup(UserDBLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(UserDBLayout.createSequentialGroup()
+                    .addGroup(UserDBLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addGroup(UserDBLayout.createSequentialGroup()
+                            .addGap(295, 295, 295)
+                            .addComponent(lblVirtualCare))
+                        .addGroup(UserDBLayout.createSequentialGroup()
+                            .addGap(62, 62, 62)
+                            .addGroup(UserDBLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                .addComponent(cmbBoxTreatment, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(jLabel1))))
+                    .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGroup(UserDBLayout.createSequentialGroup()
+                    .addGap(93, 93, 93)
+                    .addGroup(UserDBLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addComponent(cmbBoxCity, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(lblCity))
+                    .addGap(18, 18, 18)
+                    .addGroup(UserDBLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addComponent(cmbBoxPrices, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(lblPrices))
+                    .addGap(18, 18, 18)
+                    .addGroup(UserDBLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addComponent(lblPrices1)
+                        .addGroup(UserDBLayout.createSequentialGroup()
+                            .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(btnView)))
+                    .addContainerGap())
+                .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, UserDBLayout.createSequentialGroup()
+                    .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 663, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGap(39, 39, 39)))
+        );
+        UserDBLayout.setVerticalGroup(
+            UserDBLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 629, Short.MAX_VALUE)
+            .addGroup(UserDBLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(UserDBLayout.createSequentialGroup()
+                    .addContainerGap()
+                    .addComponent(lblVirtualCare)
+                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(cmbBoxTreatment, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                    .addComponent(jLabel1)
+                    .addGap(18, 18, 18)
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 324, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGap(18, 18, 18)
+                    .addGroup(UserDBLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(lblCity)
+                        .addComponent(lblPrices)
+                        .addComponent(lblPrices1))
+                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                    .addGroup(UserDBLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(cmbBoxCity, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(cmbBoxPrices, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(btnView))
+                    .addContainerGap()))
+        );
+
+        cardLayout.add(UserDB, "card2");
+
+        lblHeaderHospital.setText("Welcome to ");
+
+        lblHospitalLogo.setBackground(new java.awt.Color(204, 153, 0));
+
+        tableDoctors.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null}
+            },
+            new String [] {
+                "Doctor", "Time", "Price", "Ratings"
+            }
+        ) {
+            boolean[] canEdit = new boolean [] {
+                false, false, false, false
+            };
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
+        });
+        jScrollPane3.setViewportView(tableDoctors);
+
+        btnBookAppointment.setText("Book Appointment");
+
+        lblVirtualCare3.setFont(new java.awt.Font("Lucida Grande", 1, 14)); // NOI18N
+        lblVirtualCare3.setText("VIRTUAL CARE");
+
+        javax.swing.GroupLayout BookAppointmentLayout = new javax.swing.GroupLayout(BookAppointment);
+        BookAppointment.setLayout(BookAppointmentLayout);
+        BookAppointmentLayout.setHorizontalGroup(
+            BookAppointmentLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(BookAppointmentLayout.createSequentialGroup()
+                .addGroup(BookAppointmentLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(BookAppointmentLayout.createSequentialGroup()
+                        .addGap(34, 34, 34)
+                        .addComponent(lblHospitalLogo, javax.swing.GroupLayout.PREFERRED_SIZE, 155, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGroup(BookAppointmentLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(BookAppointmentLayout.createSequentialGroup()
+                                .addGap(67, 67, 67)
+                                .addComponent(lblHeaderHospital, javax.swing.GroupLayout.PREFERRED_SIZE, 369, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(BookAppointmentLayout.createSequentialGroup()
+                                .addGap(148, 148, 148)
+                                .addComponent(lblVirtualCare3, javax.swing.GroupLayout.PREFERRED_SIZE, 115, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                    .addGroup(BookAppointmentLayout.createSequentialGroup()
+                        .addContainerGap()
+                        .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 766, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(BookAppointmentLayout.createSequentialGroup()
+                        .addGap(294, 294, 294)
+                        .addComponent(btnBookAppointment)))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        );
+        BookAppointmentLayout.setVerticalGroup(
+            BookAppointmentLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(BookAppointmentLayout.createSequentialGroup()
+                .addGroup(BookAppointmentLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(BookAppointmentLayout.createSequentialGroup()
+                        .addGap(21, 21, 21)
+                        .addComponent(lblHospitalLogo, javax.swing.GroupLayout.PREFERRED_SIZE, 138, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(BookAppointmentLayout.createSequentialGroup()
+                        .addContainerGap()
+                        .addComponent(lblVirtualCare3, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(20, 20, 20)
+                        .addComponent(lblHeaderHospital, javax.swing.GroupLayout.PREFERRED_SIZE, 59, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 247, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(30, 30, 30)
+                .addComponent(btnBookAppointment)
+                .addContainerGap(158, Short.MAX_VALUE))
+        );
+
+        cardLayout.add(BookAppointment, "card5");
+
+        lblVirtualCare4.setFont(new java.awt.Font("Lucida Grande", 1, 14)); // NOI18N
+        lblVirtualCare4.setText("VIRTUAL CARE");
+
+        lblAnnualIncome.setText("Annual Income:");
+
+        lblExplanation.setText("Explanation for fund request:");
+
+        txtExplanation.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton1ActionPerformed(evt);
+                txtExplanationActionPerformed(evt);
             }
         });
 
-        jButton2.setText("Account");
-        jButton2.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton2ActionPerformed(evt);
-            }
-        });
+        btnRequest.setText("Request");
 
-        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
-        jPanel1.setLayout(jPanel1Layout);
-        jPanel1Layout.setHorizontalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(35, 35, 35)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jButton2)
-                    .addComponent(jButton1))
-                .addContainerGap(40, Short.MAX_VALUE))
+        lblRequestAmount.setText("Request Amount:");
+
+        javax.swing.GroupLayout FundRequestLayout = new javax.swing.GroupLayout(FundRequest);
+        FundRequest.setLayout(FundRequestLayout);
+        FundRequestLayout.setHorizontalGroup(
+            FundRequestLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(FundRequestLayout.createSequentialGroup()
+                .addGap(315, 315, 315)
+                .addComponent(lblVirtualCare4)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+            .addGroup(FundRequestLayout.createSequentialGroup()
+                .addGap(185, 185, 185)
+                .addGroup(FundRequestLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(lblRequestAmount)
+                    .addComponent(lblExplanation)
+                    .addComponent(lblAnnualIncome))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED, 33, Short.MAX_VALUE)
+                .addGroup(FundRequestLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(txtAnnualIncome, javax.swing.GroupLayout.PREFERRED_SIZE, 133, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(txtExplanation, javax.swing.GroupLayout.PREFERRED_SIZE, 400, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(txtRequestAmount, javax.swing.GroupLayout.PREFERRED_SIZE, 133, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(21, 21, 21))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, FundRequestLayout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(btnRequest)
+                .addGap(337, 337, 337))
         );
-        jPanel1Layout.setVerticalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(72, 72, 72)
-                .addComponent(jButton2)
-                .addGap(18, 18, 18)
-                .addComponent(jButton1)
-                .addContainerGap(645, Short.MAX_VALUE))
+        FundRequestLayout.setVerticalGroup(
+            FundRequestLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(FundRequestLayout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(lblVirtualCare4)
+                .addGap(39, 39, 39)
+                .addGroup(FundRequestLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(lblExplanation)
+                    .addComponent(txtExplanation, javax.swing.GroupLayout.PREFERRED_SIZE, 221, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(38, 38, 38)
+                .addGroup(FundRequestLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(lblAnnualIncome)
+                    .addComponent(txtAnnualIncome, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(22, 22, 22)
+                .addGroup(FundRequestLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(lblRequestAmount)
+                    .addComponent(txtRequestAmount, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(45, 45, 45)
+                .addComponent(btnRequest)
+                .addContainerGap(160, Short.MAX_VALUE))
         );
+
+        cardLayout.add(FundRequest, "card6");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
@@ -139,67 +661,24 @@ public class UserDashboard extends javax.swing.JPanel {
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(167, 167, 167)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(cmbBoxCity, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(lblCity))
-                        .addGap(18, 18, 18)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(cmbBoxPrices, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(lblPrices))
-                        .addGap(18, 18, 18)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(lblPrices1)
-                            .addGroup(layout.createSequentialGroup()
-                                .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(btnView)
-                                .addGap(68, 68, 68))))
-                    .addGroup(layout.createSequentialGroup()
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(lblVirtualCare)
-                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(136, 136, 136)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(cmbBoxTreatment, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabel1))
-                        .addContainerGap())
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 74, Short.MAX_VALUE)
-                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 702, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(68, 68, 68))))
+                .addContainerGap(862, Short.MAX_VALUE))
+            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                    .addContainerGap(280, Short.MAX_VALUE)
+                    .addComponent(cardLayout, javax.swing.GroupLayout.PREFERRED_SIZE, 823, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addContainerGap()))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(lblVirtualCare)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 7, Short.MAX_VALUE)
-                        .addComponent(cmbBoxTreatment, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(jLabel1)
-                        .addGap(18, 18, 18)
-                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 324, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(18, 18, 18)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(lblCity)
-                            .addComponent(lblPrices)
-                            .addComponent(lblPrices1))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(cmbBoxCity, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(cmbBoxPrices, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(btnView))
-                        .addContainerGap(311, Short.MAX_VALUE))
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addContainerGap())))
+                .addGap(29, 29, 29)
+                .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addContainerGap())
+            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                    .addContainerGap(114, Short.MAX_VALUE)
+                    .addComponent(cardLayout, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addContainerGap(114, Short.MAX_VALUE)))
         );
     }// </editor-fold>//GEN-END:initComponents
 
@@ -207,30 +686,113 @@ public class UserDashboard extends javax.swing.JPanel {
         // TODO add your handling code here:
     }//GEN-LAST:event_cmbBoxTreatmentActionPerformed
 
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+    private void btnViewAppointmentsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnViewAppointmentsActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jButton1ActionPerformed
+    }//GEN-LAST:event_btnViewAppointmentsActionPerformed
 
-    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+    private void btnAccountActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAccountActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jButton2ActionPerformed
+    }//GEN-LAST:event_btnAccountActionPerformed
+
+    private void txtCityUADActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtCityUADActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtCityUADActionPerformed
+
+    private void txtEmailIdUADActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtEmailIdUADActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtEmailIdUADActionPerformed
+
+    private void txtStreetUADActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtStreetUADActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtStreetUADActionPerformed
+
+    private void txtFirstNameUADActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtFirstNameUADActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtFirstNameUADActionPerformed
+
+    private void txtPinCodeUADActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtPinCodeUADActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtPinCodeUADActionPerformed
+
+    private void txtLastNameUADActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtLastNameUADActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtLastNameUADActionPerformed
+
+    private void txtPhoneNumberADActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtPhoneNumberADActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtPhoneNumberADActionPerformed
+
+    private void txtExplanationActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtExplanationActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtExplanationActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JPanel AccountDetails;
+    private javax.swing.JPanel BookAppointment;
+    private javax.swing.JPanel FundRequest;
+    private javax.swing.JPanel UserDB;
+    private javax.swing.JPanel ViewAppointments;
+    private javax.swing.JButton ViewPrescription;
+    private javax.swing.JButton btnAccount;
+    private javax.swing.JButton btnBookAppointment;
+    private javax.swing.JButton btnDashboard;
+    private javax.swing.JButton btnJoinVirtually;
+    private javax.swing.JButton btnRequest;
+    private javax.swing.JButton btnRequestFund;
+    private javax.swing.JButton btnUpdateUAD;
     private javax.swing.JButton btnView;
+    private javax.swing.JButton btnViewAppointments;
+    private javax.swing.JPanel cardLayout;
     private javax.swing.JComboBox<String> cmbBoxCity;
     private javax.swing.JComboBox<String> cmbBoxPrices;
     private javax.swing.JComboBox<String> cmbBoxTreatment;
-    private javax.swing.JButton jButton1;
-    private javax.swing.JButton jButton2;
+    private javax.swing.JButton jButton1UAD;
     private javax.swing.JComboBox<String> jComboBox1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JScrollPane jScrollPane2;
+    private javax.swing.JScrollPane jScrollPane3;
+    private javax.swing.JLabel lblAge;
+    private javax.swing.JLabel lblAnnualIncome;
     private javax.swing.JLabel lblCity;
+    private javax.swing.JLabel lblCity1;
+    private javax.swing.JLabel lblCity2;
+    private javax.swing.JLabel lblEmailId;
+    private javax.swing.JLabel lblExplanation;
+    private javax.swing.JLabel lblFirstName;
+    private javax.swing.JLabel lblHeaderHospital;
+    private javax.swing.JLabel lblHospitalLogo;
+    private javax.swing.JLabel lblLastName;
+    private javax.swing.JLabel lblPassword;
+    private javax.swing.JLabel lblPhoneNumber;
+    private javax.swing.JLabel lblPrescription;
     private javax.swing.JLabel lblPrices;
     private javax.swing.JLabel lblPrices1;
+    private javax.swing.JLabel lblReenterPassword;
+    private javax.swing.JLabel lblRequestAmount;
+    private javax.swing.JLabel lblStreet;
     private javax.swing.JLabel lblVirtualCare;
+    private javax.swing.JLabel lblVirtualCare1;
+    private javax.swing.JLabel lblVirtualCare2;
+    private javax.swing.JLabel lblVirtualCare3;
+    private javax.swing.JLabel lblVirtualCare4;
+    private javax.swing.JTable tableDoctors;
     private javax.swing.JTable tableHospitals;
+    private javax.swing.JTable tableViewAppointment;
+    private javax.swing.JTextField txtAnnualIncome;
+    private javax.swing.JTextField txtCityUAD;
+    private com.toedter.calendar.JDateChooser txtDobUAD;
+    private javax.swing.JTextField txtEmailIdUAD;
+    private javax.swing.JTextField txtExplanation;
+    private javax.swing.JTextField txtFirstNameUAD;
+    private javax.swing.JTextField txtLastNameUAD;
+    private javax.swing.JPasswordField txtPasswordUAD;
+    private javax.swing.JTextField txtPhoneNumberAD;
+    private javax.swing.JTextField txtPinCodeUAD;
+    private javax.swing.JPasswordField txtReenterPasswordUAD;
+    private javax.swing.JTextField txtRequestAmount;
+    private javax.swing.JTextField txtStreetUAD;
     // End of variables declaration//GEN-END:variables
 }

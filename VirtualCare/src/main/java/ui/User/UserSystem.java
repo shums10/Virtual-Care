@@ -4,6 +4,7 @@
  */
 package ui.User;
 
+import model.UserDetails;
 import com.db4o.*;
 import com.db4o.ext.DatabaseClosedException;
 import com.db4o.ext.Db4oIOException;
@@ -14,7 +15,7 @@ import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
 import javax.swing.JOptionPane;
-import ui.Admin.AdminDetails;
+import model.AdminDetails;
 import ui.Admin.AdminSystem;
 
 /**
