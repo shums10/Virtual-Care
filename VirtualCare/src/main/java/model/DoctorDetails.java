@@ -9,6 +9,7 @@ package model;
  * @author swaroop
  */
 public class DoctorDetails {
+
     String FirstName, LastName, WorkingDays[], Time, Email, Password, Department, Organisation, Location;
 
     public String getOrganisation() {
