@@ -4,6 +4,22 @@
  */
 package ui.User;
 
+import com.db4o.ext.DatabaseClosedException;
+import com.db4o.ext.Db4oIOException;
+import java.awt.CardLayout;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collection;
+import java.util.Collections;
+import java.util.Iterator;
+import java.util.LinkedHashSet;
+import java.util.List;
+import java.util.TreeMap;
+import javax.swing.JOptionPane;
+import javax.swing.table.DefaultTableModel;
+import model.DoctorDetails;
 import model.UserDetails;
 
 /**
@@ -18,10 +34,145 @@ public class UserDashboard extends javax.swing.JPanel {
     public UserDashboard(UserDetails u) {
         initComponents();
         this.u = u;
+        fillaccountfields();
+        Card = (CardLayout) cardLayout.getLayout();
+        DefaultTableModel UserMod = (DefaultTableModel) tableHospitals.getModel();
+        cardLayout.setVisible(false);
+        AddDoctorstoList();
+        this.UserMod = UserMod;
     }
 
+    CardLayout Card;
     UserDetails u;
     
+    DefaultTableModel UserMod;
+    ArrayList<DoctorDetails> Doctors;
+    LinkedHashSet<String> Cities;
+    LinkedHashSet<String> Departments;
+    LinkedHashSet<String> Hospitals;
+    
+    void populateHashSets(){
+        LinkedHashSet<String> Cities = new LinkedHashSet<>();
+        LinkedHashSet<String> Departments = new LinkedHashSet<>();
+        LinkedHashSet<String> Hospitals = new LinkedHashSet<>();
+        
+        Iterator Cityitr = Doctors.iterator();
+        Iterator Deptitr = Doctors.iterator();
+        Iterator Htr = Doctors.iterator();
+        
+        while(Cityitr.hasNext()){
+            DoctorDetails d = (DoctorDetails)Cityitr.next();
+            Cities.add(d.getLocation());
+        }
+        while(Deptitr.hasNext()){
+            DoctorDetails d = (DoctorDetails)Deptitr.next();
+            Departments.add(d.getDepartment());
+        }
+        while(Htr.hasNext()){
+            DoctorDetails d = (DoctorDetails)Htr.next();
+            Departments.add(d.getOrganisation());
+        }
+        this.Cities = Cities;
+        this.Departments = Departments;
+        this.Hospitals = Hospitals;
+    }
+    
+    void populateusertable(){
+        Iterator itr = Doctors.iterator();
+        TreeMap<Integer, DoctorDetails> filter = new TreeMap<>();
+        while(itr.hasNext()){
+            DoctorDetails d = (DoctorDetails)itr.next();
+            if(cmbBoxTreatment.getSelectedItem().equals(d.getDepartment()) && cmbBoxCity.getSelectedItem().equals(d.getLocation())){
+                filter.put(d.getFees(), d);
+            }
+        }
+        Collection C = filter.keySet();
+        if(cmbBoxPrices.getSelectedIndex() == 0){
+            Iterator Ctr = C.iterator();
+            while(Ctr.hasNext()){
+                DoctorDetails d = filter.get((Integer)Ctr.next());
+                String data[] = {d.getOrganisation(), d.getLocation(), "$" + String.valueOf(d.getFees()), String.valueOf(d.getRatings())};
+                UserMod.addRow(data);
+            }
+        }
+        else{
+            ArrayList<Integer> Keys = new ArrayList<>(C);
+            Collections.reverse(Keys);
+            Iterator Ctr = Keys.iterator();
+            while(Ctr.hasNext()){
+                DoctorDetails d = filter.get((Integer)Ctr.next());
+                String data[] = {d.getOrganisation(), d.getLocation(), "$" + String.valueOf(d.getFees()), String.valueOf(d.getRatings())};
+                UserMod.addRow(data);
+            }
+        }
+    }
+    
+    void populatedropdowns(){
+        Iterator Ctr = Cities.iterator();
+        Iterator Dtr = Departments.iterator();
+        
+        while(Ctr.hasNext()){
+            cmbBoxCity.addItem(Ctr.next().toString());
+        }
+        while(Dtr.hasNext()){
+            cmbBoxTreatment.addItem(Dtr.next().toString());
+        }
+    }
+    
+    void AddDoctorstoList(){
+        ArrayList<DoctorDetails> Doctors = new ArrayList<>();
+        DoctorDetails d;
+        
+        try {
+            List<DoctorDetails> doctorresult = UserSystem.Doctordb.query(DoctorDetails.class);
+            if(doctorresult.isEmpty())
+                return;
+            Iterator doctoritr = doctorresult.iterator();
+            while(doctoritr.hasNext()){
+                d = (DoctorDetails)doctoritr.next();
+                Doctors.add(d);
+            }
+        }
+        catch(DatabaseClosedException | Db4oIOException E){
+            JOptionPane.showMessageDialog(this, "Database Error.");
+        }
+        this.Doctors = Doctors;
+    }
+    
+    void clearAllfields(){
+        txtOldPasswordUAD.setText("");
+        txtNewPasswordUAD.setText("");
+        txtFirstNameUAD.setText("");
+        txtLastNameUAD.setText("");
+        txtDobUAD.setDate(null);
+        txtPhoneNumberAD.setText("");
+        txtStreetUAD.setText("");
+        txtCityUAD.setText("");
+        txtPinCodeUAD.setText("");
+        txtEmailIdUAD.setText("");
+    }
+    
+    void fillaccountfields(){
+        clearAllfields();
+        txtFirstNameUAD.setText(u.getFirstName());
+        txtLastNameUAD.setText(u.getLastName());
+        SimpleDateFormat formatter = new SimpleDateFormat("dd-MMM-yyyy");
+        try{
+            txtDobUAD.setDate(formatter.parse(u.getDOB()));
+        }
+        catch(ParseException P){
+            System.out.println("Unable to parse DoB");
+        }
+        if(String.valueOf(u.getPhonenumber()).equals(0))
+            txtPhoneNumberAD.setText(String.valueOf(u.getPhonenumber()));
+        else
+            txtPhoneNumberAD.setText("");
+        txtStreetUAD.setText(u.getStreet());
+        txtCityUAD.setText(u.getCity());
+        txtPinCodeUAD.setText(String.valueOf(u.getPinCode()));
+        txtEmailIdUAD.setText(u.getEmail());
+
+    }
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -36,6 +187,7 @@ public class UserDashboard extends javax.swing.JPanel {
         btnAccount = new javax.swing.JButton();
         btnDashboard = new javax.swing.JButton();
         btnRequestFund = new javax.swing.JButton();
+        btnLogout = new javax.swing.JButton();
         cardLayout = new javax.swing.JPanel();
         AccountDetails = new javax.swing.JPanel();
         lblReenterPassword = new javax.swing.JLabel();
@@ -54,13 +206,12 @@ public class UserDashboard extends javax.swing.JPanel {
         txtFirstNameUAD = new javax.swing.JTextField();
         txtPinCodeUAD = new javax.swing.JTextField();
         txtLastNameUAD = new javax.swing.JTextField();
-        txtPasswordUAD = new javax.swing.JPasswordField();
-        txtReenterPasswordUAD = new javax.swing.JPasswordField();
         txtDobUAD = new com.toedter.calendar.JDateChooser();
-        jButton1UAD = new javax.swing.JButton();
         btnUpdateUAD = new javax.swing.JButton();
         lblPhoneNumber = new javax.swing.JLabel();
         txtPhoneNumberAD = new javax.swing.JTextField();
+        txtNewPasswordUAD = new javax.swing.JPasswordField();
+        txtOldPasswordUAD = new javax.swing.JPasswordField();
         ViewAppointments = new javax.swing.JPanel();
         lblVirtualCare2 = new javax.swing.JLabel();
         jScrollPane2 = new javax.swing.JScrollPane();
@@ -70,15 +221,12 @@ public class UserDashboard extends javax.swing.JPanel {
         lblPrescription = new javax.swing.JLabel();
         UserDB = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
-        btnView = new javax.swing.JButton();
         lblVirtualCare = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
         tableHospitals = new javax.swing.JTable();
         lblPrices = new javax.swing.JLabel();
         cmbBoxCity = new javax.swing.JComboBox<>();
         cmbBoxTreatment = new javax.swing.JComboBox<>();
-        lblPrices1 = new javax.swing.JLabel();
-        jComboBox1 = new javax.swing.JComboBox<>();
         lblCity = new javax.swing.JLabel();
         cmbBoxPrices = new javax.swing.JComboBox<>();
         BookAppointment = new javax.swing.JPanel();
@@ -99,6 +247,7 @@ public class UserDashboard extends javax.swing.JPanel {
         txtRequestAmount = new javax.swing.JTextField();
 
         setBackground(new java.awt.Color(102, 102, 255));
+        setMinimumSize(new java.awt.Dimension(1115, 925));
 
         jPanel1.setBackground(new java.awt.Color(0, 102, 204));
 
@@ -117,20 +266,42 @@ public class UserDashboard extends javax.swing.JPanel {
         });
 
         btnDashboard.setText("Dashboard");
+        btnDashboard.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnDashboardActionPerformed(evt);
+            }
+        });
 
         btnRequestFund.setText("Request Fund Help");
+        btnRequestFund.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnRequestFundActionPerformed(evt);
+            }
+        });
+
+        btnLogout.setText("Logout");
+        btnLogout.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnLogoutActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(35, 35, 35)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(btnRequestFund)
-                    .addComponent(btnDashboard)
-                    .addComponent(btnAccount)
-                    .addComponent(btnViewAppointments))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGap(35, 35, 35)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(btnRequestFund)
+                            .addComponent(btnDashboard)
+                            .addComponent(btnAccount)
+                            .addComponent(btnViewAppointments)))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGap(67, 67, 67)
+                        .addComponent(btnLogout)))
                 .addContainerGap(40, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
@@ -144,12 +315,16 @@ public class UserDashboard extends javax.swing.JPanel {
                 .addComponent(btnDashboard)
                 .addGap(31, 31, 31)
                 .addComponent(btnRequestFund)
-                .addContainerGap(559, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 436, Short.MAX_VALUE)
+                .addComponent(btnLogout)
+                .addGap(121, 121, 121))
         );
 
         cardLayout.setLayout(new java.awt.CardLayout());
 
-        lblReenterPassword.setText("Re-enter Password:");
+        AccountDetails.setMinimumSize(new java.awt.Dimension(823, 697));
+
+        lblReenterPassword.setText("New Password:");
 
         lblFirstName.setText("First Name:");
 
@@ -165,7 +340,7 @@ public class UserDashboard extends javax.swing.JPanel {
 
         lblCity2.setText("City:");
 
-        lblPassword.setText("Password:");
+        lblPassword.setText("Old Password:");
 
         lblVirtualCare1.setFont(new java.awt.Font("Lucida Grande", 1, 14)); // NOI18N
         lblVirtualCare1.setText("VIRTUAL CARE");
@@ -206,9 +381,12 @@ public class UserDashboard extends javax.swing.JPanel {
             }
         });
 
-        jButton1UAD.setText("EDIT");
-
         btnUpdateUAD.setText("UPDATE");
+        btnUpdateUAD.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnUpdateUADActionPerformed(evt);
+            }
+        });
 
         lblPhoneNumber.setText("Phone Number:");
 
@@ -218,46 +396,40 @@ public class UserDashboard extends javax.swing.JPanel {
             }
         });
 
+        txtNewPasswordUAD.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtNewPasswordUADActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout AccountDetailsLayout = new javax.swing.GroupLayout(AccountDetails);
         AccountDetails.setLayout(AccountDetailsLayout);
         AccountDetailsLayout.setHorizontalGroup(
             AccountDetailsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, AccountDetailsLayout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(lblVirtualCare1, javax.swing.GroupLayout.PREFERRED_SIZE, 115, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(350, 350, 350))
             .addGroup(AccountDetailsLayout.createSequentialGroup()
                 .addGroup(AccountDetailsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(AccountDetailsLayout.createSequentialGroup()
-                        .addGap(350, 350, 350)
-                        .addComponent(jButton1UAD)
-                        .addGap(40, 40, 40)
-                        .addComponent(btnUpdateUAD))
-                    .addGroup(AccountDetailsLayout.createSequentialGroup()
-                        .addGroup(AccountDetailsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(AccountDetailsLayout.createSequentialGroup()
-                                .addGap(270, 270, 270)
-                                .addGroup(AccountDetailsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                                    .addComponent(lblFirstName)
-                                    .addComponent(lblLastName)
-                                    .addComponent(lblStreet)
-                                    .addComponent(lblCity2)
-                                    .addComponent(lblCity1)
-                                    .addComponent(lblEmailId)
-                                    .addComponent(lblPassword)
-                                    .addComponent(lblReenterPassword)
-                                    .addComponent(lblPhoneNumber)))
-                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, AccountDetailsLayout.createSequentialGroup()
-                                .addGap(187, 187, 187)
-                                .addComponent(lblAge)))
-                        .addGap(47, 47, 47)
+                        .addGap(270, 270, 270)
+                        .addGroup(AccountDetailsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(lblFirstName)
+                            .addComponent(lblLastName)
+                            .addComponent(lblStreet)
+                            .addComponent(lblCity2)
+                            .addComponent(lblCity1)
+                            .addComponent(lblEmailId)
+                            .addComponent(lblPassword)
+                            .addComponent(lblReenterPassword)
+                            .addComponent(lblPhoneNumber)))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, AccountDetailsLayout.createSequentialGroup()
+                        .addGap(187, 187, 187)
+                        .addComponent(lblAge)))
+                .addGap(47, 47, 47)
+                .addGroup(AccountDetailsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addGroup(AccountDetailsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                         .addGroup(AccountDetailsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                             .addGroup(AccountDetailsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                 .addGroup(AccountDetailsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                                    .addGroup(AccountDetailsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                        .addComponent(txtEmailIdUAD)
-                                        .addComponent(txtPasswordUAD)
-                                        .addComponent(txtReenterPasswordUAD, javax.swing.GroupLayout.PREFERRED_SIZE, 144, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                    .addComponent(txtEmailIdUAD, javax.swing.GroupLayout.PREFERRED_SIZE, 144, javax.swing.GroupLayout.PREFERRED_SIZE)
                                     .addGroup(AccountDetailsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                                         .addComponent(txtLastNameUAD, javax.swing.GroupLayout.DEFAULT_SIZE, 144, Short.MAX_VALUE)
                                         .addComponent(txtFirstNameUAD)))
@@ -265,8 +437,19 @@ public class UserDashboard extends javax.swing.JPanel {
                                 .addComponent(txtPinCodeUAD, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 144, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addComponent(txtCityUAD, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 144, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addComponent(txtStreetUAD, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 144, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addComponent(txtPhoneNumberAD, javax.swing.GroupLayout.PREFERRED_SIZE, 144, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                .addContainerGap(240, Short.MAX_VALUE))
+                            .addComponent(txtPhoneNumberAD, javax.swing.GroupLayout.PREFERRED_SIZE, 144, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(txtNewPasswordUAD, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 144, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(txtOldPasswordUAD, javax.swing.GroupLayout.PREFERRED_SIZE, 144, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(269, Short.MAX_VALUE))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, AccountDetailsLayout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGroup(AccountDetailsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, AccountDetailsLayout.createSequentialGroup()
+                        .addComponent(lblVirtualCare1, javax.swing.GroupLayout.PREFERRED_SIZE, 115, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(350, 350, 350))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, AccountDetailsLayout.createSequentialGroup()
+                        .addComponent(btnUpdateUAD)
+                        .addGap(348, 348, 348))))
         );
         AccountDetailsLayout.setVerticalGroup(
             AccountDetailsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -309,19 +492,20 @@ public class UserDashboard extends javax.swing.JPanel {
                 .addGap(18, 18, 18)
                 .addGroup(AccountDetailsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(lblPassword)
-                    .addComponent(txtPasswordUAD, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(txtOldPasswordUAD, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(10, 10, 10)
                 .addGroup(AccountDetailsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(lblReenterPassword)
-                    .addComponent(txtReenterPasswordUAD, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(38, 38, 38)
-                .addGroup(AccountDetailsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jButton1UAD)
-                    .addComponent(btnUpdateUAD))
-                .addContainerGap(27, Short.MAX_VALUE))
+                    .addComponent(txtNewPasswordUAD, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 53, Short.MAX_VALUE)
+                .addComponent(btnUpdateUAD)
+                .addGap(28, 28, 28))
         );
 
-        cardLayout.add(AccountDetails, "card4");
+        cardLayout.add(AccountDetails, "card7");
+
+        ViewAppointments.setMinimumSize(new java.awt.Dimension(823, 697));
+        ViewAppointments.setPreferredSize(new java.awt.Dimension(823, 697));
 
         lblVirtualCare2.setFont(new java.awt.Font("Lucida Grande", 1, 14)); // NOI18N
         lblVirtualCare2.setText("VIRTUAL CARE");
@@ -392,31 +576,29 @@ public class UserDashboard extends javax.swing.JPanel {
                             .addComponent(ViewPrescription))))
                 .addGap(28, 28, 28)
                 .addComponent(lblPrescription, javax.swing.GroupLayout.PREFERRED_SIZE, 267, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(109, Short.MAX_VALUE))
+                .addContainerGap(180, Short.MAX_VALUE))
         );
 
         cardLayout.add(ViewAppointments, "card4");
 
-        jLabel1.setText("Treatment");
+        UserDB.setMinimumSize(new java.awt.Dimension(823, 697));
+        UserDB.setPreferredSize(new java.awt.Dimension(823, 697));
 
-        btnView.setText("View");
+        jLabel1.setText("Department");
 
         lblVirtualCare.setFont(new java.awt.Font("Lucida Grande", 1, 14)); // NOI18N
         lblVirtualCare.setText("VIRTUAL CARE");
 
         tableHospitals.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null}
+
             },
             new String [] {
-                "Hospital", "City", "Treatment", "Prices", "Ratings"
+                "Hospital", "City", "Prices", "Ratings"
             }
         ) {
             boolean[] canEdit = new boolean [] {
-                false, false, false, false, true
+                false, false, false, false
             };
 
             public boolean isCellEditable(int rowIndex, int columnIndex) {
@@ -427,8 +609,6 @@ public class UserDashboard extends javax.swing.JPanel {
 
         lblPrices.setText("Prices");
 
-        cmbBoxCity.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
-
         cmbBoxTreatment.setToolTipText("");
         cmbBoxTreatment.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         cmbBoxTreatment.addActionListener(new java.awt.event.ActionListener() {
@@ -437,13 +617,14 @@ public class UserDashboard extends javax.swing.JPanel {
             }
         });
 
-        lblPrices1.setText("Ratings");
-
-        jComboBox1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
-
         lblCity.setText("City");
 
-        cmbBoxPrices.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        cmbBoxPrices.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Lowest First", "Highest First" }));
+        cmbBoxPrices.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cmbBoxPricesActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout UserDBLayout = new javax.swing.GroupLayout(UserDB);
         UserDB.setLayout(UserDBLayout);
@@ -451,6 +632,10 @@ public class UserDashboard extends javax.swing.JPanel {
             UserDBLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGap(0, 823, Short.MAX_VALUE)
             .addGroup(UserDBLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, UserDBLayout.createSequentialGroup()
+                    .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 663, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGap(39, 39, 39))
                 .addGroup(UserDBLayout.createSequentialGroup()
                     .addGroup(UserDBLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                         .addGroup(UserDBLayout.createSequentialGroup()
@@ -460,33 +645,21 @@ public class UserDashboard extends javax.swing.JPanel {
                             .addGap(62, 62, 62)
                             .addGroup(UserDBLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                 .addComponent(cmbBoxTreatment, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addComponent(jLabel1))))
-                    .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addGroup(UserDBLayout.createSequentialGroup()
-                    .addGap(93, 93, 93)
-                    .addGroup(UserDBLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                        .addComponent(cmbBoxCity, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(lblCity))
-                    .addGap(18, 18, 18)
-                    .addGroup(UserDBLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                        .addComponent(cmbBoxPrices, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(lblPrices))
-                    .addGap(18, 18, 18)
-                    .addGroup(UserDBLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                        .addComponent(lblPrices1)
+                                .addComponent(jLabel1)))
                         .addGroup(UserDBLayout.createSequentialGroup()
-                            .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(btnView)))
-                    .addContainerGap())
-                .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, UserDBLayout.createSequentialGroup()
-                    .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 663, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGap(39, 39, 39)))
+                            .addGap(93, 93, 93)
+                            .addGroup(UserDBLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                .addComponent(cmbBoxCity, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(lblCity))
+                            .addGap(18, 18, 18)
+                            .addGroup(UserDBLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                .addComponent(cmbBoxPrices, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(lblPrices))))
+                    .addContainerGap(416, Short.MAX_VALUE)))
         );
         UserDBLayout.setVerticalGroup(
             UserDBLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 629, Short.MAX_VALUE)
+            .addGap(0, 713, Short.MAX_VALUE)
             .addGroup(UserDBLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(UserDBLayout.createSequentialGroup()
                     .addContainerGap()
@@ -500,18 +673,18 @@ public class UserDashboard extends javax.swing.JPanel {
                     .addGap(18, 18, 18)
                     .addGroup(UserDBLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                         .addComponent(lblCity)
-                        .addComponent(lblPrices)
-                        .addComponent(lblPrices1))
+                        .addComponent(lblPrices))
                     .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                     .addGroup(UserDBLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                         .addComponent(cmbBoxCity, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(cmbBoxPrices, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(btnView))
+                        .addComponent(cmbBoxPrices, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addContainerGap()))
         );
 
         cardLayout.add(UserDB, "card2");
+
+        BookAppointment.setMinimumSize(new java.awt.Dimension(823, 697));
+        BookAppointment.setPreferredSize(new java.awt.Dimension(823, 697));
 
         lblHeaderHospital.setText("Welcome to ");
 
@@ -583,10 +756,13 @@ public class UserDashboard extends javax.swing.JPanel {
                 .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 247, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(30, 30, 30)
                 .addComponent(btnBookAppointment)
-                .addContainerGap(158, Short.MAX_VALUE))
+                .addContainerGap(235, Short.MAX_VALUE))
         );
 
         cardLayout.add(BookAppointment, "card5");
+
+        FundRequest.setMinimumSize(new java.awt.Dimension(823, 697));
+        FundRequest.setPreferredSize(new java.awt.Dimension(823, 697));
 
         lblVirtualCare4.setFont(new java.awt.Font("Lucida Grande", 1, 14)); // NOI18N
         lblVirtualCare4.setText("VIRTUAL CARE");
@@ -649,7 +825,7 @@ public class UserDashboard extends javax.swing.JPanel {
                     .addComponent(txtRequestAmount, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(45, 45, 45)
                 .addComponent(btnRequest)
-                .addContainerGap(160, Short.MAX_VALUE))
+                .addContainerGap(219, Short.MAX_VALUE))
         );
 
         cardLayout.add(FundRequest, "card6");
@@ -676,9 +852,9 @@ public class UserDashboard extends javax.swing.JPanel {
                 .addContainerGap())
             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                    .addContainerGap(114, Short.MAX_VALUE)
+                    .addContainerGap(106, Short.MAX_VALUE)
                     .addComponent(cardLayout, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addContainerGap(114, Short.MAX_VALUE)))
+                    .addContainerGap(106, Short.MAX_VALUE)))
         );
     }// </editor-fold>//GEN-END:initComponents
 
@@ -688,10 +864,15 @@ public class UserDashboard extends javax.swing.JPanel {
 
     private void btnViewAppointmentsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnViewAppointmentsActionPerformed
         // TODO add your handling code here:
+        cardLayout.setVisible(true);
+        Card.show(cardLayout, "card4");
     }//GEN-LAST:event_btnViewAppointmentsActionPerformed
 
     private void btnAccountActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAccountActionPerformed
         // TODO add your handling code here:
+        fillaccountfields();
+        cardLayout.setVisible(true);
+        Card.show(cardLayout, "card7");
     }//GEN-LAST:event_btnAccountActionPerformed
 
     private void txtCityUADActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtCityUADActionPerformed
@@ -726,6 +907,74 @@ public class UserDashboard extends javax.swing.JPanel {
         // TODO add your handling code here:
     }//GEN-LAST:event_txtExplanationActionPerformed
 
+    private void btnLogoutActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLogoutActionPerformed
+        // TODO add your handling code here:
+        UserSystem LoginPanel = new UserSystem();
+        this.removeAll();
+        this.add(LoginPanel.SplitPane);
+        this.repaint();
+    }//GEN-LAST:event_btnLogoutActionPerformed
+
+    private void btnDashboardActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDashboardActionPerformed
+        // TODO add your handling code here:
+        AddDoctorstoList();
+        try{
+        populateHashSets();
+        populatedropdowns();
+        }
+        catch(NullPointerException E){
+            System.out.println("Doctors list is empty.");
+        }
+        cardLayout.setVisible(true);
+        Card.show(cardLayout, "card2");
+    }//GEN-LAST:event_btnDashboardActionPerformed
+
+    private void btnRequestFundActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRequestFundActionPerformed
+        // TODO add your handling code here:
+        cardLayout.setVisible(true);
+        Card.show(cardLayout, "card6");
+    }//GEN-LAST:event_btnRequestFundActionPerformed
+
+    private void btnUpdateUADActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnUpdateUADActionPerformed
+        // TODO add your handling code here:
+        if(Arrays.toString(txtOldPasswordUAD.getPassword()).equals(u.getPassword())){
+            if(!txtFirstNameUAD.getText().trim().equals(""))
+                u.setFirstName(txtFirstNameUAD.getText().trim());
+            if(!txtLastNameUAD.getText().trim().equals(""))
+                u.setLastName(txtLastNameUAD.getText().trim()); 
+            if(!txtDobUAD.getDateFormatString().trim().equals("")){
+                SimpleDateFormat formatter = new SimpleDateFormat("dd-MMM-yyyy");
+                u.setDOB(formatter.format(txtDobUAD.getDate()).toString());
+            }
+            if(!txtPhoneNumberAD.getText().trim().equals(""))
+                u.setPhonenumber(Long.parseLong(txtPhoneNumberAD.getText().trim()));
+            if(!txtStreetUAD.getText().trim().equals(""))
+                u.setStreet(txtStreetUAD.getText().trim());
+            if(!txtCityUAD.getText().trim().equals(""))
+                u.setCity(txtCityUAD.getText().trim());
+            if(!txtPinCodeUAD.getText().trim().equals(""))
+                u.setPinCode(Integer.parseInt(txtPinCodeUAD.getText().trim()));
+            if(!txtEmailIdUAD.getText().trim().equals(""))
+                u.setEmail(txtEmailIdUAD.getText().trim());
+            if(!(new String(txtNewPasswordUAD.getPassword()).equals("")))
+                u.setPassword(Arrays.toString(txtNewPasswordUAD.getPassword()));
+            
+            SignUp.AddUsertoDB(u);
+            JOptionPane.showMessageDialog(this, "Details Updated.");
+        }
+        else
+            JOptionPane.showMessageDialog(this, "Incorrect Password.");
+
+    }//GEN-LAST:event_btnUpdateUADActionPerformed
+
+    private void txtNewPasswordUADActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtNewPasswordUADActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtNewPasswordUADActionPerformed
+
+    private void cmbBoxPricesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmbBoxPricesActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_cmbBoxPricesActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JPanel AccountDetails;
@@ -738,17 +987,15 @@ public class UserDashboard extends javax.swing.JPanel {
     private javax.swing.JButton btnBookAppointment;
     private javax.swing.JButton btnDashboard;
     private javax.swing.JButton btnJoinVirtually;
+    private javax.swing.JButton btnLogout;
     private javax.swing.JButton btnRequest;
     private javax.swing.JButton btnRequestFund;
     private javax.swing.JButton btnUpdateUAD;
-    private javax.swing.JButton btnView;
     private javax.swing.JButton btnViewAppointments;
     private javax.swing.JPanel cardLayout;
     private javax.swing.JComboBox<String> cmbBoxCity;
     private javax.swing.JComboBox<String> cmbBoxPrices;
     private javax.swing.JComboBox<String> cmbBoxTreatment;
-    private javax.swing.JButton jButton1UAD;
-    private javax.swing.JComboBox<String> jComboBox1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane1;
@@ -769,7 +1016,6 @@ public class UserDashboard extends javax.swing.JPanel {
     private javax.swing.JLabel lblPhoneNumber;
     private javax.swing.JLabel lblPrescription;
     private javax.swing.JLabel lblPrices;
-    private javax.swing.JLabel lblPrices1;
     private javax.swing.JLabel lblReenterPassword;
     private javax.swing.JLabel lblRequestAmount;
     private javax.swing.JLabel lblStreet;
@@ -788,10 +1034,10 @@ public class UserDashboard extends javax.swing.JPanel {
     private javax.swing.JTextField txtExplanation;
     private javax.swing.JTextField txtFirstNameUAD;
     private javax.swing.JTextField txtLastNameUAD;
-    private javax.swing.JPasswordField txtPasswordUAD;
+    private javax.swing.JPasswordField txtNewPasswordUAD;
+    private javax.swing.JPasswordField txtOldPasswordUAD;
     private javax.swing.JTextField txtPhoneNumberAD;
     private javax.swing.JTextField txtPinCodeUAD;
-    private javax.swing.JPasswordField txtReenterPasswordUAD;
     private javax.swing.JTextField txtRequestAmount;
     private javax.swing.JTextField txtStreetUAD;
     // End of variables declaration//GEN-END:variables

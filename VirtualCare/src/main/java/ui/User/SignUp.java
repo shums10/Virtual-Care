@@ -6,8 +6,11 @@ package ui.User;
 
 import model.UserDetails;
 import com.db4o.*;
+import com.db4o.ext.DatabaseClosedException;
+import com.db4o.ext.Db4oIOException;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.text.SimpleDateFormat;
 import java.util.Arrays;
 import java.util.Iterator;
 import java.util.List;
@@ -26,26 +29,22 @@ public class SignUp extends javax.swing.JPanel {
         initComponents();
     }
     
-    void AddtoDB(UserDetails u){
-        Path currentRelativePath = Paths.get("");
-        String s = currentRelativePath.toAbsolutePath().toString();
-        String FILEPath = s + "/Databases/Users.db";
-        
-        ObjectContainer db = Db4oEmbedded.openFile(Db4oEmbedded.newConfiguration(), FILEPath);
-        
+    public static void AddUsertoDB(UserDetails u){     
         try {
-            db.store(u);
+            UserSystem.Userdb.store(u);
             System.out.println("Stored " + u.getFirstName());
         }
-        finally {
-            db.close();
+        catch(DatabaseClosedException | Db4oIOException E){
+            System.out.println("Database Error");
         }
     }
     
     UserDetails MakeUser(){
         UserDetails u = new UserDetails();
         u.setCity(txtCity.getText().trim());
-        u.setDOB(txtDoB.getDateFormatString());
+        SimpleDateFormat formatter = new SimpleDateFormat("dd-MMM-yyyy");
+        u.setDOB(formatter.format(txtDoB.getDate()).toString());
+        System.out.println(u.getDOB());
         u.setEmail(txtEmailId.getText().trim());
         u.setFirstName(txtFirstName.getText().trim());
         u.setLastName(txtLastName.getText().trim());
@@ -60,6 +59,7 @@ public class SignUp extends javax.swing.JPanel {
         txtEmailId.setText("");
         txtFirstName.setText("");
         txtLastName.setText("");
+        txtDoB.setDate(null);
         txtPinCode.setText("");
         txtStreet.setText("");
         txtPassword.setText("");
@@ -93,7 +93,6 @@ public class SignUp extends javax.swing.JPanel {
         txtDoB = new com.toedter.calendar.JDateChooser();
         txtPinCode = new javax.swing.JTextField();
         lblCity1 = new javax.swing.JLabel();
-        btnFillFields = new javax.swing.JButton();
         txtPassword = new javax.swing.JPasswordField();
         txtReenterPassword = new javax.swing.JPasswordField();
 
@@ -161,13 +160,6 @@ public class SignUp extends javax.swing.JPanel {
 
         lblCity1.setText("PinCode:");
 
-        btnFillFields.setText("FillFields");
-        btnFillFields.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnFillFieldsActionPerformed(evt);
-            }
-        });
-
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
@@ -212,9 +204,7 @@ public class SignUp extends javax.swing.JPanel {
                             .addGroup(layout.createSequentialGroup()
                                 .addGap(6, 6, 6)
                                 .addComponent(txtCity)))))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 47, Short.MAX_VALUE)
-                .addComponent(btnFillFields)
-                .addGap(101, 101, 101))
+                .addGap(101, 228, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -264,9 +254,7 @@ public class SignUp extends javax.swing.JPanel {
                     .addComponent(lblReenterPassword)
                     .addComponent(txtReenterPassword, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(37, 37, 37)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(btnRegister)
-                    .addComponent(btnFillFields))
+                .addComponent(btnRegister)
                 .addContainerGap(183, Short.MAX_VALUE))
         );
     }// </editor-fold>//GEN-END:initComponents
@@ -299,27 +287,16 @@ public class SignUp extends javax.swing.JPanel {
         // TODO add your handling code here:
         if(Arrays.toString(txtPassword.getPassword()).equals(Arrays.toString(txtReenterPassword.getPassword()))){
             UserDetails u = MakeUser();
-            AddtoDB(u);
+            AddUsertoDB(u);
+            ClearAllFields();
+            JOptionPane.showMessageDialog(this, "User Added.");
         }
         else
             JOptionPane.showMessageDialog(this, "Re-enter Correct Password.");
     }//GEN-LAST:event_btnRegisterActionPerformed
 
-    private void btnFillFieldsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnFillFieldsActionPerformed
-        // TODO add your handling code here:
-        txtCity.setText("Boston");
-        txtEmailId.setText("hariyapratik@gmail.com");
-        txtFirstName.setText("Pratik");
-        txtLastName.setText("Hariya");
-        txtPinCode.setText("02120");
-        txtStreet.setText("Saint Alphonsus Street");
-        txtPassword.setText("xyz");
-        txtReenterPassword.setText("xyz");
-    }//GEN-LAST:event_btnFillFieldsActionPerformed
-
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton btnFillFields;
     private javax.swing.JButton btnRegister;
     private javax.swing.JLabel lblAge;
     private javax.swing.JLabel lblCity;

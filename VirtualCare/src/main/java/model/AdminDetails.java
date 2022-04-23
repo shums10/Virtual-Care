@@ -10,6 +10,15 @@ package model;
  */
 public class AdminDetails {
     String Enterprise, Organization, Location, Email, Password;
+    int Ratings;
+
+    public int getRatings() {
+        return Ratings;
+    }
+
+    public void setRatings(int Ratings) {
+        this.Ratings = Ratings;
+    }
 
     public String getOrganization() {
         return Organization;

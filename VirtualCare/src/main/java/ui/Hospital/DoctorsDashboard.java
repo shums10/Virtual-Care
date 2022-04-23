@@ -4,6 +4,9 @@
  */
 package ui.Hospital;
 
+import model.DoctorDetails;
+import ui.User.UserSystem;
+
 /**
  *
  * @author shubhampatil
@@ -13,9 +16,12 @@ public class DoctorsDashboard extends javax.swing.JPanel {
     /**
      * Creates new form DoctorsDashboard
      */
-    public DoctorsDashboard() {
+    public DoctorsDashboard(DoctorDetails d) {
         initComponents();
+        this.d = d;
     }
+    
+    DoctorDetails d;
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -29,6 +35,7 @@ public class DoctorsDashboard extends javax.swing.JPanel {
         jLabel1 = new javax.swing.JLabel();
         sidePanel = new javax.swing.JPanel();
         jButton1 = new javax.swing.JButton();
+        btnLogout = new javax.swing.JButton();
         cardLayout = new javax.swing.JPanel();
         viewPatients = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
@@ -42,13 +49,22 @@ public class DoctorsDashboard extends javax.swing.JPanel {
 
         jButton1.setText("View Patients");
 
+        btnLogout.setText("Logout");
+        btnLogout.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnLogoutActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout sidePanelLayout = new javax.swing.GroupLayout(sidePanel);
         sidePanel.setLayout(sidePanelLayout);
         sidePanelLayout.setHorizontalGroup(
             sidePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(sidePanelLayout.createSequentialGroup()
                 .addGap(29, 29, 29)
-                .addComponent(jButton1)
+                .addGroup(sidePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(jButton1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(btnLogout, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap(44, Short.MAX_VALUE))
         );
         sidePanelLayout.setVerticalGroup(
@@ -56,7 +72,9 @@ public class DoctorsDashboard extends javax.swing.JPanel {
             .addGroup(sidePanelLayout.createSequentialGroup()
                 .addGap(115, 115, 115)
                 .addComponent(jButton1)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(btnLogout)
+                .addGap(60, 60, 60))
         );
 
         cardLayout.setLayout(new java.awt.CardLayout());
@@ -170,10 +188,19 @@ public class DoctorsDashboard extends javax.swing.JPanel {
         // TODO add your handling code here:
     }//GEN-LAST:event_txtAddPrescribtionActionPerformed
 
+    private void btnLogoutActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLogoutActionPerformed
+        // TODO add your handling code here:
+        UserSystem LoginPanel = new UserSystem();
+        this.removeAll();
+        this.add(LoginPanel.SplitPane);
+        this.repaint();
+    }//GEN-LAST:event_btnLogoutActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JPanel addPrescribtion;
     private javax.swing.JButton btnAddPrescribtion;
+    private javax.swing.JButton btnLogout;
     private javax.swing.JPanel cardLayout;
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;

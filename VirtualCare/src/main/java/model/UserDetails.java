@@ -12,6 +12,15 @@ package model;
  */
 public class UserDetails {
     private int PinCode;
+    private long phonenumber;
+
+    public long getPhonenumber() {
+        return phonenumber;
+    }
+
+    public void setPhonenumber(long phonenumber) {
+        this.phonenumber = phonenumber;
+    }
     private String DOB, FirstName, LastName, Street, City, Email, Password;
 
     public int getPinCode() {

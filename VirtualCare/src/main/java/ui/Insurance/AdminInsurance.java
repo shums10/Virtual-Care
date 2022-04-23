@@ -4,6 +4,8 @@
  */
 package ui.Insurance;
 
+import model.AdminDetails;
+
 /**
  *
  * @author shubhampatil
@@ -13,10 +15,12 @@ public class AdminInsurance extends javax.swing.JPanel {
     /**
      * Creates new form AdminInsurance
      */
-    public AdminInsurance() {
+    public AdminInsurance(AdminDetails a) {
         initComponents();
+        this.a = a;
     }
 
+    AdminDetails a;
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always

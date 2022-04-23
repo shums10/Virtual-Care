@@ -67,9 +67,7 @@
                       </Group>
                   </Group>
               </Group>
-              <EmptySpace pref="47" max="32767" attributes="0"/>
-              <Component id="btnFillFields" min="-2" max="-2" attributes="0"/>
-              <EmptySpace min="-2" pref="101" max="-2" attributes="0"/>
+              <EmptySpace min="101" pref="228" max="32767" attributes="0"/>
           </Group>
       </Group>
     </DimensionLayout>
@@ -133,10 +131,7 @@
                   <Component id="txtReenterPassword" alignment="3" min="-2" max="-2" attributes="0"/>
               </Group>
               <EmptySpace min="-2" pref="37" max="-2" attributes="0"/>
-              <Group type="103" groupAlignment="3" attributes="0">
-                  <Component id="btnRegister" alignment="3" min="-2" max="-2" attributes="0"/>
-                  <Component id="btnFillFields" alignment="3" min="-2" max="-2" attributes="0"/>
-              </Group>
+              <Component id="btnRegister" min="-2" max="-2" attributes="0"/>
               <EmptySpace pref="183" max="32767" attributes="0"/>
           </Group>
       </Group>
@@ -235,14 +230,6 @@
       <Properties>
         <Property name="text" type="java.lang.String" value="PinCode:"/>
       </Properties>
-    </Component>
-    <Component class="javax.swing.JButton" name="btnFillFields">
-      <Properties>
-        <Property name="text" type="java.lang.String" value="FillFields"/>
-      </Properties>
-      <Events>
-        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnFillFieldsActionPerformed"/>
-      </Events>
     </Component>
     <Component class="javax.swing.JPasswordField" name="txtPassword">
     </Component>
