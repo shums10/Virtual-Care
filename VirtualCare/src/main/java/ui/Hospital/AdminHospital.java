@@ -864,6 +864,8 @@ public class AdminHospital extends javax.swing.JPanel {
 
     private void btnDeleteAHActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDeleteAHActionPerformed
         // TODO add your handling code here:
+        if(tableViewDoctorsAH.getSelectedRow() < 0)
+            return;
         int Row = tableViewDoctorsAH.getSelectedRow();
         DoctorDetails d = DoctorMap.get(tableViewDoctorsAH.getValueAt(Row, 4).toString());
         RemoveDoctorfromDB(d);

@@ -12,8 +12,16 @@ import java.text.SimpleDateFormat;
  * @author swaroop
  */
 public class InsuranceRequests {
-    String ToOrg, FromHospital, PatientEmail, TimeStamp;
+    String ToOrg, FromHospital, PatientEmail, TimeStamp, Status;
     int Amount;
+
+    public String getStatus() {
+        return Status;
+    }
+
+    public void setStatus(String Status) {
+        this.Status = Status;
+    }
 
     public String getToOrg() {
         return ToOrg;

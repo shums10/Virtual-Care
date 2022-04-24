@@ -4,14 +4,27 @@
  */
 package model;
 
+import java.sql.Timestamp;
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+
 /**
  *
  * @author swaroop
  */
 public class DoctorDetails {
-
     String FirstName, LastName, WorkingDays[], Time, Email, Password, Department, Organisation, Location;
 
+    ArrayList<UserDetails> Appointments = new ArrayList<>();
+    
+    public void AddAppointments(UserDetails u){
+        Appointments.add(u);
+    }
+
+    public ArrayList<UserDetails> getAppointments(){
+        return Appointments;
+    }
+    
     public String getOrganisation() {
         return Organisation;
     }

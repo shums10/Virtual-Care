@@ -19,7 +19,9 @@ import java.util.List;
 import java.util.TreeMap;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
+import model.AdminDetails;
 import model.DoctorDetails;
+import model.NGORequests;
 import model.UserDetails;
 
 /**
@@ -37,19 +39,27 @@ public class UserDashboard extends javax.swing.JPanel {
         fillaccountfields();
         Card = (CardLayout) cardLayout.getLayout();
         DefaultTableModel UserMod = (DefaultTableModel) tableHospitals.getModel();
+        DefaultTableModel AptMod = (DefaultTableModel) tableDoctors.getModel();
+        DefaultTableModel ViewAptMod = (DefaultTableModel) tableViewAppointment.getModel();
         cardLayout.setVisible(false);
-        AddDoctorstoList();
+        PullDoctorstoList();
         this.UserMod = UserMod;
+        this.AptMod = AptMod;
+        this.ViewAptMod = AptMod;
     }
 
     CardLayout Card;
     UserDetails u;
     
     DefaultTableModel UserMod;
+    DefaultTableModel AptMod;
+    DefaultTableModel ViewAptMod;
     ArrayList<DoctorDetails> Doctors;
+    ArrayList<AdminDetails> Admins;
     LinkedHashSet<String> Cities;
     LinkedHashSet<String> Departments;
     LinkedHashSet<String> Hospitals;
+    LinkedHashSet<String> NGOOrgs;
     
     void populateHashSets(){
         LinkedHashSet<String> Cities = new LinkedHashSet<>();
@@ -77,33 +87,110 @@ public class UserDashboard extends javax.swing.JPanel {
         this.Hospitals = Hospitals;
     }
     
-    void populateusertable(){
+    void populateNGOOrgsHashSet(){
+        Iterator itr = Admins.iterator();
+        while(itr.hasNext()){
+            AdminDetails a = (AdminDetails)itr.next();
+            if(a.getEnterprise().equalsIgnoreCase("NGO"))
+            NGOOrgs.add(a.getOrganization());
+        }
+    }
+    
+    void populateNGOdropdown(){
+        cmbNGOOrgs.removeAllItems();
+        Iterator itr = NGOOrgs.iterator();
+        while(itr.hasNext()){
+            cmbNGOOrgs.addItem(itr.next().toString());
+        }
+    }
+    
+    void PullAdminstoList(){
+        ArrayList<AdminDetails> Admins = new ArrayList<>();
+
+        AdminDetails a;
+        try {
+            List<AdminDetails> adminresult = UserSystem.Admindb.query(AdminDetails.class);
+            if(adminresult.isEmpty())
+                return;
+            Iterator adminitr = adminresult.iterator();
+            while(adminitr.hasNext()){
+                a = (AdminDetails)adminitr.next();
+                Admins.add(a);
+            }
+        }
+        catch(DatabaseClosedException | Db4oIOException E){
+            JOptionPane.showMessageDialog(this, "Database Error.");
+        }
+        this.Admins = Admins;
+    }
+    
+    void populateHospitaltable(){
+        try{
+            Iterator itr = Doctors.iterator();
+            TreeMap<Integer, DoctorDetails> filter = new TreeMap<>();
+            while(itr.hasNext()){
+                DoctorDetails d = (DoctorDetails)itr.next();
+                if(cmbBoxTreatment.getSelectedItem().equals(d.getDepartment()) && cmbBoxCity.getSelectedItem().equals(d.getLocation())){
+                    filter.put(d.getFees(), d);
+                }
+            }
+            Collection C = filter.keySet();
+            if(cmbBoxPrices.getSelectedIndex() == 0){
+                Iterator Ctr = C.iterator();
+                while(Ctr.hasNext()){
+                    DoctorDetails d = filter.get((Integer)Ctr.next());
+                    String data[] = {d.getOrganisation(), d.getLocation(), "$" + String.valueOf(d.getFees()), String.valueOf(d.getRatings())};
+                    UserMod.addRow(data);
+                }
+            }
+            else{
+                ArrayList<Integer> Keys = new ArrayList<>(C);
+                Collections.reverse(Keys);
+                Iterator Ctr = Keys.iterator();
+                while(Ctr.hasNext()){
+                    DoctorDetails d = filter.get((Integer)Ctr.next());
+                    String data[] = {d.getOrganisation(), d.getLocation(), "$" + String.valueOf(d.getFees()), String.valueOf(d.getRatings())};
+                    UserMod.addRow(data);
+                }
+            }
+        }
+        catch(NullPointerException E){
+            JOptionPane.showMessageDialog(this, "No Doctors Added.");
+        }
+    }
+    
+    void populateAppointmentstable(){
+        AptMod.setRowCount(0);
+        int Row = tableHospitals.getSelectedRow();
+        String Hospital = tableHospitals.getValueAt(Row, 0).toString();
+        String City = tableHospitals.getValueAt(Row, 1).toString();
+        
         Iterator itr = Doctors.iterator();
-        TreeMap<Integer, DoctorDetails> filter = new TreeMap<>();
         while(itr.hasNext()){
             DoctorDetails d = (DoctorDetails)itr.next();
-            if(cmbBoxTreatment.getSelectedItem().equals(d.getDepartment()) && cmbBoxCity.getSelectedItem().equals(d.getLocation())){
-                filter.put(d.getFees(), d);
+            if(d.getLocation().equalsIgnoreCase(City) && d.getOrganisation().equalsIgnoreCase(Hospital)){
+                String data[] = {d.getFirstName() + d.getLastName(), d.getTime(), String.valueOf(d.getFees()), String.valueOf(d.getRatings())};
+                AptMod.addRow(data);
             }
         }
-        Collection C = filter.keySet();
-        if(cmbBoxPrices.getSelectedIndex() == 0){
-            Iterator Ctr = C.iterator();
-            while(Ctr.hasNext()){
-                DoctorDetails d = filter.get((Integer)Ctr.next());
-                String data[] = {d.getOrganisation(), d.getLocation(), "$" + String.valueOf(d.getFees()), String.valueOf(d.getRatings())};
-                UserMod.addRow(data);
+    }
+    
+    void populateviewappointments(){
+        ViewAptMod.setRowCount(0);
+        ArrayList<DoctorDetails> Docs = new ArrayList<>();
+        try{
+            Docs = u.getAppointments();
+
+            Iterator itr = Docs.iterator();
+
+            while(itr.hasNext()){
+                DoctorDetails d = (DoctorDetails)itr.next();
+                String data[] = {d.getOrganisation(), d.getFirstName() + d.getLastName(), d.getLocation(), d.getTime()};
+                ViewAptMod.addRow(data);
             }
         }
-        else{
-            ArrayList<Integer> Keys = new ArrayList<>(C);
-            Collections.reverse(Keys);
-            Iterator Ctr = Keys.iterator();
-            while(Ctr.hasNext()){
-                DoctorDetails d = filter.get((Integer)Ctr.next());
-                String data[] = {d.getOrganisation(), d.getLocation(), "$" + String.valueOf(d.getFees()), String.valueOf(d.getRatings())};
-                UserMod.addRow(data);
-            }
+        catch(NullPointerException N){
+            return;
         }
     }
     
@@ -119,7 +206,7 @@ public class UserDashboard extends javax.swing.JPanel {
         }
     }
     
-    void AddDoctorstoList(){
+    void PullDoctorstoList(){
         ArrayList<DoctorDetails> Doctors = new ArrayList<>();
         DoctorDetails d;
         
@@ -172,6 +259,42 @@ public class UserDashboard extends javax.swing.JPanel {
         txtPinCodeUAD.setText(String.valueOf(u.getPinCode()));
         txtEmailIdUAD.setText(u.getEmail());
 
+    }
+    
+    public static void AddNGOtoDB(NGORequests N){
+        try {
+            UserSystem.NGOdb.store(N);
+            System.out.println("Stored: " + N.getToNGOOrg());
+        }
+        catch(DatabaseClosedException | Db4oIOException E){
+            System.out.println("Error in storing:  " + N.getToNGOOrg());
+        }
+    }
+    
+    NGORequests MakeNGORequests(){
+        NGORequests N = new NGORequests();
+        N.setAmount(Integer.valueOf(txtRequestAmount.getText()));
+        N.setAnnualIncome(Integer.valueOf(txtAnnualIncome.getText()));
+        N.setExplaination(txtExplanation.getText());
+        N.setPatientID(u.getEmail());
+        N.setToNGOOrg(cmbNGOOrgs.getSelectedItem().toString());
+        return N;
+    }
+    
+    void BookAppointment(){
+        int Row = tableDoctors.getSelectedRow();
+        String FullName = tableDoctors.getValueAt(Row, 0).toString();
+        
+        Iterator itr = Doctors.iterator();
+        while(itr.hasNext()){
+            DoctorDetails d = (DoctorDetails)itr.next();
+            if(FullName.equalsIgnoreCase(d.getFirstName()+d.getLastName())){
+                u.AddAppointments(d);
+                d.AddAppointments(u);
+                UserSystem.Doctordb.store(d);
+                UserSystem.Userdb.store(u);
+            }
+        }
     }
     /**
      * This method is called from within the constructor to initialize the form.
@@ -229,6 +352,7 @@ public class UserDashboard extends javax.swing.JPanel {
         cmbBoxTreatment = new javax.swing.JComboBox<>();
         lblCity = new javax.swing.JLabel();
         cmbBoxPrices = new javax.swing.JComboBox<>();
+        btnView = new javax.swing.JButton();
         BookAppointment = new javax.swing.JPanel();
         lblHeaderHospital = new javax.swing.JLabel();
         lblHospitalLogo = new javax.swing.JLabel();
@@ -245,6 +369,8 @@ public class UserDashboard extends javax.swing.JPanel {
         btnRequest = new javax.swing.JButton();
         lblRequestAmount = new javax.swing.JLabel();
         txtRequestAmount = new javax.swing.JTextField();
+        jLabel2 = new javax.swing.JLabel();
+        cmbNGOOrgs = new javax.swing.JComboBox<>();
 
         setBackground(new java.awt.Color(102, 102, 255));
         setMinimumSize(new java.awt.Dimension(1115, 925));
@@ -609,6 +735,12 @@ public class UserDashboard extends javax.swing.JPanel {
 
         lblPrices.setText("Prices");
 
+        cmbBoxCity.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cmbBoxCityActionPerformed(evt);
+            }
+        });
+
         cmbBoxTreatment.setToolTipText("");
         cmbBoxTreatment.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         cmbBoxTreatment.addActionListener(new java.awt.event.ActionListener() {
@@ -626,11 +758,21 @@ public class UserDashboard extends javax.swing.JPanel {
             }
         });
 
+        btnView.setText("View");
+        btnView.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnViewActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout UserDBLayout = new javax.swing.GroupLayout(UserDB);
         UserDB.setLayout(UserDBLayout);
         UserDBLayout.setHorizontalGroup(
             UserDBLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 823, Short.MAX_VALUE)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, UserDBLayout.createSequentialGroup()
+                .addContainerGap(718, Short.MAX_VALUE)
+                .addComponent(btnView)
+                .addGap(50, 50, 50))
             .addGroup(UserDBLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, UserDBLayout.createSequentialGroup()
                     .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -659,7 +801,10 @@ public class UserDashboard extends javax.swing.JPanel {
         );
         UserDBLayout.setVerticalGroup(
             UserDBLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 713, Short.MAX_VALUE)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, UserDBLayout.createSequentialGroup()
+                .addContainerGap(665, Short.MAX_VALUE)
+                .addComponent(btnView)
+                .addContainerGap())
             .addGroup(UserDBLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(UserDBLayout.createSequentialGroup()
                     .addContainerGap()
@@ -712,6 +857,11 @@ public class UserDashboard extends javax.swing.JPanel {
         jScrollPane3.setViewportView(tableDoctors);
 
         btnBookAppointment.setText("Book Appointment");
+        btnBookAppointment.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnBookAppointmentActionPerformed(evt);
+            }
+        });
 
         lblVirtualCare3.setFont(new java.awt.Font("Lucida Grande", 1, 14)); // NOI18N
         lblVirtualCare3.setText("VIRTUAL CARE");
@@ -778,33 +928,47 @@ public class UserDashboard extends javax.swing.JPanel {
         });
 
         btnRequest.setText("Request");
+        btnRequest.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnRequestActionPerformed(evt);
+            }
+        });
 
         lblRequestAmount.setText("Request Amount:");
+
+        jLabel2.setText("Organisation:");
+
+        cmbNGOOrgs.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
 
         javax.swing.GroupLayout FundRequestLayout = new javax.swing.GroupLayout(FundRequest);
         FundRequest.setLayout(FundRequestLayout);
         FundRequestLayout.setHorizontalGroup(
             FundRequestLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(FundRequestLayout.createSequentialGroup()
-                .addGap(315, 315, 315)
-                .addComponent(lblVirtualCare4)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-            .addGroup(FundRequestLayout.createSequentialGroup()
                 .addGap(185, 185, 185)
                 .addGroup(FundRequestLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addComponent(lblRequestAmount)
                     .addComponent(lblExplanation)
                     .addComponent(lblAnnualIncome))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED, 33, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED, 41, Short.MAX_VALUE)
                 .addGroup(FundRequestLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(txtAnnualIncome, javax.swing.GroupLayout.PREFERRED_SIZE, 133, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(txtExplanation, javax.swing.GroupLayout.PREFERRED_SIZE, 400, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(txtRequestAmount, javax.swing.GroupLayout.PREFERRED_SIZE, 133, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(21, 21, 21))
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, FundRequestLayout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(btnRequest)
-                .addGap(337, 337, 337))
+            .addGroup(FundRequestLayout.createSequentialGroup()
+                .addGroup(FundRequestLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(btnRequest)
+                    .addGroup(FundRequestLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addGroup(FundRequestLayout.createSequentialGroup()
+                            .addGap(315, 315, 315)
+                            .addComponent(lblVirtualCare4))
+                        .addGroup(FundRequestLayout.createSequentialGroup()
+                            .addGap(275, 275, 275)
+                            .addComponent(jLabel2)
+                            .addGap(47, 47, 47)
+                            .addComponent(cmbNGOOrgs, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         FundRequestLayout.setVerticalGroup(
             FundRequestLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -823,9 +987,13 @@ public class UserDashboard extends javax.swing.JPanel {
                 .addGroup(FundRequestLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(lblRequestAmount)
                     .addComponent(txtRequestAmount, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(45, 45, 45)
+                .addGap(18, 18, 18)
+                .addGroup(FundRequestLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel2)
+                    .addComponent(cmbNGOOrgs, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(18, 18, 18)
                 .addComponent(btnRequest)
-                .addContainerGap(219, Short.MAX_VALUE))
+                .addContainerGap(196, Short.MAX_VALUE))
         );
 
         cardLayout.add(FundRequest, "card6");
@@ -860,10 +1028,12 @@ public class UserDashboard extends javax.swing.JPanel {
 
     private void cmbBoxTreatmentActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmbBoxTreatmentActionPerformed
         // TODO add your handling code here:
+        populateHospitaltable();
     }//GEN-LAST:event_cmbBoxTreatmentActionPerformed
 
     private void btnViewAppointmentsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnViewAppointmentsActionPerformed
         // TODO add your handling code here:
+        populateviewappointments();
         cardLayout.setVisible(true);
         Card.show(cardLayout, "card4");
     }//GEN-LAST:event_btnViewAppointmentsActionPerformed
@@ -917,7 +1087,7 @@ public class UserDashboard extends javax.swing.JPanel {
 
     private void btnDashboardActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDashboardActionPerformed
         // TODO add your handling code here:
-        AddDoctorstoList();
+        PullDoctorstoList();
         try{
         populateHashSets();
         populatedropdowns();
@@ -931,6 +1101,14 @@ public class UserDashboard extends javax.swing.JPanel {
 
     private void btnRequestFundActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRequestFundActionPerformed
         // TODO add your handling code here:
+        try{
+            PullAdminstoList();
+            populateNGOOrgsHashSet();
+            populateNGOdropdown();
+        }
+        catch(NullPointerException E){
+            JOptionPane.showMessageDialog(this, "No NGO Organisations Added.");
+        }
         cardLayout.setVisible(true);
         Card.show(cardLayout, "card6");
     }//GEN-LAST:event_btnRequestFundActionPerformed
@@ -973,7 +1151,50 @@ public class UserDashboard extends javax.swing.JPanel {
 
     private void cmbBoxPricesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmbBoxPricesActionPerformed
         // TODO add your handling code here:
+        populateHospitaltable();
     }//GEN-LAST:event_cmbBoxPricesActionPerformed
+
+    private void cmbBoxCityActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmbBoxCityActionPerformed
+        // TODO add your handling code here:
+        populateHospitaltable();
+    }//GEN-LAST:event_cmbBoxCityActionPerformed
+
+    private void btnViewActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnViewActionPerformed
+        // TODO add your handling code here:
+        if(tableHospitals.getSelectedRow() < 0)
+            return;
+        String Hospital = tableHospitals.getValueAt(tableHospitals.getSelectedRow(), 0).toString();
+        lblHeaderHospital.setText("Welcome to" + Hospital);
+        try{
+        PullDoctorstoList();
+        populateAppointmentstable();
+        }
+        catch(NullPointerException E){
+            return;
+        }
+        cardLayout.setVisible(true);
+        Card.show(cardLayout, "card5");
+    }//GEN-LAST:event_btnViewActionPerformed
+
+    private void btnBookAppointmentActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBookAppointmentActionPerformed
+        // TODO add your handling code here:
+        if(tableDoctors.getSelectedRow() < 0)
+            return;
+        try{
+        BookAppointment();
+        JOptionPane.showMessageDialog(this, "Appointment Booked.");
+        }
+        catch(NullPointerException E){
+            JOptionPane.showMessageDialog(this, "No Doctors Added");
+        }
+
+    }//GEN-LAST:event_btnBookAppointmentActionPerformed
+
+    private void btnRequestActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRequestActionPerformed
+        // TODO add your handling code here:
+        NGORequests N = MakeNGORequests();
+        AddNGOtoDB(N);
+    }//GEN-LAST:event_btnRequestActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -991,12 +1212,15 @@ public class UserDashboard extends javax.swing.JPanel {
     private javax.swing.JButton btnRequest;
     private javax.swing.JButton btnRequestFund;
     private javax.swing.JButton btnUpdateUAD;
+    private javax.swing.JButton btnView;
     private javax.swing.JButton btnViewAppointments;
     private javax.swing.JPanel cardLayout;
     private javax.swing.JComboBox<String> cmbBoxCity;
     private javax.swing.JComboBox<String> cmbBoxPrices;
     private javax.swing.JComboBox<String> cmbBoxTreatment;
+    private javax.swing.JComboBox<String> cmbNGOOrgs;
     private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel2;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;

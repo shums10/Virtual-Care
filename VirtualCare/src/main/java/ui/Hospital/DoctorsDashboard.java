@@ -4,7 +4,13 @@
  */
 package ui.Hospital;
 
+import java.awt.CardLayout;
+import java.util.ArrayList;
+import java.util.Iterator;
+import javax.swing.JOptionPane;
+import javax.swing.table.DefaultTableModel;
 import model.DoctorDetails;
+import model.UserDetails;
 import ui.User.UserSystem;
 
 /**
@@ -19,10 +25,59 @@ public class DoctorsDashboard extends javax.swing.JPanel {
     public DoctorsDashboard(DoctorDetails d) {
         initComponents();
         this.d = d;
+        DefaultTableModel AptMod = (DefaultTableModel) tblViewPatientsDD.getModel();
+        this.AptMod = AptMod;
+        Appointments = d.getAppointments();
+        CardLayout Card = (CardLayout) cardLayout.getLayout();
+        this.Card = Card;
+        cardLayout.setVisible(false);
     }
     
     DoctorDetails d;
+    DefaultTableModel AptMod;
+    ArrayList<UserDetails> Appointments;
+    CardLayout Card;
 
+    void populateappointmentstable(){
+        try{
+            AptMod.setRowCount(0);
+
+            if(Appointments.isEmpty()){
+                JOptionPane.showMessageDialog(this, "No Appointments Available.");
+                return;
+            }
+            
+            Iterator itr = Appointments.iterator();
+            while(itr.hasNext()){
+                UserDetails u = (UserDetails)itr.next();
+                String data[] = {u.getFirstName() + u.getLastName(), u.getDOB(), d.getDepartment(), u.getEmail()};
+                AptMod.addRow(data);
+            }
+        }
+        catch(NullPointerException E){
+            JOptionPane.showMessageDialog(this, "No Appointments Available.");
+        }
+    }
+    
+    void deleteAppointment(){
+        int Row = tblViewPatientsDD.getSelectedRow();
+        String PatientEmail = tblViewPatientsDD.getValueAt(Row, 3).toString();
+        
+        Iterator itr = Appointments.iterator();
+        while(itr.hasNext()){
+            UserDetails u = (UserDetails)itr.next();
+            
+            if(PatientEmail.equalsIgnoreCase(u.getEmail())){
+                Appointments.remove(u);
+                u.getAppointments().remove(d);
+                UserSystem.Doctordb.store(d);
+                UserSystem.Userdb.store(u);
+                break;
+            }
+        }
+        
+    }
+    
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -48,6 +103,11 @@ public class DoctorsDashboard extends javax.swing.JPanel {
         jLabel1.setText("Doctors Dashboard");
 
         jButton1.setText("View Patients");
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
 
         btnLogout.setText("Logout");
         btnLogout.addActionListener(new java.awt.event.ActionListener() {
@@ -81,13 +141,10 @@ public class DoctorsDashboard extends javax.swing.JPanel {
 
         tblViewPatientsDD.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null}
+
             },
             new String [] {
-                "Name", "Age", "Treatment", "Email-Id"
+                "Name", "Date of Birth", "Treatment", "Email-Id"
             }
         ) {
             boolean[] canEdit = new boolean [] {
@@ -100,7 +157,12 @@ public class DoctorsDashboard extends javax.swing.JPanel {
         });
         jScrollPane1.setViewportView(tblViewPatientsDD);
 
-        jButton2.setText("Delete Patient");
+        jButton2.setText("Delete Appointment");
+        jButton2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton2ActionPerformed(evt);
+            }
+        });
 
         btnAddPrescribtion.setText("Add Prescribtion");
 
@@ -139,7 +201,7 @@ public class DoctorsDashboard extends javax.swing.JPanel {
                         .addGroup(viewPatientsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(btnAddPrescribtion)
                             .addComponent(addPrescribtion, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                .addContainerGap(52, Short.MAX_VALUE))
+                .addContainerGap(49, Short.MAX_VALUE))
         );
         viewPatientsLayout.setVerticalGroup(
             viewPatientsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -195,6 +257,21 @@ public class DoctorsDashboard extends javax.swing.JPanel {
         this.add(LoginPanel.SplitPane);
         this.repaint();
     }//GEN-LAST:event_btnLogoutActionPerformed
+
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        // TODO add your handling code here:
+        populateappointmentstable();
+        cardLayout.setVisible(true);
+        Card.show(cardLayout, "card2");
+    }//GEN-LAST:event_jButton1ActionPerformed
+
+    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+        // TODO add your handling code here:
+        if(tblViewPatientsDD.getSelectedRow() == 0)
+            return;
+        deleteAppointment();
+        populateappointmentstable();
+    }//GEN-LAST:event_jButton2ActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

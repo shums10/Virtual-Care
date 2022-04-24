@@ -83,6 +83,9 @@
           <Properties>
             <Property name="text" type="java.lang.String" value="View Patients"/>
           </Properties>
+          <Events>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jButton1ActionPerformed"/>
+          </Events>
         </Component>
         <Component class="javax.swing.JButton" name="btnLogout">
           <Properties>
@@ -124,7 +127,7 @@
                               </Group>
                           </Group>
                       </Group>
-                      <EmptySpace pref="52" max="32767" attributes="0"/>
+                      <EmptySpace pref="49" max="32767" attributes="0"/>
                   </Group>
               </Group>
             </DimensionLayout>
@@ -156,9 +159,9 @@
                 <Component class="javax.swing.JTable" name="tblViewPatientsDD">
                   <Properties>
                     <Property name="model" type="javax.swing.table.TableModel" editor="org.netbeans.modules.form.editors2.TableModelEditor">
-                      <Table columnCount="4" rowCount="4">
+                      <Table columnCount="4" rowCount="0">
                         <Column editable="false" title="Name" type="java.lang.Object"/>
-                        <Column editable="false" title="Age" type="java.lang.Object"/>
+                        <Column editable="false" title="Date of Birth" type="java.lang.Object"/>
                         <Column editable="false" title="Treatment" type="java.lang.Object"/>
                         <Column editable="false" title="Email-Id" type="java.lang.Object"/>
                       </Table>
@@ -196,8 +199,11 @@
             </Container>
             <Component class="javax.swing.JButton" name="jButton2">
               <Properties>
-                <Property name="text" type="java.lang.String" value="Delete Patient"/>
+                <Property name="text" type="java.lang.String" value="Delete Appointment"/>
               </Properties>
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jButton2ActionPerformed"/>
+              </Events>
             </Component>
             <Component class="javax.swing.JButton" name="btnAddPrescribtion">
               <Properties>

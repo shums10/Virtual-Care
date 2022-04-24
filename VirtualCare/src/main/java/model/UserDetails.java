@@ -1,5 +1,8 @@
 package model;
 
+import java.util.ArrayList;
+import java.util.HashMap;
+
 /*
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
@@ -10,7 +13,7 @@ package model;
  *
  * @author swaroop
  */
-public class UserDetails {
+public class UserDetails{
     private int PinCode;
     private long phonenumber;
 
@@ -23,6 +26,16 @@ public class UserDetails {
     }
     private String DOB, FirstName, LastName, Street, City, Email, Password;
 
+    ArrayList<DoctorDetails> Appointments = new ArrayList<>();
+    
+    public void AddAppointments(DoctorDetails d){
+        Appointments.add(d);
+    }
+    
+    public ArrayList<DoctorDetails> getAppointments(){
+        return Appointments;
+    }
+    
     public int getPinCode() {
         return PinCode;
     }

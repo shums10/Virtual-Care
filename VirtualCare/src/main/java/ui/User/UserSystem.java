@@ -51,6 +51,7 @@ public class UserSystem extends javax.swing.JFrame {
     public static ObjectContainer Doctordb;
     public static ObjectContainer Phardb;
     public static ObjectContainer Insudb;
+    public static ObjectContainer NGOdb;
     
     void populateorgs(){
         cmbBoxOrg.removeAllItems();
@@ -105,6 +106,11 @@ public class UserSystem extends javax.swing.JFrame {
             String InsuFILEPath = s + "/Databases/InsuranceRequests.db";
             ObjectContainer Insudb = Db4oEmbedded.openFile(Db4oEmbedded.newConfiguration(), InsuFILEPath);
             this.Insudb = Insudb;
+        }
+        if(this.NGOdb == null){
+            String NGOFILEPath = s + "/Databases/NGORequests.db";
+            ObjectContainer NGOdb = Db4oEmbedded.openFile(Db4oEmbedded.newConfiguration(), NGOFILEPath);
+            this.NGOdb = NGOdb;
         }
         else
             return;
