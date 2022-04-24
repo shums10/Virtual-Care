@@ -4,9 +4,8 @@
  */
 package model;
 
-import java.sql.Timestamp;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.HashMap;
 
 /**
  *
@@ -16,6 +15,16 @@ public class DoctorDetails {
     String FirstName, LastName, WorkingDays[], Time, Email, Password, Department, Organisation, Location;
 
     ArrayList<UserDetails> Appointments = new ArrayList<>();
+    
+    HashMap<UserDetails, String> Prescription = new HashMap<>();
+    
+    public void AddPrescription(UserDetails u, String p){
+        Prescription.put(u, p);
+    }
+    
+    public String GetPrescription(UserDetails u){
+        return Prescription.get(u);
+    }
     
     public void AddAppointments(UserDetails u){
         Appointments.add(u);

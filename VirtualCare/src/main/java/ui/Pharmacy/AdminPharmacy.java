@@ -12,7 +12,6 @@ import java.util.List;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 import model.AdminDetails;
-import model.InsuranceRequests;
 import model.PharmacyOrders;
 import ui.Hospital.AdminHospital;
 import ui.User.UserSystem;
@@ -69,12 +68,9 @@ public class AdminPharmacy extends javax.swing.JPanel {
         Iterator itr = PhReq.iterator();
         while(itr.hasNext()){
             PharmacyOrders P = (PharmacyOrders)itr.next();
-            if(P.getStatus() == null){
-                String data[] = {P.getFromHospital(), P.getMedicine(), String.valueOf(P.getQuantity()), "Pending"};
-                PhMod.addRow(data);
-            }
-            else{
-                String data[] = {P.getFromHospital(), P.getMedicine(), String.valueOf(P.getQuantity()), P.getStatus()};
+
+            if(P.getStatus().equalsIgnoreCase("Pending")){
+                String data[] = {P.getFromHospital(), P.getMedicine(), String.valueOf(P.getQuantity())};
                 PhMod.addRow(data);
             }
         }
@@ -164,6 +160,7 @@ public class AdminPharmacy extends javax.swing.JPanel {
         while(itr.hasNext()){
             P = (PharmacyOrders)itr.next();
             if(P.getFromHospital().equalsIgnoreCase(Hospital) && P.getMedicine().equalsIgnoreCase(Medicine)){
+                
                 P.setStatus("Delivered");
                 AdminHospital.AddPhOrderstoDB(P);
                 break;

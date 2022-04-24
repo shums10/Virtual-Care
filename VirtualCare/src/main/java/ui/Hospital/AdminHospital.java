@@ -37,19 +37,48 @@ public class AdminHospital extends javax.swing.JPanel {
         this.a = a;
         lblHeaderHospital.setText("Welcome To " + a.getOrganization());
         DefaultTableModel DocMod = (DefaultTableModel) tableViewDoctorsAH.getModel();
+        DefaultTableModel PhMod = (DefaultTableModel) tblPharmacy.getModel();
+        DefaultTableModel InsMod = (DefaultTableModel) tblInsuranceReqs.getModel();
         Card = (CardLayout) cardPanel.getLayout();
         cardPanel.setVisible(false);
         this.DocMod = DocMod;
+        this.PhMod = PhMod;
+        this.InsMod = InsMod;
     }
 
     AdminDetails a;
     CardLayout Card;
     HashMap<String, DoctorDetails> DoctorMap;
     DefaultTableModel DocMod;
+    DefaultTableModel PhMod;
+    DefaultTableModel InsMod;
     LinkedHashSet<String> InsuranceOrgs;
     LinkedHashSet<String> PharmacyOrgs;
     HashMap<String, UserDetails> UserMap;
+    ArrayList<PharmacyOrders> PhOrders;
+    ArrayList<InsuranceRequests> InsReq;
         
+    void PullPhOrderstoList(){
+        ArrayList<PharmacyOrders> PhOrders = new ArrayList<>();
+
+        PharmacyOrders P;
+        try {
+            List<PharmacyOrders> Pharmacyresult = UserSystem.Phardb.query(PharmacyOrders.class);
+            if(Pharmacyresult.isEmpty())
+                return;
+            Iterator Phitr = Pharmacyresult.iterator();
+            while(Phitr.hasNext()){
+                P = (PharmacyOrders)Phitr.next();
+                if(a.getOrganization().equalsIgnoreCase(P.getFromHospital()))
+                    PhOrders.add(P);
+            }
+        }
+        catch(DatabaseClosedException | Db4oIOException E){
+            JOptionPane.showMessageDialog(this, "Database Error.");
+        }
+        this.PhOrders = PhOrders;
+    }
+    
     void PullUserstoHashMap(){
         HashMap<String, UserDetails> UserMap = new HashMap<>();
         
@@ -98,6 +127,27 @@ public class AdminHospital extends javax.swing.JPanel {
         this.PharmacyOrgs = PharmacyOrgs;
     }
     
+    void PullInsuranceRequeststoList(){
+        ArrayList<InsuranceRequests> InsReq = new ArrayList<>();
+
+        InsuranceRequests I;
+        try {
+            List<InsuranceRequests> Insuranceresult = UserSystem.Insudb.query(InsuranceRequests.class);
+            if(Insuranceresult.isEmpty())
+                return;
+            Iterator Insuitr = Insuranceresult.iterator();
+            while(Insuitr.hasNext()){
+                I = (InsuranceRequests)Insuitr.next();
+                if(a.getOrganization().equalsIgnoreCase(I.getFromHospital()))
+                    InsReq.add(I);
+            }
+        }
+        catch(DatabaseClosedException | Db4oIOException E){
+            JOptionPane.showMessageDialog(this, "Database Error.");
+        }
+        this.InsReq = InsReq;
+    }
+    
     void populateInsuranceDropdown(){
         cmbBoxOrgansation.removeAllItems();
         try{
@@ -121,6 +171,40 @@ public class AdminHospital extends javax.swing.JPanel {
         }
         catch(NullPointerException E){
             return;
+        }
+    }
+    
+    void populatePhOrderstable(){
+        PhMod.setRowCount(0);
+        try{
+            Iterator itr = PhOrders.iterator();
+            while(itr.hasNext()){
+                PharmacyOrders P = (PharmacyOrders)itr.next();
+
+                if(P.getFromHospital().equalsIgnoreCase(a.getOrganization())){
+                    String data[] = {P.getFromHospital(), P.getMedicine(), String.valueOf(P.getQuantity()), P.getStatus()};
+                    PhMod.addRow(data);
+                }
+            }
+        }
+        catch(NullPointerException E){
+            JOptionPane.showMessageDialog(this, "Orders List is Empty");
+        }
+    }
+    
+    void populateInsurancetable(){
+        InsMod.setRowCount(0);
+        try{
+            Iterator itr = InsReq.iterator();
+            while(itr.hasNext()){
+                InsuranceRequests I = (InsuranceRequests)itr.next();
+
+                String data[] = {I.getToOrg(), I.getPatientEmail(), String.valueOf(I.getAmount()), I.getStatus()};
+                InsMod.addRow(data);
+            }
+        }
+        catch(NullPointerException E){
+            JOptionPane.showMessageDialog(this, "No Requests Exist.");
         }
     }
     
@@ -160,6 +244,7 @@ public class AdminHospital extends javax.swing.JPanel {
         Ph.setQuantity(Integer.parseInt(txtQuantity.getText().trim()));
         Ph.setFromHospital(a.getOrganization());
         Ph.setTimeStamp();
+        Ph.setStatus("Pending");
         return Ph;
     }
     
@@ -170,6 +255,7 @@ public class AdminHospital extends javax.swing.JPanel {
         Ir.setAmount(Integer.parseInt(txtAmount.getText()));
         Ir.setFromHospital(a.getOrganization());
         Ir.setTimeStamp();
+        Ir.setStatus("Pending");
         return Ir;
     }
     
@@ -303,6 +389,9 @@ public class AdminHospital extends javax.swing.JPanel {
         txtQuantity = new javax.swing.JTextField();
         cmbPharmacyorg = new javax.swing.JComboBox<>();
         jLabel1 = new javax.swing.JLabel();
+        jScrollPane2 = new javax.swing.JScrollPane();
+        tblPharmacy = new javax.swing.JTable();
+        btnPhDeleteOrder = new javax.swing.JButton();
         ReuestInsuranceFunds = new javax.swing.JPanel();
         btnSend = new javax.swing.JButton();
         lblAmount = new javax.swing.JLabel();
@@ -311,6 +400,8 @@ public class AdminHospital extends javax.swing.JPanel {
         txtPatientId = new javax.swing.JTextField();
         lblOrganisation = new javax.swing.JLabel();
         cmbBoxOrgansation = new javax.swing.JComboBox<>();
+        jScrollPane3 = new javax.swing.JScrollPane();
+        tblInsuranceReqs = new javax.swing.JTable();
         lblHeaderHospital = new javax.swing.JLabel();
 
         lblHospitalLogo.setBackground(new java.awt.Color(204, 153, 0));
@@ -602,7 +693,7 @@ public class AdminHospital extends javax.swing.JPanel {
         );
         ViewDoctorsLayout.setVerticalGroup(
             ViewDoctorsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 599, Short.MAX_VALUE)
+            .addGap(0, 717, Short.MAX_VALUE)
             .addGroup(ViewDoctorsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(ViewDoctorsLayout.createSequentialGroup()
                     .addGap(0, 0, Short.MAX_VALUE)
@@ -633,6 +724,31 @@ public class AdminHospital extends javax.swing.JPanel {
 
         jLabel1.setText("Organization");
 
+        tblPharmacy.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+
+            },
+            new String [] {
+                "Organisation", "Medicine", "Quantity", "Status"
+            }
+        ) {
+            boolean[] canEdit = new boolean [] {
+                false, false, false, false
+            };
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
+        });
+        jScrollPane2.setViewportView(tblPharmacy);
+
+        btnPhDeleteOrder.setText("Delete");
+        btnPhDeleteOrder.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnPhDeleteOrderActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout OrderMedicinesLayout = new javax.swing.GroupLayout(OrderMedicines);
         OrderMedicines.setLayout(OrderMedicinesLayout);
         OrderMedicinesLayout.setHorizontalGroup(
@@ -640,22 +756,28 @@ public class AdminHospital extends javax.swing.JPanel {
             .addGroup(OrderMedicinesLayout.createSequentialGroup()
                 .addGroup(OrderMedicinesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(OrderMedicinesLayout.createSequentialGroup()
+                        .addGap(286, 286, 286)
+                        .addComponent(btnOrder))
+                    .addGroup(OrderMedicinesLayout.createSequentialGroup()
                         .addGap(57, 57, 57)
                         .addGroup(OrderMedicinesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(cmbPharmacyorg, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabel1))
-                        .addGap(37, 37, 37)
-                        .addGroup(OrderMedicinesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(txtMedicineName, javax.swing.GroupLayout.PREFERRED_SIZE, 157, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(lblMedicineName))
-                        .addGap(48, 48, 48)
-                        .addGroup(OrderMedicinesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(lblQuantity, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(txtQuantity)))
+                            .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 557, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGroup(OrderMedicinesLayout.createSequentialGroup()
+                                .addGroup(OrderMedicinesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(cmbPharmacyorg, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(jLabel1))
+                                .addGap(37, 37, 37)
+                                .addGroup(OrderMedicinesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(txtMedicineName, javax.swing.GroupLayout.PREFERRED_SIZE, 157, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(lblMedicineName))
+                                .addGap(48, 48, 48)
+                                .addGroup(OrderMedicinesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                    .addComponent(lblQuantity, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                    .addComponent(txtQuantity)))))
                     .addGroup(OrderMedicinesLayout.createSequentialGroup()
-                        .addGap(286, 286, 286)
-                        .addComponent(btnOrder)))
-                .addContainerGap(298, Short.MAX_VALUE))
+                        .addGap(289, 289, 289)
+                        .addComponent(btnPhDeleteOrder)))
+                .addContainerGap(128, Short.MAX_VALUE))
         );
         OrderMedicinesLayout.setVerticalGroup(
             OrderMedicinesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -672,7 +794,11 @@ public class AdminHospital extends javax.swing.JPanel {
                     .addComponent(cmbPharmacyorg, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(31, 31, 31)
                 .addComponent(btnOrder)
-                .addContainerGap(430, Short.MAX_VALUE))
+                .addGap(57, 57, 57)
+                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 191, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(33, 33, 33)
+                .addComponent(btnPhDeleteOrder)
+                .addContainerGap(231, Short.MAX_VALUE))
         );
 
         cardPanel.add(OrderMedicines, "card4");
@@ -704,6 +830,24 @@ public class AdminHospital extends javax.swing.JPanel {
 
         cmbBoxOrgansation.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
 
+        tblInsuranceReqs.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+
+            },
+            new String [] {
+                "Organization", "PatientID", "Amount", "Status"
+            }
+        ) {
+            boolean[] canEdit = new boolean [] {
+                true, false, false, false
+            };
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
+        });
+        jScrollPane3.setViewportView(tblInsuranceReqs);
+
         javax.swing.GroupLayout ReuestInsuranceFundsLayout = new javax.swing.GroupLayout(ReuestInsuranceFunds);
         ReuestInsuranceFunds.setLayout(ReuestInsuranceFundsLayout);
         ReuestInsuranceFundsLayout.setHorizontalGroup(
@@ -721,14 +865,21 @@ public class AdminHospital extends javax.swing.JPanel {
                     .addComponent(cmbBoxOrgansation, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(307, 307, 307))
             .addGroup(ReuestInsuranceFundsLayout.createSequentialGroup()
-                .addGap(286, 286, 286)
-                .addComponent(btnSend)
+                .addGroup(ReuestInsuranceFundsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(ReuestInsuranceFundsLayout.createSequentialGroup()
+                        .addGap(286, 286, 286)
+                        .addComponent(btnSend))
+                    .addGroup(ReuestInsuranceFundsLayout.createSequentialGroup()
+                        .addGap(96, 96, 96)
+                        .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         ReuestInsuranceFundsLayout.setVerticalGroup(
             ReuestInsuranceFundsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, ReuestInsuranceFundsLayout.createSequentialGroup()
-                .addContainerGap(328, Short.MAX_VALUE)
+                .addGap(50, 50, 50)
+                .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 237, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 159, Short.MAX_VALUE)
                 .addGroup(ReuestInsuranceFundsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(lblOrganisation)
                     .addComponent(cmbBoxOrgansation, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -850,6 +1001,8 @@ public class AdminHospital extends javax.swing.JPanel {
         // TODO add your handling code here:
         PullOrgstoSet();
         populatePharmacyDropdown();
+        PullPhOrderstoList();
+        populatePhOrderstable();
         cardPanel.setVisible(true);
         Card.show(cardPanel, "card4");
     }//GEN-LAST:event_btnOrderMedicinesActionPerformed
@@ -858,6 +1011,8 @@ public class AdminHospital extends javax.swing.JPanel {
         // TODO add your handling code here:
         PullOrgstoSet();
         populateInsuranceDropdown();
+        PullInsuranceRequeststoList();
+        populateInsurancetable();
         Card.show(cardPanel, "card5");
         cardPanel.setVisible(true);
     }//GEN-LAST:event_btnInsuranceFundsActionPerformed
@@ -895,6 +1050,8 @@ public class AdminHospital extends javax.swing.JPanel {
             txtPatientId.setText("");
             txtAmount.setText("");
             JOptionPane.showMessageDialog(this, "Request Sent.");
+            PullInsuranceRequeststoList();
+            populateInsurancetable();
         }
     }//GEN-LAST:event_btnSendActionPerformed
 
@@ -904,8 +1061,32 @@ public class AdminHospital extends javax.swing.JPanel {
         AddPhOrderstoDB(Ph);
         txtMedicineName.setText("");
         txtQuantity.setText("");
+        PullPhOrderstoList();
+        populatePhOrderstable();
         JOptionPane.showMessageDialog(this, "Order Placed");
     }//GEN-LAST:event_btnOrderActionPerformed
+
+    private void btnPhDeleteOrderActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPhDeleteOrderActionPerformed
+        // TODO add your handling code here:
+        if(tblPharmacy.getSelectedRow() < 0)
+            return;
+        int row = tblPharmacy.getSelectedRow();
+        String Pharmacy = tblPharmacy.getValueAt(row, 0).toString();
+        String Medicine = tblPharmacy.getValueAt(row, 1).toString();
+        String Quantity = tblPharmacy.getValueAt(row, 2).toString();
+        
+        Iterator itr = PhOrders.iterator();
+        while(itr.hasNext()){
+            PharmacyOrders Ph = (PharmacyOrders)itr.next();
+            
+            if(Ph.getToOrg().equalsIgnoreCase(Pharmacy) && Ph.getMedicine().equals(Medicine) && Ph.getStatus().equalsIgnoreCase("Pending") && Ph.getQuantity() == Integer.parseInt(Quantity)){
+                Ph.setStatus("Deleted");
+                AddPhOrderstoDB(Ph);
+                PullPhOrderstoList();
+                populatePhOrderstable();
+            }
+        }
+    }//GEN-LAST:event_btnPhDeleteOrderActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -919,6 +1100,7 @@ public class AdminHospital extends javax.swing.JPanel {
     private javax.swing.JButton btnLogout;
     private javax.swing.JButton btnOrder;
     private javax.swing.JButton btnOrderMedicines;
+    private javax.swing.JButton btnPhDeleteOrder;
     private javax.swing.JButton btnRegisterDoctor;
     private javax.swing.JButton btnSend;
     private javax.swing.JButton btnViewDoctors;
@@ -930,6 +1112,8 @@ public class AdminHospital extends javax.swing.JPanel {
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanelLeft;
     private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JScrollPane jScrollPane2;
+    private javax.swing.JScrollPane jScrollPane3;
     private javax.swing.JLabel lblAddDoctors;
     private javax.swing.JLabel lblAmount;
     private javax.swing.JLabel lblAvailableDays;
@@ -948,6 +1132,8 @@ public class AdminHospital extends javax.swing.JPanel {
     private javax.swing.JLabel lblRatings2;
     private javax.swing.JLabel lblTime;
     private javax.swing.JTable tableViewDoctorsAH;
+    private javax.swing.JTable tblInsuranceReqs;
+    private javax.swing.JTable tblPharmacy;
     private javax.swing.JTextField txtAmount;
     private javax.swing.JTextField txtAvailableDays;
     private javax.swing.JTextField txtEmailIdAH;

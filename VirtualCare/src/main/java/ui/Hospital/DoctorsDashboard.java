@@ -74,8 +74,23 @@ public class DoctorsDashboard extends javax.swing.JPanel {
                 UserSystem.Userdb.store(u);
                 break;
             }
+        }   
+    }
+    
+    void AddPrescription(){
+        try{
+            int row = tblViewPatientsDD.getSelectedRow();
+            Iterator itr = Appointments.iterator();
+            while(itr.hasNext()){
+                UserDetails u = (UserDetails)itr.next();
+                if(u.getEmail().equals(tblViewPatientsDD.getValueAt(row,3).toString())){
+                    d.AddPrescription(u, txtAddPrescribtion.getText().trim());
+                }
+            }
         }
-        
+        catch(NullPointerException E){
+            JOptionPane.showMessageDialog(this, "No Appointments Available.");
+        }
     }
     
     /**
@@ -165,6 +180,11 @@ public class DoctorsDashboard extends javax.swing.JPanel {
         });
 
         btnAddPrescribtion.setText("Add Prescribtion");
+        btnAddPrescribtion.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnAddPrescribtionActionPerformed(evt);
+            }
+        });
 
         txtAddPrescribtion.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -270,8 +290,19 @@ public class DoctorsDashboard extends javax.swing.JPanel {
         if(tblViewPatientsDD.getSelectedRow() == 0)
             return;
         deleteAppointment();
+        JOptionPane.showMessageDialog(this, "Appointment Deleted.");
         populateappointmentstable();
     }//GEN-LAST:event_jButton2ActionPerformed
+
+    private void btnAddPrescribtionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAddPrescribtionActionPerformed
+        // TODO add your handling code here:
+        if(tblViewPatientsDD.getSelectedRow() < 0){
+            JOptionPane.showMessageDialog(this, "Select a Patient");
+            return;
+        }
+        AddPrescription();
+        JOptionPane.showMessageDialog(this, "Prescription Added.");
+    }//GEN-LAST:event_btnAddPrescribtionActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

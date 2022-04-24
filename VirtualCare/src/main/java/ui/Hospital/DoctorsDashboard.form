@@ -209,6 +209,9 @@
               <Properties>
                 <Property name="text" type="java.lang.String" value="Add Prescribtion"/>
               </Properties>
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnAddPrescribtionActionPerformed"/>
+              </Events>
             </Component>
             <Container class="javax.swing.JPanel" name="addPrescribtion">
 

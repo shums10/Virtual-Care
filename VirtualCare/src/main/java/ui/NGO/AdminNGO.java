@@ -62,17 +62,17 @@ public class AdminNGO extends javax.swing.JPanel {
     
     void populateNGOtable(){
         NGOMod.setRowCount(0);
-        Iterator itr = NGOReqs.iterator();
-        while(itr.hasNext()){
-            NGORequests N = (NGORequests)itr.next();
-            if(N.getStatus() == null){
-                String data[] = {N.getPatientID(), String.valueOf(N.getAnnualIncome()), String.valueOf(N.getAmount()), "Pending"};
-                NGOMod.addRow(data);
-            }
-            else{
+        try{
+            Iterator itr = NGOReqs.iterator();
+            while(itr.hasNext()){
+                NGORequests N = (NGORequests)itr.next();
+
                 String data[] = {N.getPatientID(), String.valueOf(N.getAnnualIncome()), String.valueOf(N.getAmount()), N.getStatus()};
                 NGOMod.addRow(data);
             }
+        }
+        catch(NullPointerException E){
+            JOptionPane.showMessageDialog(this, "No Active NGO Requests available");
         }
     }
     

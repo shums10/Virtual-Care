@@ -30,13 +30,8 @@ public class AdminInsurance extends javax.swing.JPanel {
         this.a = a;
         DefaultTableModel InsMod = (DefaultTableModel) tblViewInsuranceRequest.getModel();
         this.InsMod = InsMod;
-        try{
-            PullInsuranceRequeststoList();
-            populateNGOtable();
-        }
-        catch(NullPointerException E){
-            JOptionPane.showMessageDialog(this, "No Requests Exist.");
-        }
+        PullInsuranceRequeststoList();
+        populateInsurancetable();
     }
 
     AdminDetails a;
@@ -70,19 +65,19 @@ public class AdminInsurance extends javax.swing.JPanel {
         this.InsReq = InsReq;
     }
     
-    void populateNGOtable(){
+    void populateInsurancetable(){
         InsMod.setRowCount(0);
-        Iterator itr = InsReq.iterator();
-        while(itr.hasNext()){
-            InsuranceRequests I = (InsuranceRequests)itr.next();
-            if(I.getStatus() == null){
-                String data[] = {I.getFromHospital(), I.getPatientEmail(), String.valueOf(I.getAmount()), "Pending"};
-                InsMod.addRow(data);
-            }
-            else{
+        try{
+            Iterator itr = InsReq.iterator();
+            while(itr.hasNext()){
+                InsuranceRequests I = (InsuranceRequests)itr.next();
+
                 String data[] = {I.getFromHospital(), I.getPatientEmail(), String.valueOf(I.getAmount()), I.getStatus()};
                 InsMod.addRow(data);
             }
+        }
+        catch(NullPointerException E){
+            JOptionPane.showMessageDialog(this, "No Requests Exist.");
         }
     }
     @SuppressWarnings("unchecked")
@@ -93,6 +88,7 @@ public class AdminInsurance extends javax.swing.JPanel {
         jScrollPane1 = new javax.swing.JScrollPane();
         tblViewInsuranceRequest = new javax.swing.JTable();
         btnApprove = new javax.swing.JButton();
+        btnDecline = new javax.swing.JButton();
 
         tblViewInsuranceRequest.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -122,6 +118,13 @@ public class AdminInsurance extends javax.swing.JPanel {
             }
         });
 
+        btnDecline.setText("Decline");
+        btnDecline.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnDeclineActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
@@ -134,10 +137,12 @@ public class AdminInsurance extends javax.swing.JPanel {
                 .addContainerGap(96, Short.MAX_VALUE)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 664, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(26, Short.MAX_VALUE))
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addGroup(layout.createSequentialGroup()
+                .addGap(279, 279, 279)
                 .addComponent(btnApprove)
-                .addGap(311, 311, 311))
+                .addGap(74, 74, 74)
+                .addComponent(btnDecline)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -146,9 +151,11 @@ public class AdminInsurance extends javax.swing.JPanel {
                 .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 56, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(43, 43, 43)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 192, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
-                .addComponent(btnApprove)
-                .addContainerGap(234, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(btnApprove)
+                    .addComponent(btnDecline))
+                .addContainerGap(240, Short.MAX_VALUE))
         );
     }// </editor-fold>//GEN-END:initComponents
 
@@ -171,12 +178,35 @@ public class AdminInsurance extends javax.swing.JPanel {
             }
         }
         JOptionPane.showMessageDialog(this, "Request Approved.");
-        populateNGOtable();
+        populateInsurancetable();
     }//GEN-LAST:event_btnApproveActionPerformed
+
+    private void btnDeclineActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDeclineActionPerformed
+        // TODO add your handling code here:
+        if(tblViewInsuranceRequest.getSelectedRow() < 0)
+            return;
+        int Row = tblViewInsuranceRequest.getSelectedRow();
+        String PatientEmail = tblViewInsuranceRequest.getValueAt(Row, 1).toString();
+        
+        InsuranceRequests I;
+        
+        Iterator itr = InsReq.iterator();
+        while(itr.hasNext()){
+            I = (InsuranceRequests)itr.next();
+            if(I.getPatientEmail().equalsIgnoreCase(PatientEmail)){
+                I.setStatus("Declined");
+                AdminHospital.AddInsRequeststoDB(I);
+                break;
+            }
+        }
+        JOptionPane.showMessageDialog(this, "Request Approved.");
+        populateInsurancetable();
+    }//GEN-LAST:event_btnDeclineActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnApprove;
+    private javax.swing.JButton btnDecline;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTable tblViewInsuranceRequest;
