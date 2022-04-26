@@ -4,13 +4,9 @@
  */
 package ui.Admin;
 
-import com.db4o.Db4oEmbedded;
-import com.db4o.ObjectContainer;
 import com.db4o.ext.DatabaseClosedException;
 import com.db4o.ext.Db4oIOException;
 import java.awt.CardLayout;
-import java.nio.file.Path;
-import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collection;
@@ -18,6 +14,7 @@ import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
 import javax.swing.JOptionPane;
+import javax.swing.JSplitPane;
 import javax.swing.table.DefaultTableModel;
 import model.AdminDetails;
 import model.UserDetails;
@@ -32,7 +29,7 @@ public class AdminSystem extends javax.swing.JPanel {
     /**
      * Creates new form AdminSystem
      */
-    public AdminSystem(AdminDetails a) {
+    public AdminSystem(JSplitPane SplitPane, AdminDetails a) {
         initComponents();
         this.a = a;
         Card = (CardLayout) cardLayout.getLayout();
@@ -41,8 +38,10 @@ public class AdminSystem extends javax.swing.JPanel {
         DefaultTableModel UserMod = (DefaultTableModel) UsersTable.getModel();
         this.UserMod = UserMod;
         this.OrgMod = OrgMod;
+        this.SplitPane = SplitPane;
     }
-
+    
+    JSplitPane SplitPane;
     CardLayout Card;
     AdminDetails a;
     HashMap<String, UserDetails> UserMap;
@@ -169,6 +168,19 @@ public class AdminSystem extends javax.swing.JPanel {
         catch(NullPointerException E){
             return;
         }
+    }
+    
+    void CheckBlankFields(){
+        if(txtNameOfOrganisationAS.getText().trim().equals(""))
+            JOptionPane.showMessageDialog(this, "Fields can't be blank");
+        else if(txtLocationAS.getText().trim().equals(""))
+            JOptionPane.showMessageDialog(this, "Fields can't be blank");
+        else if(txtRatingsAS.getText().trim().equals(""))
+            JOptionPane.showMessageDialog(this, "Fields can't be blank");
+        else if(txtEmailIdAS.getText().trim().equals(""))
+            JOptionPane.showMessageDialog(this, "Fields can't be blank");
+        else if(txtPasswordAS.getText().trim().equals(""))
+            JOptionPane.showMessageDialog(this, "Fields can't be blank");
     }
     /**
      * This method is called from within the constructor to initialize the form.
@@ -600,19 +612,24 @@ public class AdminSystem extends javax.swing.JPanel {
 
     private void jButton1ASActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ASActionPerformed
         // TODO add your handling code here:
-        AdminDetails a = makeAdmin();
-        AddAdmintoDB(a);
+        CheckBlankFields();
+        try{
+            AdminDetails a = makeAdmin();
+            AddAdmintoDB(a);
+            JOptionPane.showMessageDialog(this, "Organization Added");
+        }
+        catch(NumberFormatException E){
+            JOptionPane.showMessageDialog(this, "Ratings should be a number");
+        }
         clearorgfields();
-        JOptionPane.showMessageDialog(this, "Organization Added");
     }//GEN-LAST:event_jButton1ASActionPerformed
 
     private void btnLogOutActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLogOutActionPerformed
         // TODO add your handling code here:
         UserSystem LoginPanel = new UserSystem();
-        this.removeAll();
-        this.add(LoginPanel.SplitPane);
-        this.repaint();
-
+        SplitPane.removeAll();
+        SplitPane.add(LoginPanel.SplitPane);
+        SplitPane.repaint();
     }//GEN-LAST:event_btnLogOutActionPerformed
 
     private void btnViewOrganisationsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnViewOrganisationsActionPerformed

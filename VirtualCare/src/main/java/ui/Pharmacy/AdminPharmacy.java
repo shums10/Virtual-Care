@@ -10,6 +10,7 @@ import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 import javax.swing.JOptionPane;
+import javax.swing.JSplitPane;
 import javax.swing.table.DefaultTableModel;
 import model.AdminDetails;
 import model.PharmacyOrders;
@@ -25,14 +26,16 @@ public class AdminPharmacy extends javax.swing.JPanel {
     /**
      * Creates new form AdminPharmacy
      */
-    public AdminPharmacy(AdminDetails a) {
+    public AdminPharmacy(JSplitPane SplitPane, AdminDetails a) {
         initComponents();
         this.a = a;
         DefaultTableModel PhMod = (DefaultTableModel) tblMedicineRequests.getModel();
         this.PhMod = PhMod;
         jLabel1.setText("Pharmacy " + a.getOrganization());
+        this.SplitPane = SplitPane;
     }
 
+    JSplitPane SplitPane;
     AdminDetails a;
     ArrayList<PharmacyOrders> PhReq;
     DefaultTableModel PhMod;
@@ -85,6 +88,7 @@ public class AdminPharmacy extends javax.swing.JPanel {
         jScrollPane1 = new javax.swing.JScrollPane();
         tblMedicineRequests = new javax.swing.JTable();
         btnDelivered = new javax.swing.JButton();
+        btnLogout = new javax.swing.JButton();
 
         jLabel1.setText("Pharmacy");
 
@@ -116,6 +120,13 @@ public class AdminPharmacy extends javax.swing.JPanel {
             }
         });
 
+        btnLogout.setText("Logout");
+        btnLogout.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnLogoutActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
@@ -130,7 +141,10 @@ public class AdminPharmacy extends javax.swing.JPanel {
                         .addComponent(btnDelivered))
                     .addGroup(layout.createSequentialGroup()
                         .addGap(248, 248, 248)
-                        .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 245, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 245, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addContainerGap()
+                        .addComponent(btnLogout)))
                 .addContainerGap(80, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
@@ -142,7 +156,9 @@ public class AdminPharmacy extends javax.swing.JPanel {
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 137, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(44, 44, 44)
                 .addComponent(btnDelivered)
-                .addContainerGap(216, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 168, Short.MAX_VALUE)
+                .addComponent(btnLogout)
+                .addContainerGap())
         );
     }// </editor-fold>//GEN-END:initComponents
 
@@ -170,9 +186,18 @@ public class AdminPharmacy extends javax.swing.JPanel {
         populateOrderstable();
     }//GEN-LAST:event_btnDeliveredActionPerformed
 
+    private void btnLogoutActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLogoutActionPerformed
+        // TODO add your handling code here:
+        UserSystem LoginPanel = new UserSystem();
+        SplitPane.removeAll();
+        SplitPane.add(LoginPanel.SplitPane);
+        SplitPane.repaint();
+    }//GEN-LAST:event_btnLogoutActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnDelivered;
+    private javax.swing.JButton btnLogout;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTable tblMedicineRequests;

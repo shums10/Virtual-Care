@@ -8,6 +8,7 @@ import java.awt.CardLayout;
 import java.util.ArrayList;
 import java.util.Iterator;
 import javax.swing.JOptionPane;
+import javax.swing.JSplitPane;
 import javax.swing.table.DefaultTableModel;
 import model.DoctorDetails;
 import model.UserDetails;
@@ -22,7 +23,7 @@ public class DoctorsDashboard extends javax.swing.JPanel {
     /**
      * Creates new form DoctorsDashboard
      */
-    public DoctorsDashboard(DoctorDetails d) {
+    public DoctorsDashboard(JSplitPane SplitPane, DoctorDetails d) {
         initComponents();
         this.d = d;
         DefaultTableModel AptMod = (DefaultTableModel) tblViewPatientsDD.getModel();
@@ -31,8 +32,10 @@ public class DoctorsDashboard extends javax.swing.JPanel {
         CardLayout Card = (CardLayout) cardLayout.getLayout();
         this.Card = Card;
         cardLayout.setVisible(false);
+        this.SplitPane = SplitPane;
     }
     
+    JSplitPane SplitPane;
     DoctorDetails d;
     DefaultTableModel AptMod;
     ArrayList<UserDetails> Appointments;
@@ -273,9 +276,9 @@ public class DoctorsDashboard extends javax.swing.JPanel {
     private void btnLogoutActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLogoutActionPerformed
         // TODO add your handling code here:
         UserSystem LoginPanel = new UserSystem();
-        this.removeAll();
-        this.add(LoginPanel.SplitPane);
-        this.repaint();
+        SplitPane.removeAll();
+        SplitPane.add(LoginPanel.SplitPane);
+        SplitPane.repaint();
     }//GEN-LAST:event_btnLogoutActionPerformed
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed

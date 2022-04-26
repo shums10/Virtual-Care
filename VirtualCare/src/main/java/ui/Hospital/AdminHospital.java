@@ -15,6 +15,7 @@ import java.util.Iterator;
 import java.util.LinkedHashSet;
 import java.util.List;
 import javax.swing.JOptionPane;
+import javax.swing.JSplitPane;
 import javax.swing.table.DefaultTableModel;
 import model.AdminDetails;
 import model.DoctorDetails;
@@ -32,7 +33,7 @@ public class AdminHospital extends javax.swing.JPanel {
     /**
      * Creates new form AdminHospital
      */
-    public AdminHospital(AdminDetails a) {
+    public AdminHospital(JSplitPane SplitPane, AdminDetails a) {
         initComponents();
         this.a = a;
         lblHeaderHospital.setText("Welcome To " + a.getOrganization());
@@ -44,8 +45,10 @@ public class AdminHospital extends javax.swing.JPanel {
         this.DocMod = DocMod;
         this.PhMod = PhMod;
         this.InsMod = InsMod;
+        this.SplitPane = SplitPane;
     }
 
+    JSplitPane SplitPane;
     AdminDetails a;
     CardLayout Card;
     HashMap<String, DoctorDetails> DoctorMap;
@@ -957,10 +960,16 @@ public class AdminHospital extends javax.swing.JPanel {
 
     private void btnRegisterDoctorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRegisterDoctorActionPerformed
         // TODO add your handling code here:
+        try{
         DoctorDetails d = MakeDoctor();
         AddDoctortoDB(d);
-        clearallfields();
         JOptionPane.showMessageDialog(this, "Doctor Added.");
+        }
+        catch(NumberFormatException E){
+            JOptionPane.showMessageDialog(this, "Fees and Ratings should be a number");
+            return;
+        }
+        clearallfields();
     }//GEN-LAST:event_btnRegisterDoctorActionPerformed
 
     private void txtTimeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtTimeActionPerformed
@@ -1033,9 +1042,9 @@ public class AdminHospital extends javax.swing.JPanel {
     private void btnLogoutActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLogoutActionPerformed
         // TODO add your handling code here:
         UserSystem LoginPanel = new UserSystem();
-        this.removeAll();
-        this.add(LoginPanel.SplitPane);
-        this.repaint();
+        SplitPane.removeAll();
+        SplitPane.add(LoginPanel.SplitPane);
+        SplitPane.repaint();
     }//GEN-LAST:event_btnLogoutActionPerformed
 
     private void btnSendActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSendActionPerformed

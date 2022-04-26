@@ -10,6 +10,7 @@ import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 import javax.swing.JOptionPane;
+import javax.swing.JSplitPane;
 import javax.swing.table.DefaultTableModel;
 import model.AdminDetails;
 import model.InsuranceRequests;
@@ -25,15 +26,17 @@ public class AdminInsurance extends javax.swing.JPanel {
     /**
      * Creates new form AdminInsurance
      */
-    public AdminInsurance(AdminDetails a) {
+    public AdminInsurance(JSplitPane SplitPane, AdminDetails a) {
         initComponents();
         this.a = a;
         DefaultTableModel InsMod = (DefaultTableModel) tblViewInsuranceRequest.getModel();
         this.InsMod = InsMod;
         PullInsuranceRequeststoList();
         populateInsurancetable();
+        this.SplitPane = SplitPane;
     }
 
+    JSplitPane SplitPane;
     AdminDetails a;
     ArrayList<InsuranceRequests> InsReq;
     DefaultTableModel InsMod;
@@ -89,6 +92,7 @@ public class AdminInsurance extends javax.swing.JPanel {
         tblViewInsuranceRequest = new javax.swing.JTable();
         btnApprove = new javax.swing.JButton();
         btnDecline = new javax.swing.JButton();
+        btnLogout = new javax.swing.JButton();
 
         tblViewInsuranceRequest.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -125,6 +129,13 @@ public class AdminInsurance extends javax.swing.JPanel {
             }
         });
 
+        btnLogout.setText("Logout");
+        btnLogout.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnLogoutActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
@@ -143,6 +154,10 @@ public class AdminInsurance extends javax.swing.JPanel {
                 .addGap(74, 74, 74)
                 .addComponent(btnDecline)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+            .addGroup(layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(btnLogout)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -155,7 +170,9 @@ public class AdminInsurance extends javax.swing.JPanel {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnApprove)
                     .addComponent(btnDecline))
-                .addContainerGap(240, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 192, Short.MAX_VALUE)
+                .addComponent(btnLogout)
+                .addContainerGap())
         );
     }// </editor-fold>//GEN-END:initComponents
 
@@ -203,10 +220,19 @@ public class AdminInsurance extends javax.swing.JPanel {
         populateInsurancetable();
     }//GEN-LAST:event_btnDeclineActionPerformed
 
+    private void btnLogoutActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLogoutActionPerformed
+        // TODO add your handling code here:
+        UserSystem LoginPanel = new UserSystem();
+        SplitPane.removeAll();
+        SplitPane.add(LoginPanel);
+        SplitPane.repaint();
+    }//GEN-LAST:event_btnLogoutActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnApprove;
     private javax.swing.JButton btnDecline;
+    private javax.swing.JButton btnLogout;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTable tblViewInsuranceRequest;

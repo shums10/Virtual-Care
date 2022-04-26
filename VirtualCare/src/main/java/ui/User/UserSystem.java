@@ -452,7 +452,7 @@ public class UserSystem extends javax.swing.JFrame {
         AdminDetails a = AdminMap.get(txtUserEmail.getText().trim());
         DoctorDetails d = DoctorMap.get(txtUserEmail.getText().trim());
         if(txtUserEmail.getText().trim().equals("SysAdmin@virtualcare.com") && String.valueOf(txtPassword.getPassword()).equals("SysAdmin") && rdBtnAdmin.isSelected()){
-           AdminSystem Dashboard = new AdminSystem(a);
+           AdminSystem Dashboard = new AdminSystem(SplitPane, a);
            SplitPane.setDividerSize(0);
            SplitPane.remove(jPanel2);
            SplitPane.setRightComponent(Dashboard);
@@ -468,25 +468,25 @@ public class UserSystem extends javax.swing.JFrame {
                 }
                 else{
                     if(cmbBoxEnterprise.getSelectedItem().equals("Hospital")){
-                        AdminHospital Dashboard = new AdminHospital(a);
+                        AdminHospital Dashboard = new AdminHospital(SplitPane, a);
                         SplitPane.setDividerSize(0);
                         SplitPane.remove(jPanel2);
                         SplitPane.setRightComponent(Dashboard);
                     }
                     else if(cmbBoxEnterprise.getSelectedItem().equals("NGO")){
-                        AdminNGO Dashboard = new AdminNGO(a);
+                        AdminNGO Dashboard = new AdminNGO(SplitPane, a);
                         SplitPane.setDividerSize(0);
                         SplitPane.remove(jPanel2);
                         SplitPane.setRightComponent(Dashboard);
                     }
                     else if(cmbBoxEnterprise.getSelectedItem().equals("Pharmacy")){
-                        AdminPharmacy Dashboard = new AdminPharmacy(a);
+                        AdminPharmacy Dashboard = new AdminPharmacy(SplitPane, a);
                         SplitPane.setDividerSize(0);
                         SplitPane.remove(jPanel2);
                         SplitPane.setRightComponent(Dashboard);
                     }
                     else{
-                        AdminInsurance Dashboard = new AdminInsurance(a);
+                        AdminInsurance Dashboard = new AdminInsurance(SplitPane, a);
                         SplitPane.setDividerSize(0);
                         SplitPane.remove(jPanel2);
                         SplitPane.setRightComponent(Dashboard);
@@ -497,7 +497,7 @@ public class UserSystem extends javax.swing.JFrame {
             if(!Arrays.toString(txtPassword.getPassword()).equals(u.getPassword()))
                 JOptionPane.showMessageDialog(this, "Incorrect Password. Try Again.");
             else{
-                UserDashboard Dashboard = new UserDashboard(u);
+                UserDashboard Dashboard = new UserDashboard(SplitPane, u);
                 SplitPane.setDividerSize(0);
                 SplitPane.remove(jPanel2);
                 SplitPane.setRightComponent(Dashboard);
@@ -507,7 +507,7 @@ public class UserSystem extends javax.swing.JFrame {
             if(!Arrays.toString(txtPassword.getPassword()).equals(d.getPassword()))
                 JOptionPane.showMessageDialog(this, "Incorrect Password. Try Again.");
             else{
-                DoctorsDashboard Dashboard = new DoctorsDashboard(d);
+                DoctorsDashboard Dashboard = new DoctorsDashboard(SplitPane, d);
                 SplitPane.setDividerSize(0);
                 SplitPane.remove(jPanel2);
                 SplitPane.setRightComponent(Dashboard);

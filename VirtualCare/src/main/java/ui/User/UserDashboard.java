@@ -18,6 +18,7 @@ import java.util.LinkedHashSet;
 import java.util.List;
 import java.util.TreeMap;
 import javax.swing.JOptionPane;
+import javax.swing.JSplitPane;
 import javax.swing.table.DefaultTableModel;
 import model.AdminDetails;
 import model.DoctorDetails;
@@ -33,7 +34,7 @@ public class UserDashboard extends javax.swing.JPanel {
     /**
      * Creates new form UserDashboard
      */
-    public UserDashboard(UserDetails u) {
+    public UserDashboard(JSplitPane SplitPane, UserDetails u) {
         initComponents();
         this.u = u;
         fillaccountfields();
@@ -48,8 +49,10 @@ public class UserDashboard extends javax.swing.JPanel {
         this.AptMod = AptMod;
         this.ViewAptMod = AptMod;
         this.NGOMod = NGOMod;
+        this.SplitPane = SplitPane;
     }
 
+    JSplitPane SplitPane;
     CardLayout Card;
     UserDetails u;
     
@@ -231,6 +234,36 @@ public class UserDashboard extends javax.swing.JPanel {
         }
     }
     
+    void CheckBlankFields(){
+        if(txtCityUAD.getText().trim().equals("")){
+            JOptionPane.showMessageDialog(this, "Fields can't be blank");
+        }
+        else if(txtDobUAD.getDate().toString().equals("")){
+            JOptionPane.showMessageDialog(this, "Fields can't be blank");
+        }
+        else if(txtEmailIdUAD.getText().trim().equals("")){
+            JOptionPane.showMessageDialog(this, "Fields can't be blank");
+        }
+        else if(txtFirstNameUAD.getText().trim().equals("")){
+            JOptionPane.showMessageDialog(this, "Fields can't be blank");
+        }
+        else if(txtPhoneNumberAD.getText().trim().equals("")){
+            JOptionPane.showMessageDialog(this, "Fields can't be blank");
+        }
+        else if(txtLastNameUAD.getText().trim().equals("")){
+            JOptionPane.showMessageDialog(this, "Fields can't be blank");
+        }
+        else if(txtPinCodeUAD.getText().trim().equals("")){
+            JOptionPane.showMessageDialog(this, "Fields can't be blank");
+        }
+        else if(txtStreetUAD.getText().trim().equals("")){
+            JOptionPane.showMessageDialog(this, "Fields can't be blank");
+        }
+        else if(txtNewPasswordUAD.getText().trim().equals("")){
+            JOptionPane.showMessageDialog(this, "Fields can't be blank");
+        }
+    }
+    
     void populateviewappointments(){
         ViewAptMod.setRowCount(0);
         ArrayList<DoctorDetails> Docs = new ArrayList<>();
@@ -355,6 +388,18 @@ public class UserDashboard extends javax.swing.JPanel {
         }
         catch(NullPointerException E){
             JOptionPane.showMessageDialog(this, "No doctors Added.");
+        }
+    }
+    
+    void CheckBlankFieldsNGO(){
+        if(txtExplanation.getText().trim().equals("")){
+            JOptionPane.showMessageDialog(this, "Fields can't be blank");
+        }
+        else if(txtAnnualIncome.getText().trim().equals("")){
+            JOptionPane.showMessageDialog(this, "Fields can't be blank");
+        }
+        else if(txtRequestAmount.getText().trim().equals("")){
+            JOptionPane.showMessageDialog(this, "Fields can't be blank");
         }
     }
     
@@ -1190,9 +1235,9 @@ public class UserDashboard extends javax.swing.JPanel {
     private void btnLogoutActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLogoutActionPerformed
         // TODO add your handling code here:
         UserSystem LoginPanel = new UserSystem();
-        this.removeAll();
-        this.add(LoginPanel.SplitPane);
-        this.repaint();
+        SplitPane.removeAll();
+        SplitPane.add(LoginPanel.SplitPane);
+        SplitPane.repaint();
     }//GEN-LAST:event_btnLogoutActionPerformed
 
     private void btnDashboardActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDashboardActionPerformed
@@ -1217,33 +1262,40 @@ public class UserDashboard extends javax.swing.JPanel {
 
     private void btnUpdateUADActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnUpdateUADActionPerformed
         // TODO add your handling code here:
-        if(Arrays.toString(txtOldPasswordUAD.getPassword()).equals(u.getPassword())){
-            if(!txtFirstNameUAD.getText().trim().equals(""))
-                u.setFirstName(txtFirstNameUAD.getText().trim());
-            if(!txtLastNameUAD.getText().trim().equals(""))
-                u.setLastName(txtLastNameUAD.getText().trim()); 
-            if(!txtDobUAD.getDateFormatString().trim().equals("")){
-                SimpleDateFormat formatter = new SimpleDateFormat("dd-MMM-yyyy");
-                u.setDOB(formatter.format(txtDobUAD.getDate()).toString());
-            }
-            if(!txtPhoneNumberAD.getText().trim().equals(""))
-                u.setPhonenumber(Long.parseLong(txtPhoneNumberAD.getText().trim()));
-            if(!txtStreetUAD.getText().trim().equals(""))
-                u.setStreet(txtStreetUAD.getText().trim());
-            if(!txtCityUAD.getText().trim().equals(""))
-                u.setCity(txtCityUAD.getText().trim());
-            if(!txtPinCodeUAD.getText().trim().equals(""))
-                u.setPinCode(Integer.parseInt(txtPinCodeUAD.getText().trim()));
-            if(!txtEmailIdUAD.getText().trim().equals(""))
-                u.setEmail(txtEmailIdUAD.getText().trim());
-            if(!(new String(txtNewPasswordUAD.getPassword()).equals("")))
-                u.setPassword(Arrays.toString(txtNewPasswordUAD.getPassword()));
+        CheckBlankFields();
+            try{
+            if(Arrays.toString(txtOldPasswordUAD.getPassword()).equals(u.getPassword())){
+                if(!txtFirstNameUAD.getText().trim().equals(""))
+                    u.setFirstName(txtFirstNameUAD.getText().trim());
+                if(!txtLastNameUAD.getText().trim().equals(""))
+                    u.setLastName(txtLastNameUAD.getText().trim()); 
+                if(!txtDobUAD.getDateFormatString().trim().equals("")){
+                    SimpleDateFormat formatter = new SimpleDateFormat("dd-MMM-yyyy");
+                    u.setDOB(formatter.format(txtDobUAD.getDate()));
+                }
+                if(!txtPhoneNumberAD.getText().trim().equals(""))
+                    u.setPhonenumber(Long.parseLong(txtPhoneNumberAD.getText().trim()));
+                if(!txtStreetUAD.getText().trim().equals(""))
+                    u.setStreet(txtStreetUAD.getText().trim());
+                if(!txtCityUAD.getText().trim().equals(""))
+                    u.setCity(txtCityUAD.getText().trim());
+                if(!txtPinCodeUAD.getText().trim().equals(""))
+                    u.setPinCode(Integer.parseInt(txtPinCodeUAD.getText().trim()));
+                if(!txtEmailIdUAD.getText().trim().equals(""))
+                    u.setEmail(txtEmailIdUAD.getText().trim());
+                if(!(new String(txtNewPasswordUAD.getPassword()).equals("")))
+                    u.setPassword(Arrays.toString(txtNewPasswordUAD.getPassword()));
             
-            SignUp.AddUsertoDB(u);
-            JOptionPane.showMessageDialog(this, "Details Updated.");
-        }
-        else
-            JOptionPane.showMessageDialog(this, "Incorrect Password.");
+                SignUp.AddUsertoDB(u);
+                JOptionPane.showMessageDialog(this, "Details Updated.");
+            }
+            else
+                JOptionPane.showMessageDialog(this, "Incorrect Password.");
+            }
+            catch(NumberFormatException E){
+                JOptionPane.showMessageDialog(this, "PinCode should be a number.");
+            }
+        
 
     }//GEN-LAST:event_btnUpdateUADActionPerformed
 
@@ -1289,8 +1341,14 @@ public class UserDashboard extends javax.swing.JPanel {
 
     private void btnRequestActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRequestActionPerformed
         // TODO add your handling code here:
-        NGORequests N = MakeNGORequests();
-        AddNGOtoDB(N);
+        CheckBlankFieldsNGO();
+        try{
+            NGORequests N = MakeNGORequests();
+            AddNGOtoDB(N);
+        }
+        catch(NumberFormatException E){
+            JOptionPane.showMessageDialog(this, "Amount should be a number.");
+        }
         PullNGORequeststoList();
         populateNGOtable();
         JOptionPane.showMessageDialog(this, "Request Sent");

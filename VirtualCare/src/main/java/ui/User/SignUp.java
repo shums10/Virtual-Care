@@ -5,15 +5,10 @@
 package ui.User;
 
 import model.UserDetails;
-import com.db4o.*;
 import com.db4o.ext.DatabaseClosedException;
 import com.db4o.ext.Db4oIOException;
-import java.nio.file.Path;
-import java.nio.file.Paths;
 import java.text.SimpleDateFormat;
 import java.util.Arrays;
-import java.util.Iterator;
-import java.util.List;
 import javax.swing.JOptionPane;
 
 /**
@@ -43,7 +38,7 @@ public class SignUp extends javax.swing.JPanel {
         UserDetails u = new UserDetails();
         u.setCity(txtCity.getText().trim());
         SimpleDateFormat formatter = new SimpleDateFormat("dd-MMM-yyyy");
-        u.setDOB(formatter.format(txtDoB.getDate()).toString());
+        u.setDOB(formatter.format(txtDoB.getDate()));
         System.out.println(u.getDOB());
         u.setEmail(txtEmailId.getText().trim());
         u.setFirstName(txtFirstName.getText().trim());
@@ -66,6 +61,33 @@ public class SignUp extends javax.swing.JPanel {
         txtReenterPassword.setText("");
     }
 
+    void CheckBlankFields(){
+        if(txtCity.getText().trim().equals("")){
+            JOptionPane.showMessageDialog(this, "Fields can't be blank");
+        }
+        else if(txtDoB.getDate().equals("")){
+            JOptionPane.showMessageDialog(this, "Fields can't be blank");
+        }
+        else if(txtEmailId.getText().trim().equals("")){
+            JOptionPane.showMessageDialog(this, "Fields can't be blank");
+        }
+        else if(txtFirstName.getText().trim().equals("")){
+            JOptionPane.showMessageDialog(this, "Fields can't be blank");
+        }
+        else if(txtLastName.getText().trim().equals("")){
+            JOptionPane.showMessageDialog(this, "Fields can't be blank");
+        }
+        else if(txtPinCode.getText().trim().equals("")){
+            JOptionPane.showMessageDialog(this, "Fields can't be blank");
+        }
+        else if(txtStreet.getText().trim().equals("")){
+            JOptionPane.showMessageDialog(this, "Fields can't be blank");
+        }
+        else if(txtPassword.getText().trim().equals("")){
+            JOptionPane.showMessageDialog(this, "Fields can't be blank");
+        }
+    }
+    
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -285,11 +307,17 @@ public class SignUp extends javax.swing.JPanel {
 
     private void btnRegisterActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRegisterActionPerformed
         // TODO add your handling code here:
+        CheckBlankFields();
         if(Arrays.toString(txtPassword.getPassword()).equals(Arrays.toString(txtReenterPassword.getPassword()))){
-            UserDetails u = MakeUser();
-            AddUsertoDB(u);
-            ClearAllFields();
-            JOptionPane.showMessageDialog(this, "User Added.");
+            try{
+                UserDetails u = MakeUser();
+                AddUsertoDB(u);
+                ClearAllFields();
+                JOptionPane.showMessageDialog(this, "User Added.");
+            }
+            catch(NumberFormatException E){
+                JOptionPane.showMessageDialog(this, "PINCode should be a number.");
+            }
         }
         else
             JOptionPane.showMessageDialog(this, "Re-enter Correct Password.");
