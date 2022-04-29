@@ -75,8 +75,10 @@ public class AdminInsurance extends javax.swing.JPanel {
             while(itr.hasNext()){
                 InsuranceRequests I = (InsuranceRequests)itr.next();
 
-                String data[] = {I.getFromHospital(), I.getPatientEmail(), String.valueOf(I.getAmount()), I.getStatus()};
-                InsMod.addRow(data);
+                if(I.getStatus().equalsIgnoreCase("Pending")){
+                    String data[] = {I.getFromHospital(), I.getPatientEmail(), String.valueOf(I.getAmount()), I.getStatus()};
+                    InsMod.addRow(data);
+                }
             }
         }
         catch(NullPointerException E){
@@ -106,7 +108,7 @@ public class AdminInsurance extends javax.swing.JPanel {
         ViewRequests = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
         tblViewInsuranceRequest = new javax.swing.JTable();
-        btnApprove = new javax.swing.JButton();
+        btnfwdtoAgent = new javax.swing.JButton();
         btnDecline = new javax.swing.JButton();
         btnLogout = new javax.swing.JButton();
 
@@ -254,10 +256,10 @@ public class AdminInsurance extends javax.swing.JPanel {
         });
         jScrollPane1.setViewportView(tblViewInsuranceRequest);
 
-        btnApprove.setText("Approve");
-        btnApprove.addActionListener(new java.awt.event.ActionListener() {
+        btnfwdtoAgent.setText("Forward to Agent");
+        btnfwdtoAgent.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnApproveActionPerformed(evt);
+                btnfwdtoAgentActionPerformed(evt);
             }
         });
 
@@ -285,7 +287,7 @@ public class AdminInsurance extends javax.swing.JPanel {
                         .addGroup(ViewRequestsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(ViewRequestsLayout.createSequentialGroup()
                                 .addGap(139, 139, 139)
-                                .addComponent(btnApprove)
+                                .addComponent(btnfwdtoAgent)
                                 .addGap(121, 121, 121)
                                 .addComponent(btnDecline))
                             .addGroup(ViewRequestsLayout.createSequentialGroup()
@@ -303,7 +305,7 @@ public class AdminInsurance extends javax.swing.JPanel {
                 .addGap(28, 28, 28)
                 .addGroup(ViewRequestsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnDecline)
-                    .addComponent(btnApprove))
+                    .addComponent(btnfwdtoAgent))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 126, Short.MAX_VALUE)
                 .addComponent(btnLogout)
                 .addGap(32, 32, 32))
@@ -314,7 +316,7 @@ public class AdminInsurance extends javax.swing.JPanel {
         CardLayoutLayout.setHorizontalGroup(
             CardLayoutLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, CardLayoutLayout.createSequentialGroup()
-                .addContainerGap(133, Short.MAX_VALUE)
+                .addContainerGap(137, Short.MAX_VALUE)
                 .addComponent(AddAgent, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
             .addGroup(CardLayoutLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -368,7 +370,7 @@ public class AdminInsurance extends javax.swing.JPanel {
         );
     }// </editor-fold>//GEN-END:initComponents
 
-    private void btnApproveActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnApproveActionPerformed
+    private void btnfwdtoAgentActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnfwdtoAgentActionPerformed
         // TODO add your handling code here:
         if(tblViewInsuranceRequest.getSelectedRow() < 0)
             return;
@@ -381,14 +383,14 @@ public class AdminInsurance extends javax.swing.JPanel {
         while(itr.hasNext()){
             I = (InsuranceRequests)itr.next();
             if(I.getPatientEmail().equalsIgnoreCase(PatientEmail)){
-                I.setStatus("Approved");
+                I.setStatus("Agent Review");
                 AdminHospital.AddInsRequeststoDB(I);
                 break;
             }
         }
-        JOptionPane.showMessageDialog(this, "Request Approved.");
+        JOptionPane.showMessageDialog(this, "Request Forwarded to Agent.");
         populateInsurancetable();
-    }//GEN-LAST:event_btnApproveActionPerformed
+    }//GEN-LAST:event_btnfwdtoAgentActionPerformed
 
     private void btnDeclineActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDeclineActionPerformed
         // TODO add your handling code here:
@@ -408,7 +410,7 @@ public class AdminInsurance extends javax.swing.JPanel {
                 break;
             }
         }
-        JOptionPane.showMessageDialog(this, "Request Approved.");
+        JOptionPane.showMessageDialog(this, "Request Declined.");
         populateInsurancetable();
     }//GEN-LAST:event_btnDeclineActionPerformed
 
@@ -446,10 +448,10 @@ public class AdminInsurance extends javax.swing.JPanel {
     private javax.swing.JPanel CardLayout;
     private javax.swing.JPanel ViewRequests;
     private javax.swing.JButton btnAddAgent;
-    private javax.swing.JButton btnApprove;
     private javax.swing.JButton btnDecline;
     private javax.swing.JButton btnLogout;
     private javax.swing.JButton btnViewRequests;
+    private javax.swing.JButton btnfwdtoAgent;
     private javax.swing.JButton jButton2;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
