@@ -16,6 +16,7 @@ import java.util.Collection;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
+import javax.swing.ImageIcon;
 import javax.swing.JOptionPane;
 import model.AdminDetails;
 import model.DoctorDetails;
@@ -41,6 +42,7 @@ public class UserSystem extends javax.swing.JFrame {
         PopulateHashMap();
         setAdminElementsVisibility(false);
         populateorgs();
+        DisplayImage();
     }
     HashMap<String, UserDetails> UserMap = new HashMap<>();
     HashMap<String, AdminDetails> AdminMap = new HashMap<>();
@@ -155,6 +157,29 @@ public class UserSystem extends javax.swing.JFrame {
         this.UserMap = UserMap;
         this.AdminMap = AdminMap;
         this.DoctorMap = DoctorMap;
+    }
+    
+    private void DisplayImage() {
+     Path currentRelativePath = Paths.get("");
+     String s = currentRelativePath.toAbsolutePath().toString();
+     
+     // Logout Button
+     String FilePath = s+"/Images/LoginIcon.png";
+     // URL imgLogin = getClass().getResource(FilePath1 );
+     ImageIcon login = new ImageIcon(FilePath);
+     btnLogIn.setIcon(login);
+     
+     // Background Icon
+     String FilePath1 = s+"/Images/adduser.jpg";
+     ImageIcon userbackground = new ImageIcon(FilePath1);
+     btnSignUp.setIcon(userbackground);
+     
+     // Add Position Button
+     String FilePath2 = s+"/Images/LoginIcon.png";
+     ImageIcon addposition = new ImageIcon(FilePath2);
+     btnSignIn.setIcon(addposition);
+          
+     
     }
     /**
      * This method is called from within the constructor to initialize the form.

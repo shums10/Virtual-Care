@@ -4,6 +4,10 @@
  */
 package ui.Insurance;
 
+import java.nio.file.Path;
+import java.nio.file.Paths;
+import javax.swing.ImageIcon;
+
 /**
  *
  * @author shubhampatil
@@ -15,7 +19,18 @@ public class InsuranceAgent extends javax.swing.JPanel {
      */
     public InsuranceAgent() {
         initComponents();
+        DisplayImage();
     }
+    private void DisplayImage() {
+     Path currentRelativePath = Paths.get("");
+     String s = currentRelativePath.toAbsolutePath().toString();
+     
+     // Logout Button
+     String FilePath = s+"/Images/LoginIcon.png";
+     // URL imgLogin = getClass().getResource(FilePath1 );
+     ImageIcon login = new ImageIcon(FilePath);
+     btnLogOutIA.setIcon(login);
+ }
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -28,6 +43,9 @@ public class InsuranceAgent extends javax.swing.JPanel {
 
         jScrollPane1 = new javax.swing.JScrollPane();
         tblViewInsuranceRequest = new javax.swing.JTable();
+        btnForward = new javax.swing.JButton();
+        btnDeclineIA = new javax.swing.JButton();
+        btnLogOutIA = new javax.swing.JButton();
 
         tblViewInsuranceRequest.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -50,6 +68,13 @@ public class InsuranceAgent extends javax.swing.JPanel {
         });
         jScrollPane1.setViewportView(tblViewInsuranceRequest);
 
+        btnForward.setText("Forward to Committie");
+
+        btnDeclineIA.setText("Decline");
+
+        btnLogOutIA.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/LogoutIcon.png"))); // NOI18N
+        btnLogOutIA.setText("LogOut");
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
@@ -58,18 +83,38 @@ public class InsuranceAgent extends javax.swing.JPanel {
                 .addContainerGap(83, Short.MAX_VALUE)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 664, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(50, 50, 50))
+            .addGroup(layout.createSequentialGroup()
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(259, 259, 259)
+                        .addComponent(btnForward)
+                        .addGap(117, 117, 117)
+                        .addComponent(btnDeclineIA))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(22, 22, 22)
+                        .addComponent(btnLogOutIA)))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addGap(72, 72, 72)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 192, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(274, Short.MAX_VALUE))
+                .addGap(18, 18, 18)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(btnForward)
+                    .addComponent(btnDeclineIA))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 150, Short.MAX_VALUE)
+                .addComponent(btnLogOutIA)
+                .addGap(40, 40, 40))
         );
     }// </editor-fold>//GEN-END:initComponents
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btnDeclineIA;
+    private javax.swing.JButton btnForward;
+    private javax.swing.JButton btnLogOutIA;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTable tblViewInsuranceRequest;
     // End of variables declaration//GEN-END:variables

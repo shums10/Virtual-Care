@@ -4,6 +4,11 @@
  */
 package ui.Insurance;
 
+import java.nio.file.Path;
+import java.nio.file.Paths;
+import javax.swing.ImageIcon;
+
+
 /**
  *
  * @author shubhampatil
@@ -15,6 +20,7 @@ public class InsuranceCommittie extends javax.swing.JPanel {
      */
     public InsuranceCommittie() {
         initComponents();
+        DisplayImage();
     }
 
     /**
@@ -95,7 +101,16 @@ public class InsuranceCommittie extends javax.swing.JPanel {
         );
     }// </editor-fold>//GEN-END:initComponents
 
-
+ private void DisplayImage() {
+     Path currentRelativePath = Paths.get("");
+     String s = currentRelativePath.toAbsolutePath().toString();
+     
+     // Logout Button
+     String FilePath = s+"/Images/LoginIcon.png";
+     // URL imgLogin = getClass().getResource(FilePath1 );
+     ImageIcon login = new ImageIcon(FilePath);
+     btnLogoutIC.setIcon(login);
+ }
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnApproveIC;
     private javax.swing.JButton btnDeclineIC;
