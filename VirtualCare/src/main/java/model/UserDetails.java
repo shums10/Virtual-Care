@@ -1,5 +1,6 @@
 package model;
 
+import java.util.ArrayList;
 import java.util.LinkedHashSet;
 
 /*
@@ -25,13 +26,13 @@ public class UserDetails{
     }
     private String DOB, FirstName, LastName, Street, City, Email, Password;
 
-    LinkedHashSet<DoctorDetails> Appointments = new LinkedHashSet<>();
+    ArrayList<DoctorDetails> Appointments = new ArrayList<>();
     
     public void AddAppointments(DoctorDetails d){
         Appointments.add(d);
     }
     
-    public LinkedHashSet<DoctorDetails> getAppointments(){
+    public ArrayList<DoctorDetails> getAppointments(){
         return Appointments;
     }
     

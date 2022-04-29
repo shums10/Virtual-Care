@@ -4,6 +4,7 @@
  */
 package model;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.LinkedHashSet;
 
@@ -14,7 +15,7 @@ import java.util.LinkedHashSet;
 public class DoctorDetails {
     String FirstName, LastName, WorkingDays[], Time, Email, Password, Department, Organisation, Location;
 
-    LinkedHashSet<UserDetails> Appointments = new LinkedHashSet<>();
+    ArrayList<UserDetails> Appointments = new ArrayList<>();
     
     HashMap<UserDetails, String> Prescription = new HashMap<>();
     
@@ -30,7 +31,7 @@ public class DoctorDetails {
         Appointments.add(u);
     }
 
-    public LinkedHashSet<UserDetails> getAppointments(){
+    public ArrayList<UserDetails> getAppointments(){
         return Appointments;
     }
     

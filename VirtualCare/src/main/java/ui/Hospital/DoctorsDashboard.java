@@ -39,7 +39,7 @@ public class DoctorsDashboard extends javax.swing.JPanel {
     JSplitPane SplitPane;
     DoctorDetails d;
     DefaultTableModel AptMod;
-    LinkedHashSet<UserDetails> Appointments;
+    ArrayList<UserDetails> Appointments;
     CardLayout Card;
 
     void populateappointmentstable(){
