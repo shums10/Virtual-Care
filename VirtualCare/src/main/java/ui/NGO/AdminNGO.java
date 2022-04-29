@@ -258,7 +258,7 @@ public class AdminNGO extends javax.swing.JPanel {
             JOptionPane.showMessageDialog(this, "View a Patient first.");
         }
         else{
-            N.setStatus("Approved");
+            N.setStatus("Committee Review");
             UserDashboard.AddNGOtoDB(N);
         }
     }//GEN-LAST:event_jButton2ActionPerformed

@@ -4,6 +4,19 @@
  */
 package ui.NGO;
 
+import com.db4o.ext.DatabaseClosedException;
+import com.db4o.ext.Db4oIOException;
+import java.util.ArrayList;
+import java.util.Iterator;
+import java.util.List;
+import javax.swing.JOptionPane;
+import javax.swing.JSplitPane;
+import javax.swing.table.DefaultTableModel;
+import model.AdminDetails;
+import model.NGORequests;
+import ui.User.UserDashboard;
+import ui.User.UserSystem;
+
 /**
  *
  * @author shubhampatil
@@ -13,8 +26,62 @@ public class NgoCommittie extends javax.swing.JPanel {
     /**
      * Creates new form NgoCommittie
      */
-    public NgoCommittie() {
+    public NgoCommittie(JSplitPane SplitPane, AdminDetails a) {
         initComponents();
+        this.a = a;
+        DefaultTableModel NGOMod = (DefaultTableModel) NGORequestsTableNC.getModel();
+        this.NGOMod = NGOMod;
+        PullNGORequeststoList();
+        populateNGOtable();
+        this.SplitPane = SplitPane;
+    }
+    
+    JSplitPane SplitPane;
+    ArrayList<NGORequests> NGOReqs;
+    DefaultTableModel NGOMod;
+    AdminDetails a;
+    NGORequests N;
+    
+    void PullNGORequeststoList(){
+        ArrayList<NGORequests> NGOs = new ArrayList<>();
+
+        NGORequests N;
+        try {
+            List<NGORequests> NGOresult = UserSystem.NGOdb.query(NGORequests.class);
+            if(NGOresult.isEmpty())
+                return;
+            Iterator NGOitr = NGOresult.iterator();
+            while(NGOitr.hasNext()){
+                N = (NGORequests)NGOitr.next();
+                if(a.getOrganization().equalsIgnoreCase(N.getToNGOOrg()))
+                    NGOs.add(N);
+            }
+        }
+        catch(DatabaseClosedException | Db4oIOException E){
+            JOptionPane.showMessageDialog(this, "Database Error.");
+        }
+        this.NGOReqs = NGOs;
+    }
+    
+    void populateNGOtable(){
+        NGOMod.setRowCount(0);
+        try{
+            Iterator itr = NGOReqs.iterator();
+            while(itr.hasNext()){
+                NGORequests N = (NGORequests)itr.next();
+                if(N.getStatus().equalsIgnoreCase("Committee Review")){
+                    String data[] = {N.getPatientID(), String.valueOf(N.getAnnualIncome()), String.valueOf(N.getAmount()), N.getStatus()};
+                    NGOMod.addRow(data);
+                }
+            }
+        }
+        catch(NullPointerException E){
+            JOptionPane.showMessageDialog(this, "No Active NGO Requests available");
+        }
+    }
+    
+    void ShowExplaination(NGORequests N){
+        jLabel1.setText(N.getExplaination());
     }
 
     /**
@@ -34,6 +101,7 @@ public class NgoCommittie extends javax.swing.JPanel {
         btnApproveNC = new javax.swing.JButton();
         btnDeclineNC = new javax.swing.JButton();
         btnLogoutNC = new javax.swing.JButton();
+        btnView = new javax.swing.JButton();
 
         NGORequestsTableNC.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -59,8 +127,18 @@ public class NgoCommittie extends javax.swing.JPanel {
         jLabel2.setText("Explanation:");
 
         btnApproveNC.setText("Approve");
+        btnApproveNC.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnApproveNCActionPerformed(evt);
+            }
+        });
 
         btnDeclineNC.setText("Decline");
+        btnDeclineNC.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnDeclineNCActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -97,15 +175,23 @@ public class NgoCommittie extends javax.swing.JPanel {
         );
 
         btnLogoutNC.setText("Logout");
+        btnLogoutNC.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnLogoutNCActionPerformed(evt);
+            }
+        });
+
+        btnView.setText("View");
+        btnView.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnViewActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 606, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(57, 57, 57))
             .addGroup(layout.createSequentialGroup()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
@@ -115,13 +201,24 @@ public class NgoCommittie extends javax.swing.JPanel {
                         .addGap(25, 25, 25)
                         .addComponent(btnLogoutNC)))
                 .addContainerGap(43, Short.MAX_VALUE))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 606, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(57, 57, 57))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addComponent(btnView)
+                        .addGap(335, 335, 335))))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addGap(47, 47, 47)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 131, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(59, 59, 59)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(btnView)
+                .addGap(17, 17, 17)
                 .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addComponent(btnLogoutNC)
@@ -129,12 +226,61 @@ public class NgoCommittie extends javax.swing.JPanel {
         );
     }// </editor-fold>//GEN-END:initComponents
 
+    private void btnLogoutNCActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLogoutNCActionPerformed
+        // TODO add your handling code here:
+        UserSystem LoginPanel = new UserSystem();
+        SplitPane.removeAll();
+        SplitPane.add(LoginPanel.SplitPane);
+        SplitPane.repaint();
+    }//GEN-LAST:event_btnLogoutNCActionPerformed
+
+    private void btnDeclineNCActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDeclineNCActionPerformed
+        // TODO add your handling code here:
+        if(N == null){
+            JOptionPane.showMessageDialog(this, "View a Patient first.");
+        }
+        else{
+            N.setStatus("Declined");
+            UserDashboard.AddNGOtoDB(N);
+        }
+    }//GEN-LAST:event_btnDeclineNCActionPerformed
+
+    private void btnViewActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnViewActionPerformed
+        // TODO add your handling code here:
+        if(NGORequestsTableNC.getSelectedRow() < 0)
+            return;
+        int Row = NGORequestsTableNC.getSelectedRow();
+        String PatientID = NGORequestsTableNC.getValueAt(Row, 0).toString();
+        
+        NGORequests N;
+        Iterator itr = NGOReqs.iterator();
+        while(itr.hasNext()){
+            N = (NGORequests)itr.next();
+            if(N.getPatientID().equalsIgnoreCase(PatientID)){
+                ShowExplaination(N);
+                this.N = N;
+            }
+        }
+    }//GEN-LAST:event_btnViewActionPerformed
+
+    private void btnApproveNCActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnApproveNCActionPerformed
+        // TODO add your handling code here:
+        if(N == null){
+            JOptionPane.showMessageDialog(this, "View a Patient first.");
+        }
+        else{
+            N.setStatus("Committee Review");
+            UserDashboard.AddNGOtoDB(N);
+        }
+    }//GEN-LAST:event_btnApproveNCActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JTable NGORequestsTableNC;
     private javax.swing.JButton btnApproveNC;
     private javax.swing.JButton btnDeclineNC;
     private javax.swing.JButton btnLogoutNC;
+    private javax.swing.JButton btnView;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JPanel jPanel1;
