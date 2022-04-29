@@ -7,6 +7,7 @@ package ui.Hospital;
 import java.awt.CardLayout;
 import java.util.ArrayList;
 import java.util.Iterator;
+import java.util.LinkedHashSet;
 import javax.swing.JOptionPane;
 import javax.swing.JSplitPane;
 import javax.swing.table.DefaultTableModel;
@@ -38,7 +39,7 @@ public class DoctorsDashboard extends javax.swing.JPanel {
     JSplitPane SplitPane;
     DoctorDetails d;
     DefaultTableModel AptMod;
-    ArrayList<UserDetails> Appointments;
+    LinkedHashSet<UserDetails> Appointments;
     CardLayout Card;
 
     void populateappointmentstable(){

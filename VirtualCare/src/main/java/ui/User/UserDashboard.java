@@ -266,7 +266,7 @@ public class UserDashboard extends javax.swing.JPanel {
     
     void populateviewappointments(){
         ViewAptMod.setRowCount(0);
-        ArrayList<DoctorDetails> Docs = new ArrayList<>();
+        LinkedHashSet<DoctorDetails> Docs = new LinkedHashSet<>();
         try{
             Docs = u.getAppointments();
 
