@@ -113,7 +113,7 @@ public class AdminPharmacy extends javax.swing.JPanel {
         });
         jScrollPane1.setViewportView(tblMedicineRequests);
 
-        btnDelivered.setText("Delivered");
+        btnDelivered.setText("Assign Delivery");
         btnDelivered.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnDeliveredActionPerformed(evt);
