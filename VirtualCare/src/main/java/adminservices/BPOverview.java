@@ -3,9 +3,10 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
 
-package pharmaservices;
+package adminservices;
 
 
+import pharmaservices.*;
 import ngoservices.*;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
