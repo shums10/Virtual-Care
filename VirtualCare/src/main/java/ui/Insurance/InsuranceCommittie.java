@@ -63,7 +63,6 @@ public class InsuranceCommittie extends javax.swing.JPanel {
 
         btnDeclineIC.setText("Decline");
 
-        btnLogoutIC.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/LogoutIcon.png"))); // NOI18N
         btnLogoutIC.setText("Logout");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
@@ -95,7 +94,7 @@ public class InsuranceCommittie extends javax.swing.JPanel {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnApproveIC)
                     .addComponent(btnDeclineIC))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 198, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 206, Short.MAX_VALUE)
                 .addComponent(btnLogoutIC)
                 .addGap(32, 32, 32))
         );
@@ -106,8 +105,8 @@ public class InsuranceCommittie extends javax.swing.JPanel {
      String s = currentRelativePath.toAbsolutePath().toString();
      
      // Logout Button
-     String FilePath = s+"/Images/LoginIcon.png";
-     // URL imgLogin = getClass().getResource(FilePath1 );
+     String FilePath = s+"/images/LogoutIcon.png";
+     //URL imgLogin = getClass().getResource(FilePath1 );
      ImageIcon login = new ImageIcon(FilePath);
      btnLogoutIC.setIcon(login);
  }

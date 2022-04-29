@@ -233,7 +233,6 @@ public class UserSystem extends javax.swing.JFrame {
 
         jLabel1.setText("Password:");
 
-        btnSignIn.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/LoginIcon.png"))); // NOI18N
         btnSignIn.setText("Sign In");
         btnSignIn.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -411,7 +410,6 @@ public class UserSystem extends javax.swing.JFrame {
 
         jPanel2.setBackground(new java.awt.Color(3, 200, 227));
 
-        btnSignUp.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/adduser.png"))); // NOI18N
         btnSignUp.setText("Sign Up");
         btnSignUp.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -419,7 +417,6 @@ public class UserSystem extends javax.swing.JFrame {
             }
         });
 
-        btnLogIn.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/LoginIcon.png"))); // NOI18N
         btnLogIn.setText("Log In");
         btnLogIn.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -445,7 +442,7 @@ public class UserSystem extends javax.swing.JFrame {
                 .addComponent(btnSignUp)
                 .addGap(34, 34, 34)
                 .addComponent(btnLogIn)
-                .addContainerGap(588, Short.MAX_VALUE))
+                .addContainerGap(604, Short.MAX_VALUE))
         );
 
         SplitPane.setLeftComponent(jPanel2);
