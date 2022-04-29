@@ -208,7 +208,7 @@ public class UserSystem extends javax.swing.JFrame {
 
         jLabel1.setText("Password:");
 
-        btnSignIn.setIcon(new javax.swing.ImageIcon(getClass().getResource("/ui/User/LoginIcon.png"))); // NOI18N
+        btnSignIn.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/LoginIcon.png"))); // NOI18N
         btnSignIn.setText("Sign In");
         btnSignIn.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -386,7 +386,7 @@ public class UserSystem extends javax.swing.JFrame {
 
         jPanel2.setBackground(new java.awt.Color(3, 200, 227));
 
-        btnSignUp.setIcon(new javax.swing.ImageIcon(getClass().getResource("/ui/User/adduser.png"))); // NOI18N
+        btnSignUp.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/adduser.png"))); // NOI18N
         btnSignUp.setText("Sign Up");
         btnSignUp.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -394,7 +394,7 @@ public class UserSystem extends javax.swing.JFrame {
             }
         });
 
-        btnLogIn.setIcon(new javax.swing.ImageIcon(getClass().getResource("/ui/User/LoginIcon.png"))); // NOI18N
+        btnLogIn.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/LoginIcon.png"))); // NOI18N
         btnLogIn.setText("Log In");
         btnLogIn.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
