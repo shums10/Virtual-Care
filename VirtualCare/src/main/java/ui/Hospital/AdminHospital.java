@@ -341,6 +341,18 @@ public class AdminHospital extends javax.swing.JPanel {
         }
     }
     
+    boolean checkDuplicateInsurance(){
+        PullInsuranceRequeststoList();
+        Iterator itr = InsReq.iterator();
+        while(itr.hasNext()){
+            InsuranceRequests Ir = (InsuranceRequests)itr.next();
+            
+            if(Ir.getAmount() == Integer.parseInt(txtAmount.getText()) && Ir.getFromHospital().equalsIgnoreCase(a.getOrganization()) && Ir.getPatientEmail().equalsIgnoreCase(txtPatientId.getText()) && Ir.getToOrg().equalsIgnoreCase(cmbBoxOrgansation.getSelectedItem().toString()))
+                return false;
+            }
+        return true;
+    }
+    
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -1053,7 +1065,7 @@ public class AdminHospital extends javax.swing.JPanel {
         if(UserMap.get(txtPatientId.getText().toString()) == null){
             JOptionPane.showMessageDialog(this, "Patient Doesn't Exist.");
         }
-        else{
+        else if(checkDuplicateInsurance()){
             InsuranceRequests Ir = MakeInsRequests();
             AddInsRequeststoDB(Ir);
             txtPatientId.setText("");
@@ -1062,6 +1074,8 @@ public class AdminHospital extends javax.swing.JPanel {
             PullInsuranceRequeststoList();
             populateInsurancetable();
         }
+        else
+            JOptionPane.showMessageDialog(this, "Duplicate entries are not allowed.");
     }//GEN-LAST:event_btnSendActionPerformed
 
     private void btnOrderActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnOrderActionPerformed
