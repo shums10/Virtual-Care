@@ -88,11 +88,150 @@ public class AdminInsurance extends javax.swing.JPanel {
     private void initComponents() {
 
         jLabel1 = new javax.swing.JLabel();
+        jPanel1 = new javax.swing.JPanel();
+        btnAddAgent = new javax.swing.JButton();
+        btnViewRequests = new javax.swing.JButton();
+        CardLayout = new javax.swing.JPanel();
+        AddAgent = new javax.swing.JPanel();
+        jLabel2 = new javax.swing.JLabel();
+        lblFirstNameAI = new javax.swing.JLabel();
+        lblLastNameAI = new javax.swing.JLabel();
+        lblEmailAI = new javax.swing.JLabel();
+        lblPasswordAI = new javax.swing.JLabel();
+        txtFirstNameAI = new javax.swing.JTextField();
+        txtEmailAI = new javax.swing.JTextField();
+        txtLastNameAI = new javax.swing.JTextField();
+        txtPasswordAI = new javax.swing.JTextField();
+        jButton2 = new javax.swing.JButton();
+        ViewRequests = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
         tblViewInsuranceRequest = new javax.swing.JTable();
         btnApprove = new javax.swing.JButton();
         btnDecline = new javax.swing.JButton();
         btnLogout = new javax.swing.JButton();
+
+        btnAddAgent.setText("Add Agent");
+        btnAddAgent.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnAddAgentActionPerformed(evt);
+            }
+        });
+
+        btnViewRequests.setText("View Request");
+
+        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
+        jPanel1.setLayout(jPanel1Layout);
+        jPanel1Layout.setHorizontalGroup(
+            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addContainerGap(57, Short.MAX_VALUE)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                        .addComponent(btnAddAgent)
+                        .addGap(59, 59, 59))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                        .addComponent(btnViewRequests)
+                        .addGap(51, 51, 51))))
+        );
+        jPanel1Layout.setVerticalGroup(
+            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addGap(286, 286, 286)
+                .addComponent(btnAddAgent)
+                .addGap(18, 18, 18)
+                .addComponent(btnViewRequests)
+                .addContainerGap(327, Short.MAX_VALUE))
+        );
+
+        jLabel2.setText("Adding Agent");
+
+        lblFirstNameAI.setText("First Name:");
+
+        lblLastNameAI.setText("Last Name:");
+
+        lblEmailAI.setText("email-id:");
+
+        lblPasswordAI.setText("Password:");
+
+        txtFirstNameAI.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtFirstNameAIActionPerformed(evt);
+            }
+        });
+
+        txtEmailAI.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtEmailAIActionPerformed(evt);
+            }
+        });
+
+        txtLastNameAI.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtLastNameAIActionPerformed(evt);
+            }
+        });
+
+        txtPasswordAI.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtPasswordAIActionPerformed(evt);
+            }
+        });
+
+        jButton2.setText("Add Agent");
+
+        javax.swing.GroupLayout AddAgentLayout = new javax.swing.GroupLayout(AddAgent);
+        AddAgent.setLayout(AddAgentLayout);
+        AddAgentLayout.setHorizontalGroup(
+            AddAgentLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(AddAgentLayout.createSequentialGroup()
+                .addGroup(AddAgentLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(AddAgentLayout.createSequentialGroup()
+                        .addGap(287, 287, 287)
+                        .addComponent(jLabel2))
+                    .addGroup(AddAgentLayout.createSequentialGroup()
+                        .addGap(222, 222, 222)
+                        .addGroup(AddAgentLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(lblFirstNameAI)
+                            .addComponent(lblLastNameAI, javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(lblEmailAI, javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(lblPasswordAI, javax.swing.GroupLayout.Alignment.TRAILING))
+                        .addGap(64, 64, 64)
+                        .addGroup(AddAgentLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(txtLastNameAI, javax.swing.GroupLayout.PREFERRED_SIZE, 137, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(txtEmailAI, javax.swing.GroupLayout.PREFERRED_SIZE, 137, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(txtPasswordAI, javax.swing.GroupLayout.PREFERRED_SIZE, 137, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(txtFirstNameAI, javax.swing.GroupLayout.PREFERRED_SIZE, 137, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                .addContainerGap(183, Short.MAX_VALUE))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, AddAgentLayout.createSequentialGroup()
+                .addGap(0, 0, Short.MAX_VALUE)
+                .addComponent(jButton2)
+                .addGap(281, 281, 281))
+        );
+        AddAgentLayout.setVerticalGroup(
+            AddAgentLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(AddAgentLayout.createSequentialGroup()
+                .addGap(18, 18, 18)
+                .addComponent(jLabel2)
+                .addGap(60, 60, 60)
+                .addGroup(AddAgentLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(lblFirstNameAI)
+                    .addComponent(txtFirstNameAI, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(17, 17, 17)
+                .addGroup(AddAgentLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(lblLastNameAI)
+                    .addComponent(txtLastNameAI, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(19, 19, 19)
+                .addGroup(AddAgentLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(lblEmailAI)
+                    .addComponent(txtEmailAI, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(24, 24, 24)
+                .addGroup(AddAgentLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(lblPasswordAI)
+                    .addComponent(txtPasswordAI, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(32, 32, 32)
+                .addComponent(jButton2)
+                .addContainerGap(192, Short.MAX_VALUE))
+        );
 
         tblViewInsuranceRequest.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -136,43 +275,96 @@ public class AdminInsurance extends javax.swing.JPanel {
             }
         });
 
+        javax.swing.GroupLayout ViewRequestsLayout = new javax.swing.GroupLayout(ViewRequests);
+        ViewRequests.setLayout(ViewRequestsLayout);
+        ViewRequestsLayout.setHorizontalGroup(
+            ViewRequestsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(ViewRequestsLayout.createSequentialGroup()
+                .addGroup(ViewRequestsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(ViewRequestsLayout.createSequentialGroup()
+                        .addGroup(ViewRequestsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(ViewRequestsLayout.createSequentialGroup()
+                                .addGap(139, 139, 139)
+                                .addComponent(btnApprove)
+                                .addGap(121, 121, 121)
+                                .addComponent(btnDecline))
+                            .addGroup(ViewRequestsLayout.createSequentialGroup()
+                                .addGap(26, 26, 26)
+                                .addComponent(btnLogout)))
+                        .addGap(0, 0, Short.MAX_VALUE))
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 661, Short.MAX_VALUE))
+                .addContainerGap())
+        );
+        ViewRequestsLayout.setVerticalGroup(
+            ViewRequestsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(ViewRequestsLayout.createSequentialGroup()
+                .addGap(23, 23, 23)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 180, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(28, 28, 28)
+                .addGroup(ViewRequestsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(btnDecline)
+                    .addComponent(btnApprove))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 126, Short.MAX_VALUE)
+                .addComponent(btnLogout)
+                .addGap(32, 32, 32))
+        );
+
+        javax.swing.GroupLayout CardLayoutLayout = new javax.swing.GroupLayout(CardLayout);
+        CardLayout.setLayout(CardLayoutLayout);
+        CardLayoutLayout.setHorizontalGroup(
+            CardLayoutLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, CardLayoutLayout.createSequentialGroup()
+                .addContainerGap(133, Short.MAX_VALUE)
+                .addComponent(AddAgent, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap())
+            .addGroup(CardLayoutLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(CardLayoutLayout.createSequentialGroup()
+                    .addGap(58, 58, 58)
+                    .addComponent(ViewRequests, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addContainerGap(92, Short.MAX_VALUE)))
+        );
+        CardLayoutLayout.setVerticalGroup(
+            CardLayoutLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(CardLayoutLayout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(AddAgent, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(116, Short.MAX_VALUE))
+            .addGroup(CardLayoutLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(CardLayoutLayout.createSequentialGroup()
+                    .addGap(75, 75, 75)
+                    .addComponent(ViewRequests, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addContainerGap(75, Short.MAX_VALUE)))
+        );
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(290, 290, 290)
+                .addGap(257, 257, 257)
+                .addComponent(CardLayout, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 299, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap(96, Short.MAX_VALUE)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 664, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(26, Short.MAX_VALUE))
-            .addGroup(layout.createSequentialGroup()
-                .addGap(279, 279, 279)
-                .addComponent(btnApprove)
-                .addGap(74, 74, 74)
-                .addComponent(btnDecline)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-            .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(btnLogout)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(1274, Short.MAX_VALUE))
+            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(layout.createSequentialGroup()
+                    .addContainerGap()
+                    .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addContainerGap(2412, Short.MAX_VALUE)))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 56, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(43, 43, 43)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 192, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(btnApprove)
-                    .addComponent(btnDecline))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 192, Short.MAX_VALUE)
-                .addComponent(btnLogout)
-                .addContainerGap())
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(CardLayout, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 56, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(62, Short.MAX_VALUE))
+            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(layout.createSequentialGroup()
+                    .addContainerGap()
+                    .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addContainerGap()))
         );
     }// </editor-fold>//GEN-END:initComponents
 
@@ -228,13 +420,49 @@ public class AdminInsurance extends javax.swing.JPanel {
         SplitPane.repaint();
     }//GEN-LAST:event_btnLogoutActionPerformed
 
+    private void txtFirstNameAIActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtFirstNameAIActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtFirstNameAIActionPerformed
+
+    private void txtEmailAIActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtEmailAIActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtEmailAIActionPerformed
+
+    private void txtLastNameAIActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtLastNameAIActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtLastNameAIActionPerformed
+
+    private void txtPasswordAIActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtPasswordAIActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtPasswordAIActionPerformed
+
+    private void btnAddAgentActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAddAgentActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btnAddAgentActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JPanel AddAgent;
+    private javax.swing.JPanel CardLayout;
+    private javax.swing.JPanel ViewRequests;
+    private javax.swing.JButton btnAddAgent;
     private javax.swing.JButton btnApprove;
     private javax.swing.JButton btnDecline;
     private javax.swing.JButton btnLogout;
+    private javax.swing.JButton btnViewRequests;
+    private javax.swing.JButton jButton2;
     private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel2;
+    private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JLabel lblEmailAI;
+    private javax.swing.JLabel lblFirstNameAI;
+    private javax.swing.JLabel lblLastNameAI;
+    private javax.swing.JLabel lblPasswordAI;
     private javax.swing.JTable tblViewInsuranceRequest;
+    private javax.swing.JTextField txtEmailAI;
+    private javax.swing.JTextField txtFirstNameAI;
+    private javax.swing.JTextField txtLastNameAI;
+    private javax.swing.JTextField txtPasswordAI;
     // End of variables declaration//GEN-END:variables
 }
