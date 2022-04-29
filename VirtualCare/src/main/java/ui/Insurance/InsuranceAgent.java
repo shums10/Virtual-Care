@@ -4,9 +4,21 @@
  */
 package ui.Insurance;
 
+import com.db4o.ext.DatabaseClosedException;
+import com.db4o.ext.Db4oIOException;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.util.ArrayList;
+import java.util.Iterator;
+import java.util.List;
 import javax.swing.ImageIcon;
+import javax.swing.JOptionPane;
+import javax.swing.JSplitPane;
+import javax.swing.table.DefaultTableModel;
+import model.AdminDetails;
+import model.InsuranceRequests;
+import ui.Hospital.AdminHospital;
+import ui.User.UserSystem;
 
 /**
  *
@@ -17,10 +29,61 @@ public class InsuranceAgent extends javax.swing.JPanel {
     /**
      * Creates new form InsuranceAgent
      */
-    public InsuranceAgent() {
+    public InsuranceAgent(JSplitPane SplitPane, AdminDetails a) {
         initComponents();
+        this.a = a;
+        DefaultTableModel InsMod = (DefaultTableModel) tblViewInsuranceRequest.getModel();
+        this.InsMod = InsMod;
+        PullInsuranceRequeststoList();
+        populateInsurancetable();
+        this.SplitPane = SplitPane;
         DisplayImage();
     }
+    
+    JSplitPane SplitPane;
+    AdminDetails a;
+    ArrayList<InsuranceRequests> InsReq;
+    DefaultTableModel InsMod;
+    
+    void PullInsuranceRequeststoList(){
+        ArrayList<InsuranceRequests> InsReq = new ArrayList<>();
+
+        InsuranceRequests I;
+        try {
+            List<InsuranceRequests> Insuranceresult = UserSystem.Insudb.query(InsuranceRequests.class);
+            if(Insuranceresult.isEmpty())
+                return;
+            Iterator Insuitr = Insuranceresult.iterator();
+            while(Insuitr.hasNext()){
+                I = (InsuranceRequests)Insuitr.next();
+                if(a.getOrganization().equalsIgnoreCase(I.getToOrg()))
+                    InsReq.add(I);
+            }
+        }
+        catch(DatabaseClosedException | Db4oIOException E){
+            JOptionPane.showMessageDialog(this, "Database Error.");
+        }
+        this.InsReq = InsReq;
+    }
+    
+    void populateInsurancetable(){
+        InsMod.setRowCount(0);
+        try{
+            Iterator itr = InsReq.iterator();
+            while(itr.hasNext()){
+                InsuranceRequests I = (InsuranceRequests)itr.next();
+
+                if(I.getStatus().equalsIgnoreCase("Agent Review")){
+                    String data[] = {I.getFromHospital(), I.getPatientEmail(), String.valueOf(I.getAmount()), I.getStatus()};
+                    InsMod.addRow(data);
+                }
+            }
+        }
+        catch(NullPointerException E){
+            JOptionPane.showMessageDialog(this, "No Requests Exist.");
+        }
+    }
+    
     private void DisplayImage() {
      Path currentRelativePath = Paths.get("");
      String s = currentRelativePath.toAbsolutePath().toString();
@@ -69,11 +132,26 @@ public class InsuranceAgent extends javax.swing.JPanel {
         jScrollPane1.setViewportView(tblViewInsuranceRequest);
 
         btnForward.setText("Forward to Committie");
+        btnForward.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnForwardActionPerformed(evt);
+            }
+        });
 
         btnDeclineIA.setText("Decline");
+        btnDeclineIA.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnDeclineIAActionPerformed(evt);
+            }
+        });
 
         btnLogOutIA.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/LogoutIcon.png"))); // NOI18N
         btnLogOutIA.setText("LogOut");
+        btnLogOutIA.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnLogOutIAActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
@@ -109,6 +187,58 @@ public class InsuranceAgent extends javax.swing.JPanel {
                 .addGap(40, 40, 40))
         );
     }// </editor-fold>//GEN-END:initComponents
+
+    private void btnForwardActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnForwardActionPerformed
+        // TODO add your handling code here:
+        if(tblViewInsuranceRequest.getSelectedRow() < 0)
+            return;
+        int Row = tblViewInsuranceRequest.getSelectedRow();
+        String PatientEmail = tblViewInsuranceRequest.getValueAt(Row, 1).toString();
+        
+        InsuranceRequests I;
+        
+        Iterator itr = InsReq.iterator();
+        while(itr.hasNext()){
+            I = (InsuranceRequests)itr.next();
+            if(I.getPatientEmail().equalsIgnoreCase(PatientEmail)){
+                I.setStatus("Committee Review");
+                AdminHospital.AddInsRequeststoDB(I);
+                break;
+            }
+        }
+        JOptionPane.showMessageDialog(this, "Request forwarded to Committee");
+        populateInsurancetable();
+    }//GEN-LAST:event_btnForwardActionPerformed
+
+    private void btnDeclineIAActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDeclineIAActionPerformed
+        // TODO add your handling code here:
+        if(tblViewInsuranceRequest.getSelectedRow() < 0)
+            return;
+        int Row = tblViewInsuranceRequest.getSelectedRow();
+        String PatientEmail = tblViewInsuranceRequest.getValueAt(Row, 1).toString();
+        
+        InsuranceRequests I;
+        
+        Iterator itr = InsReq.iterator();
+        while(itr.hasNext()){
+            I = (InsuranceRequests)itr.next();
+            if(I.getPatientEmail().equalsIgnoreCase(PatientEmail)){
+                I.setStatus("Declined");
+                AdminHospital.AddInsRequeststoDB(I);
+                break;
+            }
+        }
+        JOptionPane.showMessageDialog(this, "Request Declined.");
+        populateInsurancetable();
+    }//GEN-LAST:event_btnDeclineIAActionPerformed
+
+    private void btnLogOutIAActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLogOutIAActionPerformed
+        // TODO add your handling code here:
+        UserSystem LoginPanel = new UserSystem();
+        SplitPane.removeAll();
+        SplitPane.add(LoginPanel);
+        SplitPane.repaint();
+    }//GEN-LAST:event_btnLogOutIAActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
