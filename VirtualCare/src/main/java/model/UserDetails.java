@@ -1,7 +1,6 @@
 package model;
 
-import java.util.ArrayList;
-import java.util.HashMap;
+import java.util.LinkedHashSet;
 
 /*
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
@@ -26,13 +25,13 @@ public class UserDetails{
     }
     private String DOB, FirstName, LastName, Street, City, Email, Password;
 
-    ArrayList<DoctorDetails> Appointments = new ArrayList<>();
+    LinkedHashSet<DoctorDetails> Appointments = new LinkedHashSet<>();
     
     public void AddAppointments(DoctorDetails d){
         Appointments.add(d);
     }
     
-    public ArrayList<DoctorDetails> getAppointments(){
+    public LinkedHashSet<DoctorDetails> getAppointments(){
         return Appointments;
     }
     
