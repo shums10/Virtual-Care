@@ -47,9 +47,9 @@
           </Group>
           <Group type="103" rootIndex="1" groupAlignment="0" attributes="0">
               <Group type="102" alignment="1" attributes="0">
-                  <EmptySpace pref="106" max="32767" attributes="0"/>
+                  <EmptySpace pref="114" max="32767" attributes="0"/>
                   <Component id="cardLayout" min="-2" max="-2" attributes="0"/>
-                  <EmptySpace pref="106" max="32767" attributes="0"/>
+                  <EmptySpace pref="114" max="32767" attributes="0"/>
               </Group>
           </Group>
       </Group>
@@ -70,11 +70,13 @@
                   <Group type="103" groupAlignment="0" attributes="0">
                       <Group type="102" attributes="0">
                           <EmptySpace min="-2" pref="35" max="-2" attributes="0"/>
-                          <Group type="103" groupAlignment="0" attributes="0">
-                              <Component id="btnRequestFund" min="-2" max="-2" attributes="0"/>
-                              <Component id="btnDashboard" min="-2" max="-2" attributes="0"/>
-                              <Component id="btnAccount" min="-2" max="-2" attributes="0"/>
-                              <Component id="btnViewAppointments" min="-2" max="-2" attributes="0"/>
+                          <Group type="103" groupAlignment="0" max="-2" attributes="0">
+                              <Component id="btnViewAppointments" max="32767" attributes="0"/>
+                              <Component id="btnAccount" alignment="0" max="32767" attributes="0"/>
+                              <Group type="103" alignment="0" groupAlignment="1" max="-2" attributes="0">
+                                  <Component id="btnDashboard" alignment="0" max="32767" attributes="0"/>
+                                  <Component id="btnRequestFund" alignment="0" max="32767" attributes="0"/>
+                              </Group>
                           </Group>
                       </Group>
                       <Group type="102" alignment="0" attributes="0">
@@ -97,7 +99,7 @@
                   <Component id="btnDashboard" min="-2" max="-2" attributes="0"/>
                   <EmptySpace min="-2" pref="31" max="-2" attributes="0"/>
                   <Component id="btnRequestFund" min="-2" max="-2" attributes="0"/>
-                  <EmptySpace pref="436" max="32767" attributes="0"/>
+                  <EmptySpace pref="500" max="32767" attributes="0"/>
                   <Component id="btnLogout" min="-2" max="-2" attributes="0"/>
                   <EmptySpace min="-2" pref="121" max="-2" attributes="0"/>
               </Group>
@@ -151,259 +153,6 @@
 
       <Layout class="org.netbeans.modules.form.compat2.layouts.DesignCardLayout"/>
       <SubComponents>
-        <Container class="javax.swing.JPanel" name="AccountDetails">
-          <Properties>
-            <Property name="minimumSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
-              <Dimension value="[823, 697]"/>
-            </Property>
-          </Properties>
-          <Constraints>
-            <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignCardLayout" value="org.netbeans.modules.form.compat2.layouts.DesignCardLayout$CardConstraintsDescription">
-              <CardConstraints cardName="card7"/>
-            </Constraint>
-          </Constraints>
-
-          <Layout>
-            <DimensionLayout dim="0">
-              <Group type="103" groupAlignment="0" attributes="0">
-                  <Group type="102" alignment="0" attributes="0">
-                      <Group type="103" groupAlignment="0" attributes="0">
-                          <Group type="102" attributes="0">
-                              <EmptySpace min="-2" pref="270" max="-2" attributes="0"/>
-                              <Group type="103" groupAlignment="1" attributes="0">
-                                  <Component id="lblFirstName" alignment="1" min="-2" max="-2" attributes="0"/>
-                                  <Component id="lblLastName" alignment="1" min="-2" max="-2" attributes="0"/>
-                                  <Component id="lblStreet" alignment="1" min="-2" max="-2" attributes="0"/>
-                                  <Component id="lblCity2" alignment="1" min="-2" max="-2" attributes="0"/>
-                                  <Component id="lblCity1" alignment="1" min="-2" max="-2" attributes="0"/>
-                                  <Component id="lblEmailId" alignment="1" min="-2" max="-2" attributes="0"/>
-                                  <Component id="lblPassword" alignment="1" min="-2" max="-2" attributes="0"/>
-                                  <Component id="lblReenterPassword" alignment="1" min="-2" max="-2" attributes="0"/>
-                                  <Component id="lblPhoneNumber" alignment="1" min="-2" max="-2" attributes="0"/>
-                              </Group>
-                          </Group>
-                          <Group type="102" alignment="1" attributes="0">
-                              <EmptySpace min="-2" pref="187" max="-2" attributes="0"/>
-                              <Component id="lblAge" min="-2" max="-2" attributes="0"/>
-                          </Group>
-                      </Group>
-                      <EmptySpace min="-2" pref="47" max="-2" attributes="0"/>
-                      <Group type="103" groupAlignment="1" attributes="0">
-                          <Group type="103" groupAlignment="0" attributes="0">
-                              <Group type="103" groupAlignment="1" attributes="0">
-                                  <Group type="103" groupAlignment="0" attributes="0">
-                                      <Group type="103" alignment="0" groupAlignment="1" attributes="0">
-                                          <Component id="txtEmailIdUAD" alignment="1" min="-2" pref="144" max="-2" attributes="0"/>
-                                          <Group type="103" alignment="1" groupAlignment="0" max="-2" attributes="0">
-                                              <Component id="txtLastNameUAD" alignment="0" pref="144" max="32767" attributes="0"/>
-                                              <Component id="txtFirstNameUAD" alignment="0" max="32767" attributes="0"/>
-                                          </Group>
-                                      </Group>
-                                      <Component id="txtDobUAD" alignment="1" min="-2" pref="144" max="-2" attributes="0"/>
-                                      <Component id="txtPinCodeUAD" alignment="1" min="-2" pref="144" max="-2" attributes="0"/>
-                                      <Component id="txtCityUAD" alignment="1" min="-2" pref="144" max="-2" attributes="0"/>
-                                      <Component id="txtStreetUAD" alignment="1" min="-2" pref="144" max="-2" attributes="0"/>
-                                  </Group>
-                                  <Component id="txtPhoneNumberAD" min="-2" pref="144" max="-2" attributes="0"/>
-                              </Group>
-                              <Component id="txtNewPasswordUAD" alignment="1" min="-2" pref="144" max="-2" attributes="0"/>
-                          </Group>
-                          <Component id="txtOldPasswordUAD" min="-2" pref="144" max="-2" attributes="0"/>
-                      </Group>
-                      <EmptySpace pref="269" max="32767" attributes="0"/>
-                  </Group>
-                  <Group type="102" alignment="1" attributes="0">
-                      <EmptySpace max="32767" attributes="0"/>
-                      <Group type="103" groupAlignment="0" attributes="0">
-                          <Group type="102" alignment="1" attributes="0">
-                              <Component id="lblVirtualCare1" min="-2" pref="115" max="-2" attributes="0"/>
-                              <EmptySpace min="-2" pref="350" max="-2" attributes="0"/>
-                          </Group>
-                          <Group type="102" alignment="1" attributes="0">
-                              <Component id="btnUpdateUAD" min="-2" max="-2" attributes="0"/>
-                              <EmptySpace min="-2" pref="348" max="-2" attributes="0"/>
-                          </Group>
-                      </Group>
-                  </Group>
-              </Group>
-            </DimensionLayout>
-            <DimensionLayout dim="1">
-              <Group type="103" groupAlignment="0" attributes="0">
-                  <Group type="102" alignment="0" attributes="0">
-                      <EmptySpace min="-2" pref="24" max="-2" attributes="0"/>
-                      <Component id="lblVirtualCare1" min="-2" pref="28" max="-2" attributes="0"/>
-                      <EmptySpace min="-2" pref="74" max="-2" attributes="0"/>
-                      <Group type="103" groupAlignment="0" attributes="0">
-                          <Group type="102" alignment="0" attributes="0">
-                              <Component id="txtFirstNameUAD" min="-2" max="-2" attributes="0"/>
-                              <EmptySpace type="separate" max="-2" attributes="0"/>
-                              <Group type="103" groupAlignment="3" attributes="0">
-                                  <Component id="txtLastNameUAD" alignment="3" min="-2" max="-2" attributes="0"/>
-                                  <Component id="lblLastName" alignment="3" min="-2" max="-2" attributes="0"/>
-                              </Group>
-                          </Group>
-                          <Component id="lblFirstName" alignment="0" min="-2" max="-2" attributes="0"/>
-                      </Group>
-                      <EmptySpace min="-2" pref="19" max="-2" attributes="0"/>
-                      <Group type="103" groupAlignment="0" attributes="0">
-                          <Component id="txtDobUAD" min="-2" max="-2" attributes="0"/>
-                          <Component id="lblAge" min="-2" max="-2" attributes="0"/>
-                      </Group>
-                      <EmptySpace min="-2" pref="14" max="-2" attributes="0"/>
-                      <Group type="103" groupAlignment="3" attributes="0">
-                          <Component id="lblPhoneNumber" alignment="3" min="-2" max="-2" attributes="0"/>
-                          <Component id="txtPhoneNumberAD" alignment="3" min="-2" max="-2" attributes="0"/>
-                      </Group>
-                      <EmptySpace min="-2" pref="16" max="-2" attributes="0"/>
-                      <Group type="103" groupAlignment="3" attributes="0">
-                          <Component id="lblStreet" alignment="3" min="-2" max="-2" attributes="0"/>
-                          <Component id="txtStreetUAD" alignment="3" min="-2" max="-2" attributes="0"/>
-                      </Group>
-                      <EmptySpace type="separate" max="-2" attributes="0"/>
-                      <Group type="103" groupAlignment="3" attributes="0">
-                          <Component id="lblCity2" alignment="3" min="-2" max="-2" attributes="0"/>
-                          <Component id="txtCityUAD" alignment="3" min="-2" max="-2" attributes="0"/>
-                      </Group>
-                      <EmptySpace type="separate" max="-2" attributes="0"/>
-                      <Group type="103" groupAlignment="3" attributes="0">
-                          <Component id="lblCity1" alignment="3" min="-2" max="-2" attributes="0"/>
-                          <Component id="txtPinCodeUAD" alignment="3" min="-2" max="-2" attributes="0"/>
-                      </Group>
-                      <EmptySpace type="separate" max="-2" attributes="0"/>
-                      <Group type="103" groupAlignment="3" attributes="0">
-                          <Component id="lblEmailId" alignment="3" min="-2" max="-2" attributes="0"/>
-                          <Component id="txtEmailIdUAD" alignment="3" min="-2" max="-2" attributes="0"/>
-                      </Group>
-                      <EmptySpace type="separate" max="-2" attributes="0"/>
-                      <Group type="103" groupAlignment="3" attributes="0">
-                          <Component id="lblPassword" alignment="3" min="-2" max="-2" attributes="0"/>
-                          <Component id="txtOldPasswordUAD" alignment="3" min="-2" max="-2" attributes="0"/>
-                      </Group>
-                      <EmptySpace min="-2" pref="10" max="-2" attributes="0"/>
-                      <Group type="103" groupAlignment="3" attributes="0">
-                          <Component id="lblReenterPassword" alignment="3" min="-2" max="-2" attributes="0"/>
-                          <Component id="txtNewPasswordUAD" alignment="3" min="-2" max="-2" attributes="0"/>
-                      </Group>
-                      <EmptySpace pref="53" max="32767" attributes="0"/>
-                      <Component id="btnUpdateUAD" min="-2" max="-2" attributes="0"/>
-                      <EmptySpace min="-2" pref="28" max="-2" attributes="0"/>
-                  </Group>
-              </Group>
-            </DimensionLayout>
-          </Layout>
-          <SubComponents>
-            <Component class="javax.swing.JLabel" name="lblReenterPassword">
-              <Properties>
-                <Property name="text" type="java.lang.String" value="New Password:"/>
-              </Properties>
-            </Component>
-            <Component class="javax.swing.JLabel" name="lblFirstName">
-              <Properties>
-                <Property name="text" type="java.lang.String" value="First Name:"/>
-              </Properties>
-            </Component>
-            <Component class="javax.swing.JLabel" name="lblAge">
-              <Properties>
-                <Property name="text" type="java.lang.String" value="Date of Birth"/>
-              </Properties>
-            </Component>
-            <Component class="javax.swing.JLabel" name="lblEmailId">
-              <Properties>
-                <Property name="text" type="java.lang.String" value="Email Id:"/>
-              </Properties>
-            </Component>
-            <Component class="javax.swing.JLabel" name="lblStreet">
-              <Properties>
-                <Property name="text" type="java.lang.String" value="Street:"/>
-              </Properties>
-            </Component>
-            <Component class="javax.swing.JLabel" name="lblLastName">
-              <Properties>
-                <Property name="text" type="java.lang.String" value="Last Name:"/>
-              </Properties>
-            </Component>
-            <Component class="javax.swing.JLabel" name="lblCity1">
-              <Properties>
-                <Property name="text" type="java.lang.String" value="PinCode:"/>
-              </Properties>
-            </Component>
-            <Component class="javax.swing.JLabel" name="lblCity2">
-              <Properties>
-                <Property name="text" type="java.lang.String" value="City:"/>
-              </Properties>
-            </Component>
-            <Component class="javax.swing.JLabel" name="lblPassword">
-              <Properties>
-                <Property name="text" type="java.lang.String" value="Old Password:"/>
-              </Properties>
-            </Component>
-            <Component class="javax.swing.JLabel" name="lblVirtualCare1">
-              <Properties>
-                <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
-                  <Font name="Lucida Grande" size="14" style="1"/>
-                </Property>
-                <Property name="text" type="java.lang.String" value="VIRTUAL CARE"/>
-              </Properties>
-            </Component>
-            <Component class="javax.swing.JTextField" name="txtCityUAD">
-              <Events>
-                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="txtCityUADActionPerformed"/>
-              </Events>
-            </Component>
-            <Component class="javax.swing.JTextField" name="txtEmailIdUAD">
-              <Events>
-                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="txtEmailIdUADActionPerformed"/>
-              </Events>
-            </Component>
-            <Component class="javax.swing.JTextField" name="txtStreetUAD">
-              <Events>
-                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="txtStreetUADActionPerformed"/>
-              </Events>
-            </Component>
-            <Component class="javax.swing.JTextField" name="txtFirstNameUAD">
-              <Events>
-                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="txtFirstNameUADActionPerformed"/>
-              </Events>
-            </Component>
-            <Component class="javax.swing.JTextField" name="txtPinCodeUAD">
-              <Events>
-                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="txtPinCodeUADActionPerformed"/>
-              </Events>
-            </Component>
-            <Component class="javax.swing.JTextField" name="txtLastNameUAD">
-              <Events>
-                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="txtLastNameUADActionPerformed"/>
-              </Events>
-            </Component>
-            <Component class="com.toedter.calendar.JDateChooser" name="txtDobUAD">
-            </Component>
-            <Component class="javax.swing.JButton" name="btnUpdateUAD">
-              <Properties>
-                <Property name="text" type="java.lang.String" value="UPDATE"/>
-              </Properties>
-              <Events>
-                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnUpdateUADActionPerformed"/>
-              </Events>
-            </Component>
-            <Component class="javax.swing.JLabel" name="lblPhoneNumber">
-              <Properties>
-                <Property name="text" type="java.lang.String" value="Phone Number:"/>
-              </Properties>
-            </Component>
-            <Component class="javax.swing.JTextField" name="txtPhoneNumberAD">
-              <Events>
-                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="txtPhoneNumberADActionPerformed"/>
-              </Events>
-            </Component>
-            <Component class="javax.swing.JPasswordField" name="txtNewPasswordUAD">
-              <Events>
-                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="txtNewPasswordUADActionPerformed"/>
-              </Events>
-            </Component>
-            <Component class="javax.swing.JPasswordField" name="txtOldPasswordUAD">
-            </Component>
-          </SubComponents>
-        </Container>
         <Container class="javax.swing.JPanel" name="ViewAppointments">
           <Properties>
             <Property name="minimumSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
@@ -1070,6 +819,259 @@
                 </Component>
               </SubComponents>
             </Container>
+          </SubComponents>
+        </Container>
+        <Container class="javax.swing.JPanel" name="AccountDetails">
+          <Properties>
+            <Property name="minimumSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
+              <Dimension value="[823, 697]"/>
+            </Property>
+          </Properties>
+          <Constraints>
+            <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignCardLayout" value="org.netbeans.modules.form.compat2.layouts.DesignCardLayout$CardConstraintsDescription">
+              <CardConstraints cardName="card7"/>
+            </Constraint>
+          </Constraints>
+
+          <Layout>
+            <DimensionLayout dim="0">
+              <Group type="103" groupAlignment="0" attributes="0">
+                  <Group type="102" alignment="1" attributes="0">
+                      <EmptySpace max="32767" attributes="0"/>
+                      <Component id="lblVirtualCare1" min="-2" pref="115" max="-2" attributes="0"/>
+                      <EmptySpace min="-2" pref="350" max="-2" attributes="0"/>
+                  </Group>
+                  <Group type="102" attributes="0">
+                      <Group type="103" groupAlignment="0" attributes="0">
+                          <Group type="102" alignment="0" attributes="0">
+                              <Group type="103" groupAlignment="0" attributes="0">
+                                  <Group type="102" attributes="0">
+                                      <EmptySpace min="-2" pref="270" max="-2" attributes="0"/>
+                                      <Group type="103" groupAlignment="1" attributes="0">
+                                          <Component id="lblFirstName" linkSize="1" alignment="1" min="-2" max="-2" attributes="0"/>
+                                          <Component id="lblLastName" linkSize="1" alignment="1" min="-2" max="-2" attributes="0"/>
+                                          <Component id="lblStreet" linkSize="1" alignment="1" min="-2" max="-2" attributes="0"/>
+                                          <Component id="lblCity2" linkSize="1" alignment="1" min="-2" max="-2" attributes="0"/>
+                                          <Component id="lblCity1" linkSize="1" alignment="1" min="-2" max="-2" attributes="0"/>
+                                          <Component id="lblEmailId" linkSize="1" alignment="1" min="-2" max="-2" attributes="0"/>
+                                          <Component id="lblPassword" linkSize="1" alignment="1" min="-2" max="-2" attributes="0"/>
+                                          <Component id="lblReenterPassword" linkSize="1" alignment="1" min="-2" max="-2" attributes="0"/>
+                                          <Component id="lblPhoneNumber" linkSize="1" alignment="1" min="-2" max="-2" attributes="0"/>
+                                      </Group>
+                                  </Group>
+                                  <Group type="102" alignment="1" attributes="0">
+                                      <EmptySpace min="-2" pref="187" max="-2" attributes="0"/>
+                                      <Component id="lblAge" linkSize="1" min="-2" max="-2" attributes="0"/>
+                                  </Group>
+                              </Group>
+                              <EmptySpace min="-2" pref="47" max="-2" attributes="0"/>
+                              <Group type="103" groupAlignment="1" attributes="0">
+                                  <Group type="103" groupAlignment="0" attributes="0">
+                                      <Group type="103" groupAlignment="1" attributes="0">
+                                          <Group type="103" groupAlignment="0" attributes="0">
+                                              <Group type="103" alignment="0" groupAlignment="1" attributes="0">
+                                                  <Component id="txtEmailIdUAD" alignment="1" min="-2" pref="144" max="-2" attributes="0"/>
+                                                  <Group type="103" alignment="1" groupAlignment="0" max="-2" attributes="0">
+                                                      <Component id="txtLastNameUAD" alignment="0" pref="144" max="32767" attributes="0"/>
+                                                      <Component id="txtFirstNameUAD" alignment="0" max="32767" attributes="0"/>
+                                                  </Group>
+                                              </Group>
+                                              <Component id="txtDobUAD" alignment="1" min="-2" pref="144" max="-2" attributes="0"/>
+                                              <Component id="txtPinCodeUAD" alignment="1" min="-2" pref="144" max="-2" attributes="0"/>
+                                              <Component id="txtCityUAD" alignment="1" min="-2" pref="144" max="-2" attributes="0"/>
+                                              <Component id="txtStreetUAD" alignment="1" min="-2" pref="144" max="-2" attributes="0"/>
+                                          </Group>
+                                          <Component id="txtPhoneNumberAD" min="-2" pref="144" max="-2" attributes="0"/>
+                                      </Group>
+                                      <Component id="txtNewPasswordUAD" alignment="1" min="-2" pref="144" max="-2" attributes="0"/>
+                                  </Group>
+                                  <Component id="txtOldPasswordUAD" min="-2" pref="144" max="-2" attributes="0"/>
+                              </Group>
+                          </Group>
+                          <Group type="102" alignment="0" attributes="0">
+                              <EmptySpace min="-2" pref="347" max="-2" attributes="0"/>
+                              <Component id="btnUpdateUAD" min="-2" max="-2" attributes="0"/>
+                          </Group>
+                      </Group>
+                      <EmptySpace pref="285" max="32767" attributes="0"/>
+                  </Group>
+              </Group>
+            </DimensionLayout>
+            <DimensionLayout dim="1">
+              <Group type="103" groupAlignment="0" attributes="0">
+                  <Group type="102" alignment="0" attributes="0">
+                      <EmptySpace min="-2" pref="24" max="-2" attributes="0"/>
+                      <Component id="lblVirtualCare1" min="-2" pref="28" max="-2" attributes="0"/>
+                      <EmptySpace min="-2" pref="74" max="-2" attributes="0"/>
+                      <Group type="103" groupAlignment="0" attributes="0">
+                          <Group type="102" alignment="0" attributes="0">
+                              <Component id="txtFirstNameUAD" min="-2" max="-2" attributes="0"/>
+                              <EmptySpace type="separate" max="-2" attributes="0"/>
+                              <Group type="103" groupAlignment="3" attributes="0">
+                                  <Component id="txtLastNameUAD" alignment="3" min="-2" max="-2" attributes="0"/>
+                                  <Component id="lblLastName" alignment="3" min="-2" max="-2" attributes="0"/>
+                              </Group>
+                          </Group>
+                          <Component id="lblFirstName" alignment="0" min="-2" max="-2" attributes="0"/>
+                      </Group>
+                      <EmptySpace min="-2" pref="19" max="-2" attributes="0"/>
+                      <Group type="103" groupAlignment="0" attributes="0">
+                          <Component id="txtDobUAD" min="-2" max="-2" attributes="0"/>
+                          <Component id="lblAge" min="-2" max="-2" attributes="0"/>
+                      </Group>
+                      <EmptySpace min="-2" pref="14" max="-2" attributes="0"/>
+                      <Group type="103" groupAlignment="3" attributes="0">
+                          <Component id="lblPhoneNumber" alignment="3" min="-2" max="-2" attributes="0"/>
+                          <Component id="txtPhoneNumberAD" alignment="3" min="-2" max="-2" attributes="0"/>
+                      </Group>
+                      <EmptySpace min="-2" pref="16" max="-2" attributes="0"/>
+                      <Group type="103" groupAlignment="3" attributes="0">
+                          <Component id="lblStreet" alignment="3" min="-2" max="-2" attributes="0"/>
+                          <Component id="txtStreetUAD" alignment="3" min="-2" max="-2" attributes="0"/>
+                      </Group>
+                      <EmptySpace type="separate" max="-2" attributes="0"/>
+                      <Group type="103" groupAlignment="3" attributes="0">
+                          <Component id="lblCity2" alignment="3" min="-2" max="-2" attributes="0"/>
+                          <Component id="txtCityUAD" alignment="3" min="-2" max="-2" attributes="0"/>
+                      </Group>
+                      <EmptySpace type="separate" max="-2" attributes="0"/>
+                      <Group type="103" groupAlignment="3" attributes="0">
+                          <Component id="lblCity1" alignment="3" min="-2" max="-2" attributes="0"/>
+                          <Component id="txtPinCodeUAD" alignment="3" min="-2" max="-2" attributes="0"/>
+                      </Group>
+                      <EmptySpace type="separate" max="-2" attributes="0"/>
+                      <Group type="103" groupAlignment="3" attributes="0">
+                          <Component id="lblEmailId" alignment="3" min="-2" max="-2" attributes="0"/>
+                          <Component id="txtEmailIdUAD" alignment="3" min="-2" max="-2" attributes="0"/>
+                      </Group>
+                      <EmptySpace type="separate" max="-2" attributes="0"/>
+                      <Group type="103" groupAlignment="3" attributes="0">
+                          <Component id="lblPassword" alignment="3" min="-2" max="-2" attributes="0"/>
+                          <Component id="txtOldPasswordUAD" alignment="3" min="-2" max="-2" attributes="0"/>
+                      </Group>
+                      <EmptySpace min="-2" pref="10" max="-2" attributes="0"/>
+                      <Group type="103" groupAlignment="3" attributes="0">
+                          <Component id="lblReenterPassword" alignment="3" min="-2" max="-2" attributes="0"/>
+                          <Component id="txtNewPasswordUAD" alignment="3" min="-2" max="-2" attributes="0"/>
+                      </Group>
+                      <EmptySpace min="-2" pref="33" max="-2" attributes="0"/>
+                      <Component id="btnUpdateUAD" min="-2" max="-2" attributes="0"/>
+                      <EmptySpace pref="164" max="32767" attributes="0"/>
+                  </Group>
+              </Group>
+            </DimensionLayout>
+          </Layout>
+          <SubComponents>
+            <Component class="javax.swing.JLabel" name="lblReenterPassword">
+              <Properties>
+                <Property name="text" type="java.lang.String" value="New Password:"/>
+              </Properties>
+            </Component>
+            <Component class="javax.swing.JLabel" name="lblFirstName">
+              <Properties>
+                <Property name="text" type="java.lang.String" value="First Name:"/>
+              </Properties>
+            </Component>
+            <Component class="javax.swing.JLabel" name="lblAge">
+              <Properties>
+                <Property name="text" type="java.lang.String" value="Date of Birth"/>
+              </Properties>
+            </Component>
+            <Component class="javax.swing.JLabel" name="lblEmailId">
+              <Properties>
+                <Property name="text" type="java.lang.String" value="Email Id:"/>
+              </Properties>
+            </Component>
+            <Component class="javax.swing.JLabel" name="lblStreet">
+              <Properties>
+                <Property name="text" type="java.lang.String" value="Street:"/>
+              </Properties>
+            </Component>
+            <Component class="javax.swing.JLabel" name="lblLastName">
+              <Properties>
+                <Property name="text" type="java.lang.String" value="Last Name:"/>
+              </Properties>
+            </Component>
+            <Component class="javax.swing.JLabel" name="lblCity1">
+              <Properties>
+                <Property name="text" type="java.lang.String" value="PinCode:"/>
+              </Properties>
+            </Component>
+            <Component class="javax.swing.JLabel" name="lblCity2">
+              <Properties>
+                <Property name="text" type="java.lang.String" value="City:"/>
+              </Properties>
+            </Component>
+            <Component class="javax.swing.JLabel" name="lblPassword">
+              <Properties>
+                <Property name="text" type="java.lang.String" value="Old Password:"/>
+              </Properties>
+            </Component>
+            <Component class="javax.swing.JLabel" name="lblVirtualCare1">
+              <Properties>
+                <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+                  <Font name="Lucida Grande" size="14" style="1"/>
+                </Property>
+                <Property name="text" type="java.lang.String" value="VIRTUAL CARE"/>
+              </Properties>
+            </Component>
+            <Component class="javax.swing.JTextField" name="txtCityUAD">
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="txtCityUADActionPerformed"/>
+              </Events>
+            </Component>
+            <Component class="javax.swing.JTextField" name="txtEmailIdUAD">
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="txtEmailIdUADActionPerformed"/>
+              </Events>
+            </Component>
+            <Component class="javax.swing.JTextField" name="txtStreetUAD">
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="txtStreetUADActionPerformed"/>
+              </Events>
+            </Component>
+            <Component class="javax.swing.JTextField" name="txtFirstNameUAD">
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="txtFirstNameUADActionPerformed"/>
+              </Events>
+            </Component>
+            <Component class="javax.swing.JTextField" name="txtPinCodeUAD">
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="txtPinCodeUADActionPerformed"/>
+              </Events>
+            </Component>
+            <Component class="javax.swing.JTextField" name="txtLastNameUAD">
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="txtLastNameUADActionPerformed"/>
+              </Events>
+            </Component>
+            <Component class="com.toedter.calendar.JDateChooser" name="txtDobUAD">
+            </Component>
+            <Component class="javax.swing.JButton" name="btnUpdateUAD">
+              <Properties>
+                <Property name="text" type="java.lang.String" value="UPDATE"/>
+              </Properties>
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnUpdateUADActionPerformed"/>
+              </Events>
+            </Component>
+            <Component class="javax.swing.JLabel" name="lblPhoneNumber">
+              <Properties>
+                <Property name="text" type="java.lang.String" value="Phone Number:"/>
+              </Properties>
+            </Component>
+            <Component class="javax.swing.JTextField" name="txtPhoneNumberAD">
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="txtPhoneNumberADActionPerformed"/>
+              </Events>
+            </Component>
+            <Component class="javax.swing.JPasswordField" name="txtNewPasswordUAD">
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="txtNewPasswordUADActionPerformed"/>
+              </Events>
+            </Component>
+            <Component class="javax.swing.JPasswordField" name="txtOldPasswordUAD">
+            </Component>
           </SubComponents>
         </Container>
       </SubComponents>

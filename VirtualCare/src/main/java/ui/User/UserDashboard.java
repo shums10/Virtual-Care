@@ -436,29 +436,6 @@ public class UserDashboard extends javax.swing.JPanel {
         btnRequestFund = new javax.swing.JButton();
         btnLogout = new javax.swing.JButton();
         cardLayout = new javax.swing.JPanel();
-        AccountDetails = new javax.swing.JPanel();
-        lblReenterPassword = new javax.swing.JLabel();
-        lblFirstName = new javax.swing.JLabel();
-        lblAge = new javax.swing.JLabel();
-        lblEmailId = new javax.swing.JLabel();
-        lblStreet = new javax.swing.JLabel();
-        lblLastName = new javax.swing.JLabel();
-        lblCity1 = new javax.swing.JLabel();
-        lblCity2 = new javax.swing.JLabel();
-        lblPassword = new javax.swing.JLabel();
-        lblVirtualCare1 = new javax.swing.JLabel();
-        txtCityUAD = new javax.swing.JTextField();
-        txtEmailIdUAD = new javax.swing.JTextField();
-        txtStreetUAD = new javax.swing.JTextField();
-        txtFirstNameUAD = new javax.swing.JTextField();
-        txtPinCodeUAD = new javax.swing.JTextField();
-        txtLastNameUAD = new javax.swing.JTextField();
-        txtDobUAD = new com.toedter.calendar.JDateChooser();
-        btnUpdateUAD = new javax.swing.JButton();
-        lblPhoneNumber = new javax.swing.JLabel();
-        txtPhoneNumberAD = new javax.swing.JTextField();
-        txtNewPasswordUAD = new javax.swing.JPasswordField();
-        txtOldPasswordUAD = new javax.swing.JPasswordField();
         ViewAppointments = new javax.swing.JPanel();
         lblVirtualCare2 = new javax.swing.JLabel();
         jScrollPane2 = new javax.swing.JScrollPane();
@@ -497,6 +474,29 @@ public class UserDashboard extends javax.swing.JPanel {
         cmbNGOOrgs = new javax.swing.JComboBox<>();
         jScrollPane4 = new javax.swing.JScrollPane();
         tblNGORequests = new javax.swing.JTable();
+        AccountDetails = new javax.swing.JPanel();
+        lblReenterPassword = new javax.swing.JLabel();
+        lblFirstName = new javax.swing.JLabel();
+        lblAge = new javax.swing.JLabel();
+        lblEmailId = new javax.swing.JLabel();
+        lblStreet = new javax.swing.JLabel();
+        lblLastName = new javax.swing.JLabel();
+        lblCity1 = new javax.swing.JLabel();
+        lblCity2 = new javax.swing.JLabel();
+        lblPassword = new javax.swing.JLabel();
+        lblVirtualCare1 = new javax.swing.JLabel();
+        txtCityUAD = new javax.swing.JTextField();
+        txtEmailIdUAD = new javax.swing.JTextField();
+        txtStreetUAD = new javax.swing.JTextField();
+        txtFirstNameUAD = new javax.swing.JTextField();
+        txtPinCodeUAD = new javax.swing.JTextField();
+        txtLastNameUAD = new javax.swing.JTextField();
+        txtDobUAD = new com.toedter.calendar.JDateChooser();
+        btnUpdateUAD = new javax.swing.JButton();
+        lblPhoneNumber = new javax.swing.JLabel();
+        txtPhoneNumberAD = new javax.swing.JTextField();
+        txtNewPasswordUAD = new javax.swing.JPasswordField();
+        txtOldPasswordUAD = new javax.swing.JPasswordField();
 
         setBackground(new java.awt.Color(102, 102, 255));
         setMinimumSize(new java.awt.Dimension(1115, 925));
@@ -546,11 +546,12 @@ public class UserDashboard extends javax.swing.JPanel {
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGap(35, 35, 35)
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(btnRequestFund)
-                            .addComponent(btnDashboard)
-                            .addComponent(btnAccount)
-                            .addComponent(btnViewAppointments)))
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(btnViewAppointments, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(btnAccount, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                                .addComponent(btnDashboard, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(btnRequestFund, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGap(67, 67, 67)
                         .addComponent(btnLogout)))
@@ -567,194 +568,12 @@ public class UserDashboard extends javax.swing.JPanel {
                 .addComponent(btnDashboard)
                 .addGap(31, 31, 31)
                 .addComponent(btnRequestFund)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 436, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 500, Short.MAX_VALUE)
                 .addComponent(btnLogout)
                 .addGap(121, 121, 121))
         );
 
         cardLayout.setLayout(new java.awt.CardLayout());
-
-        AccountDetails.setMinimumSize(new java.awt.Dimension(823, 697));
-
-        lblReenterPassword.setText("New Password:");
-
-        lblFirstName.setText("First Name:");
-
-        lblAge.setText("Date of Birth");
-
-        lblEmailId.setText("Email Id:");
-
-        lblStreet.setText("Street:");
-
-        lblLastName.setText("Last Name:");
-
-        lblCity1.setText("PinCode:");
-
-        lblCity2.setText("City:");
-
-        lblPassword.setText("Old Password:");
-
-        lblVirtualCare1.setFont(new java.awt.Font("Lucida Grande", 1, 14)); // NOI18N
-        lblVirtualCare1.setText("VIRTUAL CARE");
-
-        txtCityUAD.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                txtCityUADActionPerformed(evt);
-            }
-        });
-
-        txtEmailIdUAD.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                txtEmailIdUADActionPerformed(evt);
-            }
-        });
-
-        txtStreetUAD.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                txtStreetUADActionPerformed(evt);
-            }
-        });
-
-        txtFirstNameUAD.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                txtFirstNameUADActionPerformed(evt);
-            }
-        });
-
-        txtPinCodeUAD.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                txtPinCodeUADActionPerformed(evt);
-            }
-        });
-
-        txtLastNameUAD.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                txtLastNameUADActionPerformed(evt);
-            }
-        });
-
-        btnUpdateUAD.setText("UPDATE");
-        btnUpdateUAD.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnUpdateUADActionPerformed(evt);
-            }
-        });
-
-        lblPhoneNumber.setText("Phone Number:");
-
-        txtPhoneNumberAD.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                txtPhoneNumberADActionPerformed(evt);
-            }
-        });
-
-        txtNewPasswordUAD.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                txtNewPasswordUADActionPerformed(evt);
-            }
-        });
-
-        javax.swing.GroupLayout AccountDetailsLayout = new javax.swing.GroupLayout(AccountDetails);
-        AccountDetails.setLayout(AccountDetailsLayout);
-        AccountDetailsLayout.setHorizontalGroup(
-            AccountDetailsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(AccountDetailsLayout.createSequentialGroup()
-                .addGroup(AccountDetailsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(AccountDetailsLayout.createSequentialGroup()
-                        .addGap(270, 270, 270)
-                        .addGroup(AccountDetailsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(lblFirstName)
-                            .addComponent(lblLastName)
-                            .addComponent(lblStreet)
-                            .addComponent(lblCity2)
-                            .addComponent(lblCity1)
-                            .addComponent(lblEmailId)
-                            .addComponent(lblPassword)
-                            .addComponent(lblReenterPassword)
-                            .addComponent(lblPhoneNumber)))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, AccountDetailsLayout.createSequentialGroup()
-                        .addGap(187, 187, 187)
-                        .addComponent(lblAge)))
-                .addGap(47, 47, 47)
-                .addGroup(AccountDetailsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addGroup(AccountDetailsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                        .addGroup(AccountDetailsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addGroup(AccountDetailsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                .addGroup(AccountDetailsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                                    .addComponent(txtEmailIdUAD, javax.swing.GroupLayout.PREFERRED_SIZE, 144, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addGroup(AccountDetailsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                        .addComponent(txtLastNameUAD, javax.swing.GroupLayout.DEFAULT_SIZE, 144, Short.MAX_VALUE)
-                                        .addComponent(txtFirstNameUAD)))
-                                .addComponent(txtDobUAD, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 144, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addComponent(txtPinCodeUAD, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 144, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addComponent(txtCityUAD, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 144, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addComponent(txtStreetUAD, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 144, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addComponent(txtPhoneNumberAD, javax.swing.GroupLayout.PREFERRED_SIZE, 144, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addComponent(txtNewPasswordUAD, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 144, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addComponent(txtOldPasswordUAD, javax.swing.GroupLayout.PREFERRED_SIZE, 144, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(269, Short.MAX_VALUE))
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, AccountDetailsLayout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addGroup(AccountDetailsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, AccountDetailsLayout.createSequentialGroup()
-                        .addComponent(lblVirtualCare1, javax.swing.GroupLayout.PREFERRED_SIZE, 115, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(350, 350, 350))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, AccountDetailsLayout.createSequentialGroup()
-                        .addComponent(btnUpdateUAD)
-                        .addGap(348, 348, 348))))
-        );
-        AccountDetailsLayout.setVerticalGroup(
-            AccountDetailsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(AccountDetailsLayout.createSequentialGroup()
-                .addGap(24, 24, 24)
-                .addComponent(lblVirtualCare1, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(74, 74, 74)
-                .addGroup(AccountDetailsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(AccountDetailsLayout.createSequentialGroup()
-                        .addComponent(txtFirstNameUAD, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(18, 18, 18)
-                        .addGroup(AccountDetailsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(txtLastNameUAD, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(lblLastName)))
-                    .addComponent(lblFirstName))
-                .addGap(19, 19, 19)
-                .addGroup(AccountDetailsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(txtDobUAD, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(lblAge))
-                .addGap(14, 14, 14)
-                .addGroup(AccountDetailsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(lblPhoneNumber)
-                    .addComponent(txtPhoneNumberAD, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(16, 16, 16)
-                .addGroup(AccountDetailsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(lblStreet)
-                    .addComponent(txtStreetUAD, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(18, 18, 18)
-                .addGroup(AccountDetailsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(lblCity2)
-                    .addComponent(txtCityUAD, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(18, 18, 18)
-                .addGroup(AccountDetailsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(lblCity1)
-                    .addComponent(txtPinCodeUAD, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(18, 18, 18)
-                .addGroup(AccountDetailsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(lblEmailId)
-                    .addComponent(txtEmailIdUAD, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(18, 18, 18)
-                .addGroup(AccountDetailsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(lblPassword)
-                    .addComponent(txtOldPasswordUAD, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(10, 10, 10)
-                .addGroup(AccountDetailsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(lblReenterPassword)
-                    .addComponent(txtNewPasswordUAD, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 53, Short.MAX_VALUE)
-                .addComponent(btnUpdateUAD)
-                .addGap(28, 28, 28))
-        );
-
-        cardLayout.add(AccountDetails, "card7");
 
         ViewAppointments.setMinimumSize(new java.awt.Dimension(823, 697));
         ViewAppointments.setPreferredSize(new java.awt.Dimension(823, 697));
@@ -1153,6 +972,191 @@ public class UserDashboard extends javax.swing.JPanel {
 
         cardLayout.add(FundRequest, "card6");
 
+        AccountDetails.setMinimumSize(new java.awt.Dimension(823, 697));
+
+        lblReenterPassword.setText("New Password:");
+
+        lblFirstName.setText("First Name:");
+
+        lblAge.setText("Date of Birth");
+
+        lblEmailId.setText("Email Id:");
+
+        lblStreet.setText("Street:");
+
+        lblLastName.setText("Last Name:");
+
+        lblCity1.setText("PinCode:");
+
+        lblCity2.setText("City:");
+
+        lblPassword.setText("Old Password:");
+
+        lblVirtualCare1.setFont(new java.awt.Font("Lucida Grande", 1, 14)); // NOI18N
+        lblVirtualCare1.setText("VIRTUAL CARE");
+
+        txtCityUAD.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtCityUADActionPerformed(evt);
+            }
+        });
+
+        txtEmailIdUAD.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtEmailIdUADActionPerformed(evt);
+            }
+        });
+
+        txtStreetUAD.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtStreetUADActionPerformed(evt);
+            }
+        });
+
+        txtFirstNameUAD.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtFirstNameUADActionPerformed(evt);
+            }
+        });
+
+        txtPinCodeUAD.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtPinCodeUADActionPerformed(evt);
+            }
+        });
+
+        txtLastNameUAD.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtLastNameUADActionPerformed(evt);
+            }
+        });
+
+        btnUpdateUAD.setText("UPDATE");
+        btnUpdateUAD.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnUpdateUADActionPerformed(evt);
+            }
+        });
+
+        lblPhoneNumber.setText("Phone Number:");
+
+        txtPhoneNumberAD.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtPhoneNumberADActionPerformed(evt);
+            }
+        });
+
+        txtNewPasswordUAD.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtNewPasswordUADActionPerformed(evt);
+            }
+        });
+
+        javax.swing.GroupLayout AccountDetailsLayout = new javax.swing.GroupLayout(AccountDetails);
+        AccountDetails.setLayout(AccountDetailsLayout);
+        AccountDetailsLayout.setHorizontalGroup(
+            AccountDetailsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, AccountDetailsLayout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(lblVirtualCare1, javax.swing.GroupLayout.PREFERRED_SIZE, 115, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(350, 350, 350))
+            .addGroup(AccountDetailsLayout.createSequentialGroup()
+                .addGroup(AccountDetailsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(AccountDetailsLayout.createSequentialGroup()
+                        .addGroup(AccountDetailsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(AccountDetailsLayout.createSequentialGroup()
+                                .addGap(270, 270, 270)
+                                .addGroup(AccountDetailsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                    .addComponent(lblFirstName)
+                                    .addComponent(lblLastName)
+                                    .addComponent(lblStreet)
+                                    .addComponent(lblCity2)
+                                    .addComponent(lblCity1)
+                                    .addComponent(lblEmailId)
+                                    .addComponent(lblPassword)
+                                    .addComponent(lblReenterPassword)
+                                    .addComponent(lblPhoneNumber)))
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, AccountDetailsLayout.createSequentialGroup()
+                                .addGap(187, 187, 187)
+                                .addComponent(lblAge)))
+                        .addGap(47, 47, 47)
+                        .addGroup(AccountDetailsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addGroup(AccountDetailsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                .addGroup(AccountDetailsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                    .addGroup(AccountDetailsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                        .addGroup(AccountDetailsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                            .addComponent(txtEmailIdUAD, javax.swing.GroupLayout.PREFERRED_SIZE, 144, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                            .addGroup(AccountDetailsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                                .addComponent(txtLastNameUAD, javax.swing.GroupLayout.DEFAULT_SIZE, 144, Short.MAX_VALUE)
+                                                .addComponent(txtFirstNameUAD)))
+                                        .addComponent(txtDobUAD, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 144, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addComponent(txtPinCodeUAD, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 144, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addComponent(txtCityUAD, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 144, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addComponent(txtStreetUAD, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 144, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                    .addComponent(txtPhoneNumberAD, javax.swing.GroupLayout.PREFERRED_SIZE, 144, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addComponent(txtNewPasswordUAD, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 144, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(txtOldPasswordUAD, javax.swing.GroupLayout.PREFERRED_SIZE, 144, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addGroup(AccountDetailsLayout.createSequentialGroup()
+                        .addGap(347, 347, 347)
+                        .addComponent(btnUpdateUAD)))
+                .addContainerGap(285, Short.MAX_VALUE))
+        );
+
+        AccountDetailsLayout.linkSize(javax.swing.SwingConstants.HORIZONTAL, new java.awt.Component[] {lblAge, lblCity1, lblCity2, lblEmailId, lblFirstName, lblLastName, lblPassword, lblPhoneNumber, lblReenterPassword, lblStreet});
+
+        AccountDetailsLayout.setVerticalGroup(
+            AccountDetailsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(AccountDetailsLayout.createSequentialGroup()
+                .addGap(24, 24, 24)
+                .addComponent(lblVirtualCare1, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(74, 74, 74)
+                .addGroup(AccountDetailsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(AccountDetailsLayout.createSequentialGroup()
+                        .addComponent(txtFirstNameUAD, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)
+                        .addGroup(AccountDetailsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(txtLastNameUAD, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(lblLastName)))
+                    .addComponent(lblFirstName))
+                .addGap(19, 19, 19)
+                .addGroup(AccountDetailsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(txtDobUAD, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(lblAge))
+                .addGap(14, 14, 14)
+                .addGroup(AccountDetailsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(lblPhoneNumber)
+                    .addComponent(txtPhoneNumberAD, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(16, 16, 16)
+                .addGroup(AccountDetailsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(lblStreet)
+                    .addComponent(txtStreetUAD, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(18, 18, 18)
+                .addGroup(AccountDetailsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(lblCity2)
+                    .addComponent(txtCityUAD, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(18, 18, 18)
+                .addGroup(AccountDetailsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(lblCity1)
+                    .addComponent(txtPinCodeUAD, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(18, 18, 18)
+                .addGroup(AccountDetailsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(lblEmailId)
+                    .addComponent(txtEmailIdUAD, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(18, 18, 18)
+                .addGroup(AccountDetailsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(lblPassword)
+                    .addComponent(txtOldPasswordUAD, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(10, 10, 10)
+                .addGroup(AccountDetailsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(lblReenterPassword)
+                    .addComponent(txtNewPasswordUAD, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(33, 33, 33)
+                .addComponent(btnUpdateUAD)
+                .addContainerGap(164, Short.MAX_VALUE))
+        );
+
+        cardLayout.add(AccountDetails, "card7");
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
@@ -1175,9 +1179,9 @@ public class UserDashboard extends javax.swing.JPanel {
                 .addContainerGap())
             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                    .addContainerGap(106, Short.MAX_VALUE)
+                    .addContainerGap(114, Short.MAX_VALUE)
                     .addComponent(cardLayout, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addContainerGap(106, Short.MAX_VALUE)))
+                    .addContainerGap(114, Short.MAX_VALUE)))
         );
     }// </editor-fold>//GEN-END:initComponents
 
