@@ -27,10 +27,10 @@
                   <Group type="103" groupAlignment="0" attributes="0">
                       <Group type="102" alignment="0" attributes="0">
                           <Group type="103" groupAlignment="1" attributes="0">
-                              <Component id="lblEmailId" alignment="1" min="-2" max="-2" attributes="0"/>
-                              <Component id="lblPassword" alignment="1" min="-2" max="-2" attributes="0"/>
-                              <Component id="lblReenterPassword" alignment="1" min="-2" max="-2" attributes="0"/>
-                              <Component id="lblCity1" alignment="1" min="-2" max="-2" attributes="0"/>
+                              <Component id="lblEmailId" linkSize="1" alignment="1" min="-2" max="-2" attributes="0"/>
+                              <Component id="lblPassword" linkSize="1" alignment="1" min="-2" max="-2" attributes="0"/>
+                              <Component id="lblReenterPassword" linkSize="1" alignment="1" min="-2" max="-2" attributes="0"/>
+                              <Component id="lblCity1" linkSize="1" alignment="1" min="-2" max="-2" attributes="0"/>
                           </Group>
                           <EmptySpace min="88" pref="88" max="-2" attributes="0"/>
                           <Group type="103" groupAlignment="0" max="-2" attributes="0">
@@ -47,11 +47,11 @@
                   </Group>
                   <Group type="102" attributes="0">
                       <Group type="103" groupAlignment="1" attributes="0">
-                          <Component id="lblAge" min="-2" max="-2" attributes="0"/>
-                          <Component id="lblLastName" min="-2" max="-2" attributes="0"/>
-                          <Component id="lblCity" alignment="1" min="-2" max="-2" attributes="0"/>
-                          <Component id="lblStreet" alignment="1" min="-2" max="-2" attributes="0"/>
-                          <Component id="lblFirstName" min="-2" max="-2" attributes="0"/>
+                          <Component id="lblAge" linkSize="1" min="-2" max="-2" attributes="0"/>
+                          <Component id="lblLastName" linkSize="1" min="-2" max="-2" attributes="0"/>
+                          <Component id="lblCity" linkSize="1" alignment="1" min="-2" max="-2" attributes="0"/>
+                          <Component id="lblStreet" linkSize="1" alignment="1" min="-2" max="-2" attributes="0"/>
+                          <Component id="lblFirstName" linkSize="1" min="-2" max="-2" attributes="0"/>
                       </Group>
                       <EmptySpace min="-2" pref="88" max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="0" max="-2" attributes="0">
@@ -60,10 +60,7 @@
                           <Component id="txtStreet" pref="144" max="32767" attributes="0"/>
                           <Component id="txtDoB" alignment="0" max="32767" attributes="0"/>
                           <Component id="txtPinCode" alignment="0" pref="144" max="32767" attributes="0"/>
-                          <Group type="102" attributes="0">
-                              <EmptySpace min="6" pref="6" max="-2" attributes="0"/>
-                              <Component id="txtCity" max="32767" attributes="0"/>
-                          </Group>
+                          <Component id="txtCity" alignment="1" max="32767" attributes="0"/>
                       </Group>
                   </Group>
               </Group>
