@@ -9,14 +9,14 @@ package model;
  * @author swaroop
  */
 public class DeliveryHeadDetails {
-    String FirseName, LastName, Email, Organization, Password;
+    String FirstName, LastName, Email, Organization, Password;
 
-    public String getFirseName() {
-        return FirseName;
+    public String getFirstName() {
+        return FirstName;
     }
 
-    public void setFirseName(String FirseName) {
-        this.FirseName = FirseName;
+    public void setFirstName(String FirseName) {
+        this.FirstName = FirseName;
     }
 
     public String getLastName() {

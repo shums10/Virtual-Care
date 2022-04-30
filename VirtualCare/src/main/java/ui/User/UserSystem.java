@@ -19,9 +19,11 @@ import java.util.List;
 import javax.swing.ImageIcon;
 import javax.swing.JOptionPane;
 import model.AdminDetails;
+import model.DeliveryHeadDetails;
 import model.DoctorDetails;
 import model.InsuranceAgentDetails;
 import ui.Admin.AdminSystem;
+import ui.Delivery.DeliveryHead;
 import ui.Hospital.AdminHospital;
 import ui.Hospital.DoctorsDashboard;
 import ui.Insurance.AdminInsurance;
@@ -52,6 +54,7 @@ public class UserSystem extends javax.swing.JFrame {
     HashMap<String, AdminDetails> AdminMap = new HashMap<>();
     HashMap<String, DoctorDetails> DoctorMap = new HashMap<>();
     HashMap<String, InsuranceAgentDetails> InsAgentMap = new HashMap<>();
+    HashMap<String, DeliveryHeadDetails> DelHeadMap = new HashMap<>();
     
     public static ObjectContainer Userdb;
     public static ObjectContainer Admindb;
@@ -60,6 +63,7 @@ public class UserSystem extends javax.swing.JFrame {
     public static ObjectContainer Insudb;
     public static ObjectContainer NGOdb;
     public static ObjectContainer InsAgentdb;
+    public static ObjectContainer DelHeaddb;
     
     void populateorgs(){
         cmbBoxOrg.removeAllItems();
@@ -125,6 +129,11 @@ public class UserSystem extends javax.swing.JFrame {
             ObjectContainer InsAgentdb = Db4oEmbedded.openFile(Db4oEmbedded.newConfiguration(), NGOFILEPath);
             this.InsAgentdb = InsAgentdb;
         }
+        if(this.DelHeaddb == null){
+            String NGOFILEPath = s + "/Databases/DeliveryHead.db";
+            ObjectContainer DelHeaddb = Db4oEmbedded.openFile(Db4oEmbedded.newConfiguration(), NGOFILEPath);
+            this.DelHeaddb = DelHeaddb;
+        }
         else
             return;
     }
@@ -134,17 +143,20 @@ public class UserSystem extends javax.swing.JFrame {
         HashMap<String, AdminDetails> AdminMap = new HashMap<>();
         HashMap<String, DoctorDetails> DoctorMap = new HashMap<>();
         HashMap<String, InsuranceAgentDetails> InsAgentMap = new HashMap<>();
+        HashMap<String, DeliveryHeadDetails> DelHeadMap = new HashMap<>();
         
         UserDetails u;
         AdminDetails a;
         DoctorDetails d;
         InsuranceAgentDetails IA;
+        DeliveryHeadDetails DH;
         try {
             List<UserDetails> userresult = Userdb.query(UserDetails.class);
             List<AdminDetails> adminresult = Admindb.query(AdminDetails.class);
             List<DoctorDetails> doctorresult = Doctordb.query(DoctorDetails.class);
             List<InsuranceAgentDetails> InsAgentresult = InsAgentdb.query(InsuranceAgentDetails.class);
-            if(userresult.isEmpty() && adminresult.isEmpty() && doctorresult.isEmpty() && InsAgentresult.isEmpty())
+            List<DeliveryHeadDetails> DelHeadresult = DelHeaddb.query(DeliveryHeadDetails.class);
+            if(userresult.isEmpty() && adminresult.isEmpty() && doctorresult.isEmpty() && InsAgentresult.isEmpty() && DelHeadresult.isEmpty())
                 return;
 
             Iterator useritr = userresult.iterator();
@@ -170,6 +182,12 @@ public class UserSystem extends javax.swing.JFrame {
                 IA = (InsuranceAgentDetails)InsAgentitr.next();
                 InsAgentMap.put(IA.getEmail(), IA);
             }
+            
+            Iterator DelHeaditr = DelHeadresult.iterator();
+            while(DelHeaditr.hasNext()){
+                DH = (DeliveryHeadDetails)DelHeaditr.next();
+                DelHeadMap.put(DH.getEmail(), DH);
+            }
         }
         catch(DatabaseClosedException | Db4oIOException E){
             JOptionPane.showMessageDialog(this, "Database Error.");
@@ -178,6 +196,7 @@ public class UserSystem extends javax.swing.JFrame {
         this.AdminMap = AdminMap;
         this.DoctorMap = DoctorMap;
         this.InsAgentMap = InsAgentMap;
+        this.DelHeadMap = DelHeadMap;
     }
     
     private void DisplayImage() {
@@ -514,6 +533,8 @@ public class UserSystem extends javax.swing.JFrame {
         AdminDetails a = AdminMap.get(txtUserEmail.getText().trim());
         DoctorDetails d = DoctorMap.get(txtUserEmail.getText().trim());
         InsuranceAgentDetails IA = InsAgentMap.get(txtUserEmail.getText().trim());
+        DeliveryHeadDetails DH = DelHeadMap.get(txtUserEmail.getText().trim());
+        
         if(txtUserEmail.getText().trim().equals("SysAdmin@virtualcare.com") && String.valueOf(txtPassword.getPassword()).equals("SysAdmin") && rdBtnAdmin.isSelected()){
            AdminSystem Dashboard = new AdminSystem(SplitPane, a);
            SplitPane.setDividerSize(0);
@@ -532,8 +553,8 @@ public class UserSystem extends javax.swing.JFrame {
            SplitPane.remove(jPanel2);
            SplitPane.setRightComponent(Dashboard);
         }
-        else if((rdBtnUser.isSelected() && u == null) || (rdBtnAdmin.isSelected() && a == null) || (rdBtnDoctor.isSelected() && d == null) || (rdBtnOther.isSelected() && IA == null)){
-            JOptionPane.showMessageDialog(this, "Email Doesn't Exist. Please Signup.");
+        else if((rdBtnUser.isSelected() && u == null) || (rdBtnAdmin.isSelected() && a == null) || (rdBtnDoctor.isSelected() && d == null) || (rdBtnOther.isSelected() && IA == null && DH == null)){
+            JOptionPane.showMessageDialog(this, "Email Doesn't Exist. Please Signup or notify an admin to add.");
         }
         else if(rdBtnAdmin.isSelected()){
                 if(!Arrays.toString(txtPassword.getPassword()).equals(a.getPassword()) || !a.getEnterprise().equalsIgnoreCase(cmbBoxEnterprise.getSelectedItem().toString()))
@@ -588,11 +609,21 @@ public class UserSystem extends javax.swing.JFrame {
                 SplitPane.setRightComponent(Dashboard);
             }
         }
-        else if (rdBtnOther.isSelected()){
+        else if (rdBtnOther.isSelected() && DH == null){
             if(!Arrays.toString(txtPassword.getPassword()).equals(IA.getPassword()))
                 JOptionPane.showMessageDialog(this, "Incorrect Password. Try Again.");
             else{
                 InsuranceAgent Dashboard = new InsuranceAgent(SplitPane, IA);
+                SplitPane.setDividerSize(0);
+                SplitPane.remove(jPanel2);
+                SplitPane.setRightComponent(Dashboard);
+            }
+        }
+        else if (rdBtnOther.isSelected() && IA == null){
+            if(!Arrays.toString(txtPassword.getPassword()).equals(DH.getPassword()))
+                JOptionPane.showMessageDialog(this, "Incorrect Password. Try Again.");
+            else{
+                DeliveryHead Dashboard = new DeliveryHead(SplitPane, DH);
                 SplitPane.setDividerSize(0);
                 SplitPane.remove(jPanel2);
                 SplitPane.setRightComponent(Dashboard);
