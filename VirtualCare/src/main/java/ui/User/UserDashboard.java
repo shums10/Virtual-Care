@@ -7,6 +7,8 @@ package ui.User;
 import com.db4o.ext.DatabaseClosedException;
 import com.db4o.ext.Db4oIOException;
 import java.awt.CardLayout;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -17,6 +19,7 @@ import java.util.Iterator;
 import java.util.LinkedHashSet;
 import java.util.List;
 import java.util.TreeMap;
+import javax.swing.ImageIcon;
 import javax.swing.JOptionPane;
 import javax.swing.JSplitPane;
 import javax.swing.table.DefaultTableModel;
@@ -50,6 +53,7 @@ public class UserDashboard extends javax.swing.JPanel {
         this.ViewAptMod = AptMod;
         this.NGOMod = NGOMod;
         this.SplitPane = SplitPane;
+        DisplayImage();
     }
 
     JSplitPane SplitPane;
@@ -97,6 +101,43 @@ public class UserDashboard extends javax.swing.JPanel {
             JOptionPane.showMessageDialog(this, "No Doctors Added.");
         }
     }
+     private void DisplayImage() {
+     Path currentRelativePath = Paths.get("");
+     String s = currentRelativePath.toAbsolutePath().toString();
+     
+     // Logout Button
+     String FilePath1 = s+"/images/bookappointment.png.";
+     // URL imgLogin = getClass().getResource(FilePath1 );
+     ImageIcon login1 = new ImageIcon(FilePath1);
+     btnBookAppointment.setIcon(login1);
+     
+     String FilePath2 = s+"/images/HC11.gif";
+     // URL imgLogin = getClass().getResource(FilePath1 );
+     ImageIcon login2 = new ImageIcon(FilePath2);
+     lblViewAppointments.setIcon(login2);
+     
+     String FilePath3 = s+"/images/HC10.gif";
+     // URL imgLogin = getClass().getResource(FilePath1 );
+     ImageIcon login3 = new ImageIcon(FilePath3);
+     lblUserDB.setIcon(login3);
+     
+     String FilePath4 = s+"/images/HC7.gif";
+     // URL imgLogin = getClass().getResource(FilePath1 );
+     ImageIcon login4 = new ImageIcon(FilePath4);
+     lblBookAppointment.setIcon(login4);
+     
+     
+     String FilePath5 = s+"/images/fund.gif";
+     // URL imgLogin = getClass().getResource(FilePath1 );
+     ImageIcon login5 = new ImageIcon(FilePath5);
+     lblFundRequest.setIcon(login5);
+     
+     String FilePath6 = s+"/images/HC12.gif";
+     // URL imgLogin = getClass().getResource(FilePath1 );
+     ImageIcon login6 = new ImageIcon(FilePath6);
+     lblAccountDetails.setIcon(login6);
+     
+     }
     
     void populateNGOOrgsHashSet(){
         LinkedHashSet<String> NGOOrgs = new LinkedHashSet<>();
@@ -442,32 +483,20 @@ public class UserDashboard extends javax.swing.JPanel {
         btnLogout = new javax.swing.JButton();
         cardLayout = new javax.swing.JPanel();
         ViewAppointments = new javax.swing.JPanel();
-        lblVirtualCare2 = new javax.swing.JLabel();
         jScrollPane2 = new javax.swing.JScrollPane();
         tableViewAppointment = new javax.swing.JTable();
         btnJoinVirtually = new javax.swing.JButton();
         ViewPrescription = new javax.swing.JButton();
         lblPrescription = new javax.swing.JLabel();
-        UserDB = new javax.swing.JPanel();
-        jLabel1 = new javax.swing.JLabel();
-        lblVirtualCare = new javax.swing.JLabel();
-        jScrollPane1 = new javax.swing.JScrollPane();
-        tableHospitals = new javax.swing.JTable();
-        lblPrices = new javax.swing.JLabel();
-        cmbBoxCity = new javax.swing.JComboBox<>();
-        cmbBoxTreatment = new javax.swing.JComboBox<>();
-        lblCity = new javax.swing.JLabel();
-        cmbBoxPrices = new javax.swing.JComboBox<>();
-        btnView = new javax.swing.JButton();
+        lblViewAppointments = new javax.swing.JLabel();
         BookAppointment = new javax.swing.JPanel();
         lblHeaderHospital = new javax.swing.JLabel();
         lblHospitalLogo = new javax.swing.JLabel();
         jScrollPane3 = new javax.swing.JScrollPane();
         tableDoctors = new javax.swing.JTable();
         btnBookAppointment = new javax.swing.JButton();
-        lblVirtualCare3 = new javax.swing.JLabel();
+        lblBookAppointment = new javax.swing.JLabel();
         FundRequest = new javax.swing.JPanel();
-        lblVirtualCare4 = new javax.swing.JLabel();
         lblAnnualIncome = new javax.swing.JLabel();
         txtAnnualIncome = new javax.swing.JTextField();
         lblExplanation = new javax.swing.JLabel();
@@ -479,6 +508,18 @@ public class UserDashboard extends javax.swing.JPanel {
         cmbNGOOrgs = new javax.swing.JComboBox<>();
         jScrollPane4 = new javax.swing.JScrollPane();
         tblNGORequests = new javax.swing.JTable();
+        lblFundRequest = new javax.swing.JLabel();
+        UserDB = new javax.swing.JPanel();
+        jLabel1 = new javax.swing.JLabel();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        tableHospitals = new javax.swing.JTable();
+        lblPrices = new javax.swing.JLabel();
+        cmbBoxCity = new javax.swing.JComboBox<>();
+        cmbBoxTreatment = new javax.swing.JComboBox<>();
+        lblCity = new javax.swing.JLabel();
+        cmbBoxPrices = new javax.swing.JComboBox<>();
+        btnView = new javax.swing.JButton();
+        lblUserDB = new javax.swing.JLabel();
         AccountDetails = new javax.swing.JPanel();
         lblReenterPassword = new javax.swing.JLabel();
         lblFirstName = new javax.swing.JLabel();
@@ -489,7 +530,6 @@ public class UserDashboard extends javax.swing.JPanel {
         lblCity1 = new javax.swing.JLabel();
         lblCity2 = new javax.swing.JLabel();
         lblPassword = new javax.swing.JLabel();
-        lblVirtualCare1 = new javax.swing.JLabel();
         txtCityUAD = new javax.swing.JTextField();
         txtEmailIdUAD = new javax.swing.JTextField();
         txtStreetUAD = new javax.swing.JTextField();
@@ -502,9 +542,11 @@ public class UserDashboard extends javax.swing.JPanel {
         txtPhoneNumberAD = new javax.swing.JTextField();
         txtNewPasswordUAD = new javax.swing.JPasswordField();
         txtOldPasswordUAD = new javax.swing.JPasswordField();
+        lblAccountDetails = new javax.swing.JLabel();
 
         setBackground(new java.awt.Color(102, 102, 255));
         setMinimumSize(new java.awt.Dimension(1115, 925));
+        setPreferredSize(new java.awt.Dimension(1200, 1200));
 
         jPanel1.setBackground(new java.awt.Color(0, 102, 204));
 
@@ -554,11 +596,10 @@ public class UserDashboard extends javax.swing.JPanel {
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addComponent(btnViewAppointments, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addComponent(btnAccount, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                                .addComponent(btnDashboard, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(btnRequestFund, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
+                            .addComponent(btnDashboard, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(btnRequestFund, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(67, 67, 67)
+                        .addGap(68, 68, 68)
                         .addComponent(btnLogout)))
                 .addContainerGap(40, Short.MAX_VALUE))
         );
@@ -573,18 +614,18 @@ public class UserDashboard extends javax.swing.JPanel {
                 .addComponent(btnDashboard)
                 .addGap(31, 31, 31)
                 .addComponent(btnRequestFund)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 500, Short.MAX_VALUE)
+                .addGap(45, 45, 45)
                 .addComponent(btnLogout)
-                .addGap(121, 121, 121))
+                .addContainerGap(851, Short.MAX_VALUE))
         );
 
+        cardLayout.setBackground(new java.awt.Color(102, 102, 255));
+        cardLayout.setPreferredSize(new java.awt.Dimension(1100, 1100));
         cardLayout.setLayout(new java.awt.CardLayout());
 
+        ViewAppointments.setBackground(new java.awt.Color(102, 102, 255));
         ViewAppointments.setMinimumSize(new java.awt.Dimension(823, 697));
-        ViewAppointments.setPreferredSize(new java.awt.Dimension(823, 697));
-
-        lblVirtualCare2.setFont(new java.awt.Font("Lucida Grande", 1, 14)); // NOI18N
-        lblVirtualCare2.setText("VIRTUAL CARE");
+        ViewAppointments.setPreferredSize(new java.awt.Dimension(1000, 1000));
 
         tableViewAppointment.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -626,165 +667,44 @@ public class UserDashboard extends javax.swing.JPanel {
                 .addGroup(ViewAppointmentsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jScrollPane2, javax.swing.GroupLayout.Alignment.TRAILING)
                     .addGroup(ViewAppointmentsLayout.createSequentialGroup()
-                        .addGap(38, 38, 38)
-                        .addComponent(btnJoinVirtually)
-                        .addGap(38, 38, 38)
-                        .addComponent(ViewPrescription)
-                        .addGap(0, 465, Short.MAX_VALUE)))
+                        .addGroup(ViewAppointmentsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(ViewAppointmentsLayout.createSequentialGroup()
+                                .addGap(38, 38, 38)
+                                .addComponent(btnJoinVirtually)
+                                .addGap(38, 38, 38)
+                                .addComponent(ViewPrescription))
+                            .addGroup(ViewAppointmentsLayout.createSequentialGroup()
+                                .addContainerGap()
+                                .addComponent(lblViewAppointments, javax.swing.GroupLayout.PREFERRED_SIZE, 894, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(lblPrescription, javax.swing.GroupLayout.PREFERRED_SIZE, 602, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addGap(0, 0, Short.MAX_VALUE)))
                 .addContainerGap())
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, ViewAppointmentsLayout.createSequentialGroup()
-                .addGap(0, 0, Short.MAX_VALUE)
-                .addComponent(lblVirtualCare2, javax.swing.GroupLayout.PREFERRED_SIZE, 115, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(264, 264, 264))
-            .addGroup(ViewAppointmentsLayout.createSequentialGroup()
-                .addGap(46, 46, 46)
-                .addComponent(lblPrescription, javax.swing.GroupLayout.PREFERRED_SIZE, 602, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         ViewAppointmentsLayout.setVerticalGroup(
             ViewAppointmentsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(ViewAppointmentsLayout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(lblVirtualCare2, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGroup(ViewAppointmentsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(ViewAppointmentsLayout.createSequentialGroup()
-                        .addGap(27, 27, 27)
+                        .addGap(61, 61, 61)
                         .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 105, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(ViewAppointmentsLayout.createSequentialGroup()
-                        .addGap(162, 162, 162)
+                        .addGap(196, 196, 196)
                         .addGroup(ViewAppointmentsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(btnJoinVirtually)
                             .addComponent(ViewPrescription))))
-                .addGap(28, 28, 28)
-                .addComponent(lblPrescription, javax.swing.GroupLayout.PREFERRED_SIZE, 267, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(180, Short.MAX_VALUE))
+                .addGap(38, 38, 38)
+                .addGroup(ViewAppointmentsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(lblPrescription, javax.swing.GroupLayout.PREFERRED_SIZE, 267, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(lblViewAppointments, javax.swing.GroupLayout.PREFERRED_SIZE, 336, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(468, Short.MAX_VALUE))
         );
 
         cardLayout.add(ViewAppointments, "card4");
 
-        UserDB.setMinimumSize(new java.awt.Dimension(823, 697));
-        UserDB.setPreferredSize(new java.awt.Dimension(823, 697));
-
-        jLabel1.setText("Department");
-
-        lblVirtualCare.setFont(new java.awt.Font("Lucida Grande", 1, 14)); // NOI18N
-        lblVirtualCare.setText("VIRTUAL CARE");
-
-        tableHospitals.setModel(new javax.swing.table.DefaultTableModel(
-            new Object [][] {
-
-            },
-            new String [] {
-                "Hospital", "City", "Prices", "Ratings"
-            }
-        ) {
-            boolean[] canEdit = new boolean [] {
-                false, false, false, false
-            };
-
-            public boolean isCellEditable(int rowIndex, int columnIndex) {
-                return canEdit [columnIndex];
-            }
-        });
-        jScrollPane1.setViewportView(tableHospitals);
-
-        lblPrices.setText("Prices");
-
-        cmbBoxCity.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                cmbBoxCityActionPerformed(evt);
-            }
-        });
-
-        cmbBoxTreatment.setToolTipText("");
-        cmbBoxTreatment.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
-        cmbBoxTreatment.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                cmbBoxTreatmentActionPerformed(evt);
-            }
-        });
-
-        lblCity.setText("City");
-
-        cmbBoxPrices.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Lowest First", "Highest First" }));
-        cmbBoxPrices.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                cmbBoxPricesActionPerformed(evt);
-            }
-        });
-
-        btnView.setText("View");
-        btnView.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnViewActionPerformed(evt);
-            }
-        });
-
-        javax.swing.GroupLayout UserDBLayout = new javax.swing.GroupLayout(UserDB);
-        UserDB.setLayout(UserDBLayout);
-        UserDBLayout.setHorizontalGroup(
-            UserDBLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, UserDBLayout.createSequentialGroup()
-                .addContainerGap(718, Short.MAX_VALUE)
-                .addComponent(btnView)
-                .addGap(50, 50, 50))
-            .addGroup(UserDBLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, UserDBLayout.createSequentialGroup()
-                    .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 663, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGap(39, 39, 39))
-                .addGroup(UserDBLayout.createSequentialGroup()
-                    .addGroup(UserDBLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                        .addGroup(UserDBLayout.createSequentialGroup()
-                            .addGap(295, 295, 295)
-                            .addComponent(lblVirtualCare))
-                        .addGroup(UserDBLayout.createSequentialGroup()
-                            .addGap(62, 62, 62)
-                            .addGroup(UserDBLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                .addComponent(cmbBoxTreatment, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addComponent(jLabel1)))
-                        .addGroup(UserDBLayout.createSequentialGroup()
-                            .addGap(93, 93, 93)
-                            .addGroup(UserDBLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                .addComponent(cmbBoxCity, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addComponent(lblCity))
-                            .addGap(18, 18, 18)
-                            .addGroup(UserDBLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                .addComponent(cmbBoxPrices, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addComponent(lblPrices))))
-                    .addContainerGap(416, Short.MAX_VALUE)))
-        );
-        UserDBLayout.setVerticalGroup(
-            UserDBLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, UserDBLayout.createSequentialGroup()
-                .addContainerGap(665, Short.MAX_VALUE)
-                .addComponent(btnView)
-                .addContainerGap())
-            .addGroup(UserDBLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addGroup(UserDBLayout.createSequentialGroup()
-                    .addContainerGap()
-                    .addComponent(lblVirtualCare)
-                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(cmbBoxTreatment, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                    .addComponent(jLabel1)
-                    .addGap(18, 18, 18)
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 324, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGap(18, 18, 18)
-                    .addGroup(UserDBLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                        .addComponent(lblCity)
-                        .addComponent(lblPrices))
-                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                    .addGroup(UserDBLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                        .addComponent(cmbBoxCity, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(cmbBoxPrices, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addContainerGap()))
-        );
-
-        cardLayout.add(UserDB, "card2");
-
+        BookAppointment.setBackground(new java.awt.Color(102, 102, 255));
         BookAppointment.setMinimumSize(new java.awt.Dimension(823, 697));
-        BookAppointment.setPreferredSize(new java.awt.Dimension(823, 697));
+        BookAppointment.setPreferredSize(new java.awt.Dimension(1000, 1000));
 
         lblHeaderHospital.setText("Welcome to ");
 
@@ -818,8 +738,7 @@ public class UserDashboard extends javax.swing.JPanel {
             }
         });
 
-        lblVirtualCare3.setFont(new java.awt.Font("Lucida Grande", 1, 14)); // NOI18N
-        lblVirtualCare3.setText("VIRTUAL CARE");
+        lblBookAppointment.setBackground(new java.awt.Color(102, 102, 255));
 
         javax.swing.GroupLayout BookAppointmentLayout = new javax.swing.GroupLayout(BookAppointment);
         BookAppointment.setLayout(BookAppointmentLayout);
@@ -828,22 +747,21 @@ public class UserDashboard extends javax.swing.JPanel {
             .addGroup(BookAppointmentLayout.createSequentialGroup()
                 .addGroup(BookAppointmentLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(BookAppointmentLayout.createSequentialGroup()
-                        .addGap(34, 34, 34)
-                        .addComponent(lblHospitalLogo, javax.swing.GroupLayout.PREFERRED_SIZE, 155, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGroup(BookAppointmentLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(BookAppointmentLayout.createSequentialGroup()
+                                .addGap(34, 34, 34)
+                                .addComponent(lblHospitalLogo, javax.swing.GroupLayout.PREFERRED_SIZE, 155, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addGap(67, 67, 67)
                                 .addComponent(lblHeaderHospital, javax.swing.GroupLayout.PREFERRED_SIZE, 369, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addGroup(BookAppointmentLayout.createSequentialGroup()
-                                .addGap(148, 148, 148)
-                                .addComponent(lblVirtualCare3, javax.swing.GroupLayout.PREFERRED_SIZE, 115, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                    .addGroup(BookAppointmentLayout.createSequentialGroup()
-                        .addContainerGap()
-                        .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 766, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(BookAppointmentLayout.createSequentialGroup()
-                        .addGap(294, 294, 294)
-                        .addComponent(btnBookAppointment)))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                                .addContainerGap()
+                                .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 766, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(BookAppointmentLayout.createSequentialGroup()
+                                .addGap(294, 294, 294)
+                                .addComponent(btnBookAppointment)))
+                        .addGap(0, 163, Short.MAX_VALUE))
+                    .addComponent(lblBookAppointment, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap())
         );
         BookAppointmentLayout.setVerticalGroup(
             BookAppointmentLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -853,24 +771,23 @@ public class UserDashboard extends javax.swing.JPanel {
                         .addGap(21, 21, 21)
                         .addComponent(lblHospitalLogo, javax.swing.GroupLayout.PREFERRED_SIZE, 138, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(BookAppointmentLayout.createSequentialGroup()
-                        .addContainerGap()
-                        .addComponent(lblVirtualCare3, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(20, 20, 20)
+                        .addGap(54, 54, 54)
                         .addComponent(lblHeaderHospital, javax.swing.GroupLayout.PREFERRED_SIZE, 59, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 247, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(30, 30, 30)
                 .addComponent(btnBookAppointment)
-                .addContainerGap(235, Short.MAX_VALUE))
+                .addGap(71, 71, 71)
+                .addComponent(lblBookAppointment, javax.swing.GroupLayout.PREFERRED_SIZE, 356, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(169, Short.MAX_VALUE))
         );
 
         cardLayout.add(BookAppointment, "card5");
 
+        FundRequest.setBackground(new java.awt.Color(102, 102, 255));
         FundRequest.setMinimumSize(new java.awt.Dimension(823, 697));
-        FundRequest.setPreferredSize(new java.awt.Dimension(823, 697));
-
-        lblVirtualCare4.setFont(new java.awt.Font("Lucida Grande", 1, 14)); // NOI18N
-        lblVirtualCare4.setText("VIRTUAL CARE");
+        FundRequest.setPreferredSize(new java.awt.Dimension(1000, 1000));
+        FundRequest.setRequestFocusEnabled(false);
 
         lblAnnualIncome.setText("Annual Income:");
 
@@ -913,50 +830,49 @@ public class UserDashboard extends javax.swing.JPanel {
         });
         jScrollPane4.setViewportView(tblNGORequests);
 
+        lblFundRequest.setBackground(new java.awt.Color(102, 102, 255));
+
         javax.swing.GroupLayout FundRequestLayout = new javax.swing.GroupLayout(FundRequest);
         FundRequest.setLayout(FundRequestLayout);
         FundRequestLayout.setHorizontalGroup(
             FundRequestLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(FundRequestLayout.createSequentialGroup()
-                .addGap(185, 185, 185)
-                .addGroup(FundRequestLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(lblRequestAmount)
-                    .addComponent(lblExplanation)
-                    .addComponent(lblAnnualIncome))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED, 41, Short.MAX_VALUE)
                 .addGroup(FundRequestLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(txtAnnualIncome, javax.swing.GroupLayout.PREFERRED_SIZE, 133, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(txtExplanation, javax.swing.GroupLayout.PREFERRED_SIZE, 400, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(txtRequestAmount, javax.swing.GroupLayout.PREFERRED_SIZE, 133, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(21, 21, 21))
-            .addGroup(FundRequestLayout.createSequentialGroup()
-                .addGroup(FundRequestLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(FundRequestLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                        .addComponent(btnRequest)
-                        .addGroup(FundRequestLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(FundRequestLayout.createSequentialGroup()
-                                .addGap(315, 315, 315)
-                                .addComponent(lblVirtualCare4))
-                            .addGroup(FundRequestLayout.createSequentialGroup()
-                                .addGap(275, 275, 275)
-                                .addComponent(jLabel2)
-                                .addGap(47, 47, 47)
-                                .addComponent(cmbNGOOrgs, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                    .addGroup(FundRequestLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                        .addGroup(FundRequestLayout.createSequentialGroup()
+                            .addContainerGap()
+                            .addGroup(FundRequestLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                .addGroup(FundRequestLayout.createSequentialGroup()
+                                    .addGroup(FundRequestLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                        .addComponent(lblRequestAmount)
+                                        .addComponent(lblExplanation)
+                                        .addComponent(lblAnnualIncome))
+                                    .addGap(88, 88, 88)
+                                    .addGroup(FundRequestLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                        .addComponent(txtExplanation, javax.swing.GroupLayout.PREFERRED_SIZE, 400, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addComponent(txtAnnualIncome, javax.swing.GroupLayout.PREFERRED_SIZE, 133, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addComponent(txtRequestAmount, javax.swing.GroupLayout.PREFERRED_SIZE, 133, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addComponent(cmbNGOOrgs, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                .addComponent(lblFundRequest, javax.swing.GroupLayout.PREFERRED_SIZE, 736, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addGroup(javax.swing.GroupLayout.Alignment.LEADING, FundRequestLayout.createSequentialGroup()
+                            .addGap(115, 115, 115)
+                            .addGroup(FundRequestLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                .addComponent(jScrollPane4, javax.swing.GroupLayout.PREFERRED_SIZE, 528, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(jLabel2))
+                            .addGap(0, 103, Short.MAX_VALUE)))
                     .addGroup(FundRequestLayout.createSequentialGroup()
-                        .addGap(185, 185, 185)
-                        .addComponent(jScrollPane4, javax.swing.GroupLayout.PREFERRED_SIZE, 528, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addGap(192, 192, 192)
+                        .addComponent(btnRequest)))
+                .addGap(0, 0, 0))
         );
         FundRequestLayout.setVerticalGroup(
             FundRequestLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(FundRequestLayout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(lblVirtualCare4)
-                .addGap(39, 39, 39)
                 .addGroup(FundRequestLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(lblExplanation)
                     .addComponent(txtExplanation, javax.swing.GroupLayout.PREFERRED_SIZE, 221, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(38, 38, 38)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(FundRequestLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(lblAnnualIncome)
                     .addComponent(txtAnnualIncome, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -964,20 +880,96 @@ public class UserDashboard extends javax.swing.JPanel {
                 .addGroup(FundRequestLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(lblRequestAmount)
                     .addComponent(txtRequestAmount, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(18, 18, 18)
+                .addGap(25, 25, 25)
                 .addGroup(FundRequestLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel2)
                     .addComponent(cmbNGOOrgs, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(18, 18, 18)
+                .addGap(24, 24, 24)
                 .addComponent(btnRequest)
-                .addGap(18, 18, 18)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jScrollPane4, javax.swing.GroupLayout.PREFERRED_SIZE, 141, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(37, Short.MAX_VALUE))
+                .addGap(18, 18, 18)
+                .addComponent(lblFundRequest, javax.swing.GroupLayout.DEFAULT_SIZE, 490, Short.MAX_VALUE))
         );
 
         cardLayout.add(FundRequest, "card6");
 
+        UserDB.setBackground(new java.awt.Color(102, 102, 255));
+        UserDB.setMinimumSize(new java.awt.Dimension(823, 697));
+        UserDB.setPreferredSize(new java.awt.Dimension(1000, 1000));
+        UserDB.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        jLabel1.setText("Department");
+        UserDB.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(116, 23, -1, -1));
+
+        tableHospitals.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+
+            },
+            new String [] {
+                "Hospital", "City", "Prices", "Ratings"
+            }
+        ) {
+            boolean[] canEdit = new boolean [] {
+                false, false, false, false
+            };
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
+        });
+        jScrollPane1.setViewportView(tableHospitals);
+
+        UserDB.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(84, 96, 663, 324));
+
+        lblPrices.setText("Prices");
+        UserDB.add(lblPrices, new org.netbeans.lib.awtextra.AbsoluteConstraints(270, 430, -1, -1));
+
+        cmbBoxCity.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cmbBoxCityActionPerformed(evt);
+            }
+        });
+        UserDB.add(cmbBoxCity, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 470, -1, -1));
+
+        cmbBoxTreatment.setToolTipText("");
+        cmbBoxTreatment.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
+        cmbBoxTreatment.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cmbBoxTreatmentActionPerformed(evt);
+            }
+        });
+        UserDB.add(cmbBoxTreatment, new org.netbeans.lib.awtextra.AbsoluteConstraints(138, 51, -1, -1));
+
+        lblCity.setText("City");
+        UserDB.add(lblCity, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 440, -1, -1));
+
+        cmbBoxPrices.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Lowest First", "Highest First" }));
+        cmbBoxPrices.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cmbBoxPricesActionPerformed(evt);
+            }
+        });
+        UserDB.add(cmbBoxPrices, new org.netbeans.lib.awtextra.AbsoluteConstraints(270, 470, -1, -1));
+
+        btnView.setText("View");
+        btnView.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnViewActionPerformed(evt);
+            }
+        });
+        UserDB.add(btnView, new org.netbeans.lib.awtextra.AbsoluteConstraints(634, 468, -1, -1));
+
+        lblUserDB.setMaximumSize(new java.awt.Dimension(1000, 1000));
+        lblUserDB.setMinimumSize(new java.awt.Dimension(750, 330));
+        lblUserDB.setPreferredSize(new java.awt.Dimension(750, 390));
+        UserDB.add(lblUserDB, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 520, 830, 410));
+
+        cardLayout.add(UserDB, "card2");
+
+        AccountDetails.setBackground(new java.awt.Color(102, 102, 255));
         AccountDetails.setMinimumSize(new java.awt.Dimension(823, 697));
+        AccountDetails.setPreferredSize(new java.awt.Dimension(1000, 1000));
 
         lblReenterPassword.setText("New Password:");
 
@@ -996,9 +988,6 @@ public class UserDashboard extends javax.swing.JPanel {
         lblCity2.setText("City:");
 
         lblPassword.setText("Old Password:");
-
-        lblVirtualCare1.setFont(new java.awt.Font("Lucida Grande", 1, 14)); // NOI18N
-        lblVirtualCare1.setText("VIRTUAL CARE");
 
         txtCityUAD.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -1061,50 +1050,50 @@ public class UserDashboard extends javax.swing.JPanel {
         AccountDetails.setLayout(AccountDetailsLayout);
         AccountDetailsLayout.setHorizontalGroup(
             AccountDetailsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, AccountDetailsLayout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(lblVirtualCare1, javax.swing.GroupLayout.PREFERRED_SIZE, 115, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(350, 350, 350))
             .addGroup(AccountDetailsLayout.createSequentialGroup()
                 .addGroup(AccountDetailsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(AccountDetailsLayout.createSequentialGroup()
-                        .addGroup(AccountDetailsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(AccountDetailsLayout.createSequentialGroup()
-                                .addGap(270, 270, 270)
-                                .addGroup(AccountDetailsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                                    .addComponent(lblFirstName)
-                                    .addComponent(lblLastName)
-                                    .addComponent(lblStreet)
-                                    .addComponent(lblCity2)
-                                    .addComponent(lblCity1)
-                                    .addComponent(lblEmailId)
-                                    .addComponent(lblPassword)
-                                    .addComponent(lblReenterPassword)
-                                    .addComponent(lblPhoneNumber)))
-                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, AccountDetailsLayout.createSequentialGroup()
-                                .addGap(187, 187, 187)
-                                .addComponent(lblAge)))
-                        .addGap(47, 47, 47)
+                        .addContainerGap()
+                        .addGroup(AccountDetailsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(lblFirstName)
+                            .addComponent(lblLastName)
+                            .addComponent(lblStreet)
+                            .addComponent(lblCity2)
+                            .addComponent(lblCity1)
+                            .addComponent(lblEmailId)
+                            .addComponent(lblPassword)
+                            .addComponent(lblReenterPassword)
+                            .addComponent(lblPhoneNumber)))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, AccountDetailsLayout.createSequentialGroup()
+                        .addGap(187, 187, 187)
+                        .addComponent(lblAge)))
+                .addGap(47, 47, 47)
+                .addGroup(AccountDetailsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addGroup(AccountDetailsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                         .addGroup(AccountDetailsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                             .addGroup(AccountDetailsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                 .addGroup(AccountDetailsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                                    .addGroup(AccountDetailsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                        .addGroup(AccountDetailsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                                            .addComponent(txtEmailIdUAD, javax.swing.GroupLayout.PREFERRED_SIZE, 144, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                            .addGroup(AccountDetailsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                                .addComponent(txtLastNameUAD, javax.swing.GroupLayout.DEFAULT_SIZE, 144, Short.MAX_VALUE)
-                                                .addComponent(txtFirstNameUAD)))
-                                        .addComponent(txtDobUAD, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 144, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addComponent(txtPinCodeUAD, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 144, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addComponent(txtCityUAD, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 144, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addComponent(txtStreetUAD, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 144, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                    .addComponent(txtPhoneNumberAD, javax.swing.GroupLayout.PREFERRED_SIZE, 144, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                .addComponent(txtNewPasswordUAD, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 144, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addComponent(txtOldPasswordUAD, javax.swing.GroupLayout.PREFERRED_SIZE, 144, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                    .addComponent(txtEmailIdUAD, javax.swing.GroupLayout.PREFERRED_SIZE, 144, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addGroup(AccountDetailsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                        .addComponent(txtLastNameUAD, javax.swing.GroupLayout.DEFAULT_SIZE, 144, Short.MAX_VALUE)
+                                        .addComponent(txtFirstNameUAD)))
+                                .addComponent(txtDobUAD, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 144, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(txtPinCodeUAD, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 144, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(txtCityUAD, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 144, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(txtStreetUAD, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 144, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(txtPhoneNumberAD, javax.swing.GroupLayout.PREFERRED_SIZE, 144, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(txtNewPasswordUAD, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 144, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(txtOldPasswordUAD, javax.swing.GroupLayout.PREFERRED_SIZE, 144, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(0, 0, Short.MAX_VALUE))
+            .addGroup(AccountDetailsLayout.createSequentialGroup()
+                .addGroup(AccountDetailsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(AccountDetailsLayout.createSequentialGroup()
-                        .addGap(347, 347, 347)
-                        .addComponent(btnUpdateUAD)))
-                .addContainerGap(285, Short.MAX_VALUE))
+                        .addGap(178, 178, 178)
+                        .addComponent(btnUpdateUAD))
+                    .addGroup(AccountDetailsLayout.createSequentialGroup()
+                        .addContainerGap()
+                        .addComponent(lblAccountDetails, javax.swing.GroupLayout.PREFERRED_SIZE, 688, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap(247, Short.MAX_VALUE))
         );
 
         AccountDetailsLayout.linkSize(javax.swing.SwingConstants.HORIZONTAL, new java.awt.Component[] {lblAge, lblCity1, lblCity2, lblEmailId, lblFirstName, lblLastName, lblPassword, lblPhoneNumber, lblReenterPassword, lblStreet});
@@ -1112,9 +1101,7 @@ public class UserDashboard extends javax.swing.JPanel {
         AccountDetailsLayout.setVerticalGroup(
             AccountDetailsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(AccountDetailsLayout.createSequentialGroup()
-                .addGap(24, 24, 24)
-                .addComponent(lblVirtualCare1, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(74, 74, 74)
+                .addContainerGap()
                 .addGroup(AccountDetailsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(AccountDetailsLayout.createSequentialGroup()
                         .addComponent(txtFirstNameUAD, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -1155,9 +1142,11 @@ public class UserDashboard extends javax.swing.JPanel {
                 .addGroup(AccountDetailsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(lblReenterPassword)
                     .addComponent(txtNewPasswordUAD, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(33, 33, 33)
+                .addGap(47, 47, 47)
                 .addComponent(btnUpdateUAD)
-                .addContainerGap(164, Short.MAX_VALUE))
+                .addGap(18, 18, 18)
+                .addComponent(lblAccountDetails, javax.swing.GroupLayout.PREFERRED_SIZE, 427, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(131, Short.MAX_VALUE))
         );
 
         cardLayout.add(AccountDetails, "card7");
@@ -1169,24 +1158,23 @@ public class UserDashboard extends javax.swing.JPanel {
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(883, Short.MAX_VALUE))
+                .addGap(0, 0, 0))
             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                    .addContainerGap(280, Short.MAX_VALUE)
-                    .addComponent(cardLayout, javax.swing.GroupLayout.PREFERRED_SIZE, 823, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addContainerGap(253, Short.MAX_VALUE)
+                    .addComponent(cardLayout, javax.swing.GroupLayout.PREFERRED_SIZE, 941, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addContainerGap()))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addGap(29, 29, 29)
+            .addGroup(layout.createSequentialGroup()
+                .addContainerGap()
                 .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addContainerGap())
             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                    .addContainerGap(114, Short.MAX_VALUE)
-                    .addComponent(cardLayout, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addContainerGap(114, Short.MAX_VALUE)))
+                .addGroup(layout.createSequentialGroup()
+                    .addComponent(cardLayout, javax.swing.GroupLayout.PREFERRED_SIZE, 1067, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGap(0, 133, Short.MAX_VALUE)))
         );
     }// </editor-fold>//GEN-END:initComponents
 
@@ -1398,14 +1386,17 @@ public class UserDashboard extends javax.swing.JPanel {
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JScrollPane jScrollPane3;
     private javax.swing.JScrollPane jScrollPane4;
+    private javax.swing.JLabel lblAccountDetails;
     private javax.swing.JLabel lblAge;
     private javax.swing.JLabel lblAnnualIncome;
+    private javax.swing.JLabel lblBookAppointment;
     private javax.swing.JLabel lblCity;
     private javax.swing.JLabel lblCity1;
     private javax.swing.JLabel lblCity2;
     private javax.swing.JLabel lblEmailId;
     private javax.swing.JLabel lblExplanation;
     private javax.swing.JLabel lblFirstName;
+    private javax.swing.JLabel lblFundRequest;
     private javax.swing.JLabel lblHeaderHospital;
     private javax.swing.JLabel lblHospitalLogo;
     private javax.swing.JLabel lblLastName;
@@ -1416,11 +1407,8 @@ public class UserDashboard extends javax.swing.JPanel {
     private javax.swing.JLabel lblReenterPassword;
     private javax.swing.JLabel lblRequestAmount;
     private javax.swing.JLabel lblStreet;
-    private javax.swing.JLabel lblVirtualCare;
-    private javax.swing.JLabel lblVirtualCare1;
-    private javax.swing.JLabel lblVirtualCare2;
-    private javax.swing.JLabel lblVirtualCare3;
-    private javax.swing.JLabel lblVirtualCare4;
+    private javax.swing.JLabel lblUserDB;
+    private javax.swing.JLabel lblViewAppointments;
     private javax.swing.JTable tableDoctors;
     private javax.swing.JTable tableHospitals;
     private javax.swing.JTable tableViewAppointment;

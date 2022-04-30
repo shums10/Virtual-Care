@@ -7,8 +7,11 @@ package ui.User;
 import model.UserDetails;
 import com.db4o.ext.DatabaseClosedException;
 import com.db4o.ext.Db4oIOException;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.text.SimpleDateFormat;
 import java.util.Arrays;
+import javax.swing.ImageIcon;
 import javax.swing.JOptionPane;
 
 /**
@@ -22,6 +25,7 @@ public class SignUp extends javax.swing.JPanel {
      */
     public SignUp() {
         initComponents();
+        DisplayImage();
     }
     
     public static void AddUsertoDB(UserDetails u){     
@@ -47,6 +51,17 @@ public class SignUp extends javax.swing.JPanel {
         u.setStreet(txtStreet.getText().trim());
         u.setPassword(Arrays.toString(txtPassword.getPassword()).trim());
         return u;
+    }
+    
+    private void DisplayImage() {
+     Path currentRelativePath = Paths.get("");
+     String s = currentRelativePath.toAbsolutePath().toString();
+     
+     // Logout Button
+     String FilePath = s+"/images/adduser.png";
+     // URL imgLogin = getClass().getResource(FilePath1 );
+     ImageIcon login = new ImageIcon(FilePath);
+     btnRegister.setIcon(login);
     }
     
     void ClearAllFields(){
@@ -128,6 +143,8 @@ public class SignUp extends javax.swing.JPanel {
         lblCity1 = new javax.swing.JLabel();
         txtPassword = new javax.swing.JPasswordField();
         txtReenterPassword = new javax.swing.JPasswordField();
+
+        setBackground(new java.awt.Color(102, 102, 255));
 
         lblVirtualCare.setFont(new java.awt.Font("Lucida Grande", 1, 14)); // NOI18N
         lblVirtualCare.setText("VIRTUAL CARE");
