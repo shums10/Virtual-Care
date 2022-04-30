@@ -61,30 +61,41 @@ public class SignUp extends javax.swing.JPanel {
         txtReenterPassword.setText("");
     }
 
-    void CheckBlankFields(){
+    boolean CheckBlankFields(){
         if(txtCity.getText().trim().equals("")){
             JOptionPane.showMessageDialog(this, "Fields can't be blank");
+            return false;
         }
         else if(txtDoB.getDate().equals("")){
             JOptionPane.showMessageDialog(this, "Fields can't be blank");
+            return false;
         }
         else if(txtEmailId.getText().trim().equals("")){
             JOptionPane.showMessageDialog(this, "Fields can't be blank");
+            return false;
         }
         else if(txtFirstName.getText().trim().equals("")){
             JOptionPane.showMessageDialog(this, "Fields can't be blank");
+            return false;
         }
         else if(txtLastName.getText().trim().equals("")){
             JOptionPane.showMessageDialog(this, "Fields can't be blank");
+            return false;
         }
         else if(txtPinCode.getText().trim().equals("")){
             JOptionPane.showMessageDialog(this, "Fields can't be blank");
+            return false;
         }
         else if(txtStreet.getText().trim().equals("")){
             JOptionPane.showMessageDialog(this, "Fields can't be blank");
+            return false;
         }
         else if(txtPassword.getText().trim().equals("")){
             JOptionPane.showMessageDialog(this, "Fields can't be blank");
+            return false;
+        }
+        else{
+            return true;
         }
     }
     
@@ -307,20 +318,21 @@ public class SignUp extends javax.swing.JPanel {
 
     private void btnRegisterActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRegisterActionPerformed
         // TODO add your handling code here:
-        CheckBlankFields();
-        if(Arrays.toString(txtPassword.getPassword()).equals(Arrays.toString(txtReenterPassword.getPassword()))){
-            try{
-                UserDetails u = MakeUser();
-                AddUsertoDB(u);
-                ClearAllFields();
-                JOptionPane.showMessageDialog(this, "User Added.");
-            }
-            catch(NumberFormatException E){
-                JOptionPane.showMessageDialog(this, "PINCode should be a number.");
-            }
+        if(CheckBlankFields()){
+            if(Arrays.toString(txtPassword.getPassword()).equals(Arrays.toString(txtReenterPassword.getPassword()))){
+                try{
+                    UserDetails u = MakeUser();
+                    AddUsertoDB(u);
+                    ClearAllFields();
+                    JOptionPane.showMessageDialog(this, "User Added.");
+                }
+                catch(NumberFormatException E){
+                    JOptionPane.showMessageDialog(this, "PINCode should be a number.");
+                }
+            }      
+            else
+                JOptionPane.showMessageDialog(this, "Re-enter Correct Password.");
         }
-        else
-            JOptionPane.showMessageDialog(this, "Re-enter Correct Password.");
     }//GEN-LAST:event_btnRegisterActionPerformed
 
 

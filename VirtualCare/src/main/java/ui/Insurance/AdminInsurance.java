@@ -6,14 +6,18 @@ package ui.Insurance;
 
 import com.db4o.ext.DatabaseClosedException;
 import com.db4o.ext.Db4oIOException;
+import java.awt.CardLayout;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Iterator;
 import java.util.List;
 import javax.swing.JOptionPane;
 import javax.swing.JSplitPane;
 import javax.swing.table.DefaultTableModel;
 import model.AdminDetails;
+import model.InsuranceAgentDetails;
 import model.InsuranceRequests;
+import model.PharmacyOrders;
 import ui.Hospital.AdminHospital;
 import ui.User.UserSystem;
 
@@ -34,8 +38,12 @@ public class AdminInsurance extends javax.swing.JPanel {
         PullInsuranceRequeststoList();
         populateInsurancetable();
         this.SplitPane = SplitPane;
+        CardLayout Card = (CardLayout) CardLayout.getLayout();
+        this.Card = Card;
+        CardLayout.setVisible(false);
     }
 
+    CardLayout Card;
     JSplitPane SplitPane;
     AdminDetails a;
     ArrayList<InsuranceRequests> InsReq;
@@ -85,6 +93,58 @@ public class AdminInsurance extends javax.swing.JPanel {
             JOptionPane.showMessageDialog(this, "No Requests Exist.");
         }
     }
+    
+    
+    
+    boolean checkAgent(){
+        if(txtFirstNameAI.getText().equals("")){
+            JOptionPane.showMessageDialog(this, "Fill all the fields");
+            return false;
+        }
+        else if(txtLastNameAI.getText().equals("")){
+            JOptionPane.showMessageDialog(this, "Fill all the fields");
+            return false;
+        }
+        else if(txtEmailAI.getText().equals("")){
+            JOptionPane.showMessageDialog(this, "Fill all the fields");
+            return false;
+        }
+        else if(txtIAPassword.getText().equals("")){
+            JOptionPane.showMessageDialog(this, "Fill all the fields");
+            return false;
+        }
+        else{
+            return true;
+        }
+    }
+    
+    InsuranceAgentDetails makeAgent(){
+        InsuranceAgentDetails IA = new InsuranceAgentDetails();
+        IA.setFirstName(txtFirstNameAI.getText().trim());
+        IA.setLastName(txtLastNameAI.getText().trim());
+        IA.setOrganization(a.getOrganization());
+        IA.setEmail(txtEmailAI.getText().trim());
+        IA.setPassword(Arrays.toString(txtIAPassword.getPassword()));
+        return IA;
+    }
+    
+    void clearfields(){
+        txtFirstNameAI.setText("");
+        txtLastNameAI.setText("");
+        txtEmailAI.setText("");
+        txtIAPassword.setText("");
+    }
+    
+    public static void AddInsAgenttoDB(InsuranceAgentDetails IA){     
+        try {
+            UserSystem.InsAgentdb.store(IA);
+            System.out.println("Stored " + IA.getFirstName());
+        }
+        catch(DatabaseClosedException | Db4oIOException E){
+            System.out.println("Database Error");
+        }
+    }
+    
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
@@ -93,6 +153,7 @@ public class AdminInsurance extends javax.swing.JPanel {
         jPanel1 = new javax.swing.JPanel();
         btnAddAgent = new javax.swing.JButton();
         btnViewRequests = new javax.swing.JButton();
+        btnLogout = new javax.swing.JButton();
         CardLayout = new javax.swing.JPanel();
         AddAgent = new javax.swing.JPanel();
         jLabel2 = new javax.swing.JLabel();
@@ -103,14 +164,13 @@ public class AdminInsurance extends javax.swing.JPanel {
         txtFirstNameAI = new javax.swing.JTextField();
         txtEmailAI = new javax.swing.JTextField();
         txtLastNameAI = new javax.swing.JTextField();
-        txtPasswordAI = new javax.swing.JTextField();
         jButton2 = new javax.swing.JButton();
+        txtIAPassword = new javax.swing.JPasswordField();
         ViewRequests = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
         tblViewInsuranceRequest = new javax.swing.JTable();
         btnfwdtoAgent = new javax.swing.JButton();
         btnDecline = new javax.swing.JButton();
-        btnLogout = new javax.swing.JButton();
 
         btnAddAgent.setText("Add Agent");
         btnAddAgent.addActionListener(new java.awt.event.ActionListener() {
@@ -120,6 +180,18 @@ public class AdminInsurance extends javax.swing.JPanel {
         });
 
         btnViewRequests.setText("View Request");
+        btnViewRequests.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnViewRequestsActionPerformed(evt);
+            }
+        });
+
+        btnLogout.setText("Logout");
+        btnLogout.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnLogoutActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -133,7 +205,10 @@ public class AdminInsurance extends javax.swing.JPanel {
                         .addGap(59, 59, 59))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                         .addComponent(btnViewRequests)
-                        .addGap(51, 51, 51))))
+                        .addGap(51, 51, 51))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                        .addComponent(btnLogout)
+                        .addGap(68, 68, 68))))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -142,8 +217,12 @@ public class AdminInsurance extends javax.swing.JPanel {
                 .addComponent(btnAddAgent)
                 .addGap(18, 18, 18)
                 .addComponent(btnViewRequests)
-                .addContainerGap(327, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 329, Short.MAX_VALUE)
+                .addComponent(btnLogout)
+                .addContainerGap())
         );
+
+        CardLayout.setLayout(new java.awt.CardLayout());
 
         jLabel2.setText("Adding Agent");
 
@@ -173,13 +252,12 @@ public class AdminInsurance extends javax.swing.JPanel {
             }
         });
 
-        txtPasswordAI.addActionListener(new java.awt.event.ActionListener() {
+        jButton2.setText("Add Agent");
+        jButton2.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                txtPasswordAIActionPerformed(evt);
+                jButton2ActionPerformed(evt);
             }
         });
-
-        jButton2.setText("Add Agent");
 
         javax.swing.GroupLayout AddAgentLayout = new javax.swing.GroupLayout(AddAgent);
         AddAgent.setLayout(AddAgentLayout);
@@ -198,11 +276,11 @@ public class AdminInsurance extends javax.swing.JPanel {
                             .addComponent(lblEmailAI, javax.swing.GroupLayout.Alignment.TRAILING)
                             .addComponent(lblPasswordAI, javax.swing.GroupLayout.Alignment.TRAILING))
                         .addGap(64, 64, 64)
-                        .addGroup(AddAgentLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(txtLastNameAI, javax.swing.GroupLayout.PREFERRED_SIZE, 137, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(txtEmailAI, javax.swing.GroupLayout.PREFERRED_SIZE, 137, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(txtPasswordAI, javax.swing.GroupLayout.PREFERRED_SIZE, 137, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(txtFirstNameAI, javax.swing.GroupLayout.PREFERRED_SIZE, 137, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                        .addGroup(AddAgentLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(txtLastNameAI, javax.swing.GroupLayout.DEFAULT_SIZE, 137, Short.MAX_VALUE)
+                            .addComponent(txtEmailAI, javax.swing.GroupLayout.DEFAULT_SIZE, 137, Short.MAX_VALUE)
+                            .addComponent(txtFirstNameAI, javax.swing.GroupLayout.DEFAULT_SIZE, 137, Short.MAX_VALUE)
+                            .addComponent(txtIAPassword))))
                 .addContainerGap(183, Short.MAX_VALUE))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, AddAgentLayout.createSequentialGroup()
                 .addGap(0, 0, Short.MAX_VALUE)
@@ -229,11 +307,13 @@ public class AdminInsurance extends javax.swing.JPanel {
                 .addGap(24, 24, 24)
                 .addGroup(AddAgentLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(lblPasswordAI)
-                    .addComponent(txtPasswordAI, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(txtIAPassword, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(32, 32, 32)
                 .addComponent(jButton2)
-                .addContainerGap(192, Short.MAX_VALUE))
+                .addContainerGap(225, Short.MAX_VALUE))
         );
+
+        CardLayout.add(AddAgent, "card2");
 
         tblViewInsuranceRequest.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -270,13 +350,6 @@ public class AdminInsurance extends javax.swing.JPanel {
             }
         });
 
-        btnLogout.setText("Logout");
-        btnLogout.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnLogoutActionPerformed(evt);
-            }
-        });
-
         javax.swing.GroupLayout ViewRequestsLayout = new javax.swing.GroupLayout(ViewRequests);
         ViewRequests.setLayout(ViewRequestsLayout);
         ViewRequestsLayout.setHorizontalGroup(
@@ -284,16 +357,11 @@ public class AdminInsurance extends javax.swing.JPanel {
             .addGroup(ViewRequestsLayout.createSequentialGroup()
                 .addGroup(ViewRequestsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(ViewRequestsLayout.createSequentialGroup()
-                        .addGroup(ViewRequestsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(ViewRequestsLayout.createSequentialGroup()
-                                .addGap(139, 139, 139)
-                                .addComponent(btnfwdtoAgent)
-                                .addGap(121, 121, 121)
-                                .addComponent(btnDecline))
-                            .addGroup(ViewRequestsLayout.createSequentialGroup()
-                                .addGap(26, 26, 26)
-                                .addComponent(btnLogout)))
-                        .addGap(0, 0, Short.MAX_VALUE))
+                        .addGap(139, 139, 139)
+                        .addComponent(btnfwdtoAgent)
+                        .addGap(121, 121, 121)
+                        .addComponent(btnDecline)
+                        .addGap(0, 197, Short.MAX_VALUE))
                     .addComponent(jScrollPane1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 661, Short.MAX_VALUE))
                 .addContainerGap())
         );
@@ -306,37 +374,10 @@ public class AdminInsurance extends javax.swing.JPanel {
                 .addGroup(ViewRequestsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnDecline)
                     .addComponent(btnfwdtoAgent))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 126, Short.MAX_VALUE)
-                .addComponent(btnLogout)
-                .addGap(32, 32, 32))
+                .addContainerGap(308, Short.MAX_VALUE))
         );
 
-        javax.swing.GroupLayout CardLayoutLayout = new javax.swing.GroupLayout(CardLayout);
-        CardLayout.setLayout(CardLayoutLayout);
-        CardLayoutLayout.setHorizontalGroup(
-            CardLayoutLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, CardLayoutLayout.createSequentialGroup()
-                .addContainerGap(137, Short.MAX_VALUE)
-                .addComponent(AddAgent, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap())
-            .addGroup(CardLayoutLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addGroup(CardLayoutLayout.createSequentialGroup()
-                    .addGap(58, 58, 58)
-                    .addComponent(ViewRequests, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addContainerGap(92, Short.MAX_VALUE)))
-        );
-        CardLayoutLayout.setVerticalGroup(
-            CardLayoutLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(CardLayoutLayout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(AddAgent, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(116, Short.MAX_VALUE))
-            .addGroup(CardLayoutLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addGroup(CardLayoutLayout.createSequentialGroup()
-                    .addGap(75, 75, 75)
-                    .addComponent(ViewRequests, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addContainerGap(75, Short.MAX_VALUE)))
-        );
+        CardLayout.add(ViewRequests, "card3");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
@@ -347,12 +388,12 @@ public class AdminInsurance extends javax.swing.JPanel {
                 .addComponent(CardLayout, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 299, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(1274, Short.MAX_VALUE))
+                .addContainerGap(1423, Short.MAX_VALUE))
             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(layout.createSequentialGroup()
                     .addContainerGap()
                     .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addContainerGap(2412, Short.MAX_VALUE)))
+                    .addContainerGap(2436, Short.MAX_VALUE)))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -361,7 +402,7 @@ public class AdminInsurance extends javax.swing.JPanel {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(CardLayout, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 56, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(62, Short.MAX_VALUE))
+                .addContainerGap(190, Short.MAX_VALUE))
             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(layout.createSequentialGroup()
                     .addContainerGap()
@@ -434,13 +475,26 @@ public class AdminInsurance extends javax.swing.JPanel {
         // TODO add your handling code here:
     }//GEN-LAST:event_txtLastNameAIActionPerformed
 
-    private void txtPasswordAIActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtPasswordAIActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_txtPasswordAIActionPerformed
-
     private void btnAddAgentActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAddAgentActionPerformed
         // TODO add your handling code here:
+        Card.show(CardLayout, "card2");
+        CardLayout.setVisible(true);
     }//GEN-LAST:event_btnAddAgentActionPerformed
+
+    private void btnViewRequestsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnViewRequestsActionPerformed
+        // TODO add your handling code here:
+        Card.show(CardLayout, "card3");
+        CardLayout.setVisible(true);
+    }//GEN-LAST:event_btnViewRequestsActionPerformed
+
+    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+        // TODO add your handling code here:
+        if(checkAgent()){
+            InsuranceAgentDetails IA = makeAgent();
+            AddInsAgenttoDB(IA);
+            clearfields();
+        }
+    }//GEN-LAST:event_jButton2ActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -464,7 +518,7 @@ public class AdminInsurance extends javax.swing.JPanel {
     private javax.swing.JTable tblViewInsuranceRequest;
     private javax.swing.JTextField txtEmailAI;
     private javax.swing.JTextField txtFirstNameAI;
+    private javax.swing.JPasswordField txtIAPassword;
     private javax.swing.JTextField txtLastNameAI;
-    private javax.swing.JTextField txtPasswordAI;
     // End of variables declaration//GEN-END:variables
 }

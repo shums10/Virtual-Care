@@ -15,7 +15,7 @@ import javax.swing.ImageIcon;
 import javax.swing.JOptionPane;
 import javax.swing.JSplitPane;
 import javax.swing.table.DefaultTableModel;
-import model.AdminDetails;
+import model.InsuranceAgentDetails;
 import model.InsuranceRequests;
 import ui.Hospital.AdminHospital;
 import ui.User.UserSystem;
@@ -29,9 +29,9 @@ public class InsuranceAgent extends javax.swing.JPanel {
     /**
      * Creates new form InsuranceAgent
      */
-    public InsuranceAgent(JSplitPane SplitPane, AdminDetails a) {
+    public InsuranceAgent(JSplitPane SplitPane, InsuranceAgentDetails IA) {
         initComponents();
-        this.a = a;
+        this.IA = IA;
         DefaultTableModel InsMod = (DefaultTableModel) tblViewInsuranceRequest.getModel();
         this.InsMod = InsMod;
         PullInsuranceRequeststoList();
@@ -41,7 +41,7 @@ public class InsuranceAgent extends javax.swing.JPanel {
     }
     
     JSplitPane SplitPane;
-    AdminDetails a;
+    InsuranceAgentDetails IA;
     ArrayList<InsuranceRequests> InsReq;
     DefaultTableModel InsMod;
     
@@ -56,7 +56,7 @@ public class InsuranceAgent extends javax.swing.JPanel {
             Iterator Insuitr = Insuranceresult.iterator();
             while(Insuitr.hasNext()){
                 I = (InsuranceRequests)Insuitr.next();
-                if(a.getOrganization().equalsIgnoreCase(I.getToOrg()))
+                if(IA.getOrganization().equalsIgnoreCase(I.getToOrg()))
                     InsReq.add(I);
             }
         }

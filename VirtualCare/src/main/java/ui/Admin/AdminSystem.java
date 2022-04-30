@@ -170,17 +170,29 @@ public class AdminSystem extends javax.swing.JPanel {
         }
     }
     
-    void CheckBlankFields(){
-        if(txtNameOfOrganisationAS.getText().trim().equals(""))
+    boolean CheckBlankFields(){
+        if(txtNameOfOrganisationAS.getText().trim().equals("")){
             JOptionPane.showMessageDialog(this, "Fields can't be blank");
-        else if(txtLocationAS.getText().trim().equals(""))
+            return false;
+        }
+        else if(txtLocationAS.getText().trim().equals("")){
             JOptionPane.showMessageDialog(this, "Fields can't be blank");
-        else if(txtRatingsAS.getText().trim().equals(""))
+            return false;
+        }
+        else if(txtRatingsAS.getText().trim().equals("")){
             JOptionPane.showMessageDialog(this, "Fields can't be blank");
-        else if(txtEmailIdAS.getText().trim().equals(""))
+            return false;
+        }
+        else if(txtEmailIdAS.getText().trim().equals("")){
             JOptionPane.showMessageDialog(this, "Fields can't be blank");
-        else if(txtPasswordAS.getText().trim().equals(""))
+            return false;
+        }
+        else if(txtPasswordAS.getText().trim().equals("")){
             JOptionPane.showMessageDialog(this, "Fields can't be blank");
+            return false;
+        }
+        else
+            return true;
     }
     /**
      * This method is called from within the constructor to initialize the form.
@@ -612,14 +624,15 @@ public class AdminSystem extends javax.swing.JPanel {
 
     private void jButton1ASActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ASActionPerformed
         // TODO add your handling code here:
-        CheckBlankFields();
-        try{
-            AdminDetails a = makeAdmin();
-            AddAdmintoDB(a);
-            JOptionPane.showMessageDialog(this, "Organization Added");
-        }
-        catch(NumberFormatException E){
-            JOptionPane.showMessageDialog(this, "Ratings should be a number");
+        if(CheckBlankFields()){
+            try{
+                AdminDetails a = makeAdmin();
+                AddAdmintoDB(a);
+                JOptionPane.showMessageDialog(this, "Organization Added");
+            }
+            catch(NumberFormatException E){
+                JOptionPane.showMessageDialog(this, "Ratings should be a number");
+            }
         }
         clearorgfields();
     }//GEN-LAST:event_jButton1ASActionPerformed

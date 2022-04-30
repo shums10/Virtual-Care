@@ -12,7 +12,6 @@ import java.util.List;
 import javax.swing.JOptionPane;
 import javax.swing.JSplitPane;
 import javax.swing.table.DefaultTableModel;
-import model.AdminDetails;
 import model.NGORequests;
 import ui.User.UserDashboard;
 import ui.User.UserSystem;
@@ -26,9 +25,8 @@ public class NgoCommittie extends javax.swing.JPanel {
     /**
      * Creates new form NgoCommittie
      */
-    public NgoCommittie(JSplitPane SplitPane, AdminDetails a) {
+    public NgoCommittie(JSplitPane SplitPane) {
         initComponents();
-        this.a = a;
         DefaultTableModel NGOMod = (DefaultTableModel) NGORequestsTableNC.getModel();
         this.NGOMod = NGOMod;
         PullNGORequeststoList();
@@ -39,7 +37,6 @@ public class NgoCommittie extends javax.swing.JPanel {
     JSplitPane SplitPane;
     ArrayList<NGORequests> NGOReqs;
     DefaultTableModel NGOMod;
-    AdminDetails a;
     NGORequests N;
     
     void PullNGORequeststoList(){
@@ -53,7 +50,6 @@ public class NgoCommittie extends javax.swing.JPanel {
             Iterator NGOitr = NGOresult.iterator();
             while(NGOitr.hasNext()){
                 N = (NGORequests)NGOitr.next();
-                if(a.getOrganization().equalsIgnoreCase(N.getToNGOOrg()))
                     NGOs.add(N);
             }
         }
@@ -70,7 +66,7 @@ public class NgoCommittie extends javax.swing.JPanel {
             while(itr.hasNext()){
                 NGORequests N = (NGORequests)itr.next();
                 if(N.getStatus().equalsIgnoreCase("Committee Review")){
-                    String data[] = {N.getPatientID(), String.valueOf(N.getAnnualIncome()), String.valueOf(N.getAmount()), N.getStatus()};
+                    String data[] = {N.getPatientID(), String.valueOf(N.getAnnualIncome()), String.valueOf(N.getAmount()), N.getToNGOOrg(), N.getStatus()};
                     NGOMod.addRow(data);
                 }
             }
@@ -105,17 +101,17 @@ public class NgoCommittie extends javax.swing.JPanel {
 
         NGORequestsTableNC.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null}
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null}
             },
             new String [] {
-                "PatientID", "Annual Income", "Amount", "Status"
+                "PatientID", "Annual Income", "Amount", "Organisation", "Status"
             }
         ) {
             boolean[] canEdit = new boolean [] {
-                false, false, false, false
+                false, false, false, false, false
             };
 
             public boolean isCellEditable(int rowIndex, int columnIndex) {

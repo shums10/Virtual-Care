@@ -30,9 +30,8 @@ public class InsuranceCommittie extends javax.swing.JPanel {
     /**
      * Creates new form InsuranceCommittie
      */
-    public InsuranceCommittie(JSplitPane SplitPane, AdminDetails a) {
+    public InsuranceCommittie(JSplitPane SplitPane) {
         initComponents();
-        this.a = a;
         DefaultTableModel InsMod = (DefaultTableModel) tblViewInsuranceRequest.getModel();
         this.InsMod = InsMod;
         PullInsuranceRequeststoList();
@@ -42,7 +41,6 @@ public class InsuranceCommittie extends javax.swing.JPanel {
     }
     
     JSplitPane SplitPane;
-    AdminDetails a;
     ArrayList<InsuranceRequests> InsReq;
     DefaultTableModel InsMod;
     
@@ -57,7 +55,6 @@ public class InsuranceCommittie extends javax.swing.JPanel {
             Iterator Insuitr = Insuranceresult.iterator();
             while(Insuitr.hasNext()){
                 I = (InsuranceRequests)Insuitr.next();
-                if(a.getOrganization().equalsIgnoreCase(I.getToOrg()))
                     InsReq.add(I);
             }
         }
@@ -75,7 +72,7 @@ public class InsuranceCommittie extends javax.swing.JPanel {
                 InsuranceRequests I = (InsuranceRequests)itr.next();
 
                 if(I.getStatus().equalsIgnoreCase("Committee Review")){
-                    String data[] = {I.getFromHospital(), I.getPatientEmail(), String.valueOf(I.getAmount()), I.getStatus()};
+                    String data[] = {I.getFromHospital(), I.getPatientEmail(), String.valueOf(I.getAmount()), I.getToOrg(), I.getStatus()};
                     InsMod.addRow(data);
                 }
             }
@@ -102,17 +99,17 @@ public class InsuranceCommittie extends javax.swing.JPanel {
 
         tblViewInsuranceRequest.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null}
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null}
             },
             new String [] {
-                "Hospital", "Patient Id", "Amount", "Status"
+                "Hospital", "Patient Id", "Amount", "Organisation", "Status"
             }
         ) {
             boolean[] canEdit = new boolean [] {
-                false, false, false, false
+                false, false, false, false, false
             };
 
             public boolean isCellEditable(int rowIndex, int columnIndex) {

@@ -20,11 +20,15 @@ import javax.swing.ImageIcon;
 import javax.swing.JOptionPane;
 import model.AdminDetails;
 import model.DoctorDetails;
+import model.InsuranceAgentDetails;
 import ui.Admin.AdminSystem;
 import ui.Hospital.AdminHospital;
 import ui.Hospital.DoctorsDashboard;
 import ui.Insurance.AdminInsurance;
+import ui.Insurance.InsuranceAgent;
+import ui.Insurance.InsuranceCommittie;
 import ui.NGO.AdminNGO;
+import ui.NGO.NgoCommittie;
 import ui.Pharmacy.AdminPharmacy;
 
 /**
@@ -47,6 +51,7 @@ public class UserSystem extends javax.swing.JFrame {
     HashMap<String, UserDetails> UserMap = new HashMap<>();
     HashMap<String, AdminDetails> AdminMap = new HashMap<>();
     HashMap<String, DoctorDetails> DoctorMap = new HashMap<>();
+    HashMap<String, InsuranceAgentDetails> InsAgentMap = new HashMap<>();
     
     public static ObjectContainer Userdb;
     public static ObjectContainer Admindb;
@@ -54,6 +59,7 @@ public class UserSystem extends javax.swing.JFrame {
     public static ObjectContainer Phardb;
     public static ObjectContainer Insudb;
     public static ObjectContainer NGOdb;
+    public static ObjectContainer InsAgentdb;
     
     void populateorgs(){
         cmbBoxOrg.removeAllItems();
@@ -114,6 +120,11 @@ public class UserSystem extends javax.swing.JFrame {
             ObjectContainer NGOdb = Db4oEmbedded.openFile(Db4oEmbedded.newConfiguration(), NGOFILEPath);
             this.NGOdb = NGOdb;
         }
+        if(this.InsAgentdb == null){
+            String NGOFILEPath = s + "/Databases/InsuranceAgent.db";
+            ObjectContainer InsAgentdb = Db4oEmbedded.openFile(Db4oEmbedded.newConfiguration(), NGOFILEPath);
+            this.InsAgentdb = InsAgentdb;
+        }
         else
             return;
     }
@@ -122,15 +133,18 @@ public class UserSystem extends javax.swing.JFrame {
         HashMap<String, UserDetails> UserMap = new HashMap<>();
         HashMap<String, AdminDetails> AdminMap = new HashMap<>();
         HashMap<String, DoctorDetails> DoctorMap = new HashMap<>();
+        HashMap<String, InsuranceAgentDetails> InsAgentMap = new HashMap<>();
         
         UserDetails u;
         AdminDetails a;
         DoctorDetails d;
+        InsuranceAgentDetails IA;
         try {
             List<UserDetails> userresult = Userdb.query(UserDetails.class);
             List<AdminDetails> adminresult = Admindb.query(AdminDetails.class);
             List<DoctorDetails> doctorresult = Doctordb.query(DoctorDetails.class);
-            if(userresult.isEmpty() && adminresult.isEmpty() && doctorresult.isEmpty())
+            List<InsuranceAgentDetails> InsAgentresult = InsAgentdb.query(InsuranceAgentDetails.class);
+            if(userresult.isEmpty() && adminresult.isEmpty() && doctorresult.isEmpty() && InsAgentresult.isEmpty())
                 return;
 
             Iterator useritr = userresult.iterator();
@@ -150,6 +164,12 @@ public class UserSystem extends javax.swing.JFrame {
                 d = (DoctorDetails)doctoritr.next();
                 DoctorMap.put(d.getEmail(), d);
             }
+            
+            Iterator InsAgentitr = InsAgentresult.iterator();
+            while(InsAgentitr.hasNext()){
+                IA = (InsuranceAgentDetails)InsAgentitr.next();
+                InsAgentMap.put(IA.getEmail(), IA);
+            }
         }
         catch(DatabaseClosedException | Db4oIOException E){
             JOptionPane.showMessageDialog(this, "Database Error.");
@@ -157,6 +177,7 @@ public class UserSystem extends javax.swing.JFrame {
         this.UserMap = UserMap;
         this.AdminMap = AdminMap;
         this.DoctorMap = DoctorMap;
+        this.InsAgentMap = InsAgentMap;
     }
     
     private void DisplayImage() {
@@ -211,6 +232,7 @@ public class UserSystem extends javax.swing.JFrame {
         FillUser = new javax.swing.JButton();
         jLabel2 = new javax.swing.JLabel();
         rdBtnDoctor = new javax.swing.JRadioButton();
+        rdBtnOther = new javax.swing.JRadioButton();
         jPanel2 = new javax.swing.JPanel();
         btnSignUp = new javax.swing.JButton();
         btnLogIn = new javax.swing.JButton();
@@ -278,7 +300,7 @@ public class UserSystem extends javax.swing.JFrame {
             .addGroup(hiddenPanelLayout.createSequentialGroup()
                 .addGroup(hiddenPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(hiddenPanelLayout.createSequentialGroup()
-                        .addGap(87, 87, 87)
+                        .addGap(181, 181, 181)
                         .addComponent(cmbBoxOrg, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(hiddenPanelLayout.createSequentialGroup()
                         .addGap(18, 18, 18)
@@ -315,6 +337,19 @@ public class UserSystem extends javax.swing.JFrame {
 
         buttonGroup1.add(rdBtnDoctor);
         rdBtnDoctor.setText("Doctor");
+        rdBtnDoctor.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                rdBtnDoctorActionPerformed(evt);
+            }
+        });
+
+        buttonGroup1.add(rdBtnOther);
+        rdBtnOther.setText("Other");
+        rdBtnOther.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                rdBtnOtherActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout LogInPanelLayout = new javax.swing.GroupLayout(LogInPanel);
         LogInPanel.setLayout(LogInPanelLayout);
@@ -347,16 +382,20 @@ public class UserSystem extends javax.swing.JFrame {
                                     .addComponent(lblEnterprise, javax.swing.GroupLayout.PREFERRED_SIZE, 112, javax.swing.GroupLayout.PREFERRED_SIZE)
                                     .addComponent(cmbBoxEnterprise, javax.swing.GroupLayout.PREFERRED_SIZE, 166, javax.swing.GroupLayout.PREFERRED_SIZE)))
                             .addGroup(LogInPanelLayout.createSequentialGroup()
-                                .addGap(92, 92, 92)
+                                .addGap(67, 67, 67)
                                 .addComponent(rdBtnUser)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addGroup(LogInPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(btnSignIn)
                                     .addGroup(LogInPanelLayout.createSequentialGroup()
+                                        .addGap(31, 31, 31)
+                                        .addComponent(btnSignIn))
+                                    .addGroup(LogInPanelLayout.createSequentialGroup()
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                                         .addComponent(rdBtnAdmin)
                                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                         .addComponent(rdBtnDoctor)
-                                        .addGap(54, 54, 54)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                        .addComponent(rdBtnOther)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                                         .addComponent(hiddenPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))))
                     .addGroup(LogInPanelLayout.createSequentialGroup()
                         .addGap(394, 394, 394)
@@ -364,7 +403,7 @@ public class UserSystem extends javax.swing.JFrame {
                     .addGroup(LogInPanelLayout.createSequentialGroup()
                         .addGap(353, 353, 353)
                         .addComponent(lblVirtualCare, javax.swing.GroupLayout.PREFERRED_SIZE, 115, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(247, Short.MAX_VALUE))
+                .addContainerGap(166, Short.MAX_VALUE))
         );
         LogInPanelLayout.setVerticalGroup(
             LogInPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -392,7 +431,8 @@ public class UserSystem extends javax.swing.JFrame {
                                 .addGroup(LogInPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                                     .addComponent(rdBtnUser)
                                     .addComponent(rdBtnAdmin)
-                                    .addComponent(rdBtnDoctor))
+                                    .addComponent(rdBtnDoctor)
+                                    .addComponent(rdBtnOther))
                                 .addGap(46, 46, 46))
                             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, LogInPanelLayout.createSequentialGroup()
                                 .addComponent(hiddenPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -403,7 +443,7 @@ public class UserSystem extends javax.swing.JFrame {
                             .addComponent(FillUser)
                             .addComponent(FillAdmin)))
                     .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 693, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(222, Short.MAX_VALUE))
+                .addContainerGap(220, Short.MAX_VALUE))
         );
 
         SplitPane.setRightComponent(LogInPanel);
@@ -486,13 +526,26 @@ public class UserSystem extends javax.swing.JFrame {
         UserDetails u = UserMap.get(txtUserEmail.getText().trim());
         AdminDetails a = AdminMap.get(txtUserEmail.getText().trim());
         DoctorDetails d = DoctorMap.get(txtUserEmail.getText().trim());
+        InsuranceAgentDetails IA = InsAgentMap.get(txtUserEmail.getText().trim());
         if(txtUserEmail.getText().trim().equals("SysAdmin@virtualcare.com") && String.valueOf(txtPassword.getPassword()).equals("SysAdmin") && rdBtnAdmin.isSelected()){
            AdminSystem Dashboard = new AdminSystem(SplitPane, a);
            SplitPane.setDividerSize(0);
            SplitPane.remove(jPanel2);
            SplitPane.setRightComponent(Dashboard);
         }
-        else if((rdBtnUser.isSelected() && u == null) || (rdBtnAdmin.isSelected() && a == null) || (rdBtnDoctor.isSelected() && d == null)){
+        else if(txtUserEmail.getText().trim().equals("shums1004@oye.com") && String.valueOf(txtPassword.getPassword()).equals("admin@123") && rdBtnOther.isSelected()){
+           NgoCommittie Dashboard = new NgoCommittie(SplitPane);
+           SplitPane.setDividerSize(0);
+           SplitPane.remove(jPanel2);
+           SplitPane.setRightComponent(Dashboard);
+        }
+        else if(txtUserEmail.getText().trim().equals("shums1004@bluehealth.com") && String.valueOf(txtPassword.getPassword()).equals("admin@123") && rdBtnOther.isSelected()){
+           InsuranceCommittie Dashboard = new InsuranceCommittie(SplitPane);
+           SplitPane.setDividerSize(0);
+           SplitPane.remove(jPanel2);
+           SplitPane.setRightComponent(Dashboard);
+        }
+        else if((rdBtnUser.isSelected() && u == null) || (rdBtnAdmin.isSelected() && a == null) || (rdBtnDoctor.isSelected() && d == null) || (rdBtnOther.isSelected() && IA == null)){
             JOptionPane.showMessageDialog(this, "Email Doesn't Exist. Please Signup.");
         }
         else if(rdBtnAdmin.isSelected()){
@@ -548,6 +601,16 @@ public class UserSystem extends javax.swing.JFrame {
                 SplitPane.setRightComponent(Dashboard);
             }
         }
+        else if (rdBtnOther.isSelected()){
+            if(!Arrays.toString(txtPassword.getPassword()).equals(IA.getPassword()))
+                JOptionPane.showMessageDialog(this, "Incorrect Password. Try Again.");
+            else{
+                InsuranceAgent Dashboard = new InsuranceAgent(SplitPane, IA);
+                SplitPane.setDividerSize(0);
+                SplitPane.remove(jPanel2);
+                SplitPane.setRightComponent(Dashboard);
+            }
+        }
         else{
             JOptionPane.showMessageDialog(this, "Select type of user.");
         }
@@ -582,6 +645,16 @@ public class UserSystem extends javax.swing.JFrame {
     private void cmbBoxOrgActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmbBoxOrgActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_cmbBoxOrgActionPerformed
+
+    private void rdBtnDoctorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rdBtnDoctorActionPerformed
+        // TODO add your handling code here:
+        setAdminElementsVisibility(false);
+    }//GEN-LAST:event_rdBtnDoctorActionPerformed
+
+    private void rdBtnOtherActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rdBtnOtherActionPerformed
+        // TODO add your handling code here:
+        setAdminElementsVisibility(false);
+    }//GEN-LAST:event_rdBtnOtherActionPerformed
 
     /**
      * @param args the command line arguments
@@ -640,6 +713,7 @@ public class UserSystem extends javax.swing.JFrame {
     private javax.swing.JLabel lblVirtualCare;
     private javax.swing.JRadioButton rdBtnAdmin;
     private javax.swing.JRadioButton rdBtnDoctor;
+    private javax.swing.JRadioButton rdBtnOther;
     private javax.swing.JRadioButton rdBtnUser;
     private javax.swing.JPasswordField txtPassword;
     private javax.swing.JTextField txtUserEmail;
