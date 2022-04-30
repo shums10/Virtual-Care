@@ -409,7 +409,6 @@ public class AdminHospital extends javax.swing.JPanel {
         lblAvailableDays = new javax.swing.JLabel();
         txtAvailableDays = new javax.swing.JTextField();
         txtPasswordAH = new javax.swing.JPasswordField();
-        lblHeaderHospital = new javax.swing.JLabel();
         ReuestInsuranceFunds = new javax.swing.JPanel();
         btnSend = new javax.swing.JButton();
         lblAmount = new javax.swing.JLabel();
@@ -420,6 +419,7 @@ public class AdminHospital extends javax.swing.JPanel {
         cmbBoxOrgansation = new javax.swing.JComboBox<>();
         jScrollPane3 = new javax.swing.JScrollPane();
         tblInsuranceReqs = new javax.swing.JTable();
+        lblHeaderHospital = new javax.swing.JLabel();
 
         lblHospitalLogo.setBackground(new java.awt.Color(204, 153, 0));
 
@@ -465,21 +465,25 @@ public class AdminHospital extends javax.swing.JPanel {
         jPanelLeftLayout.setHorizontalGroup(
             jPanelLeftLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanelLeftLayout.createSequentialGroup()
-                .addGap(14, 14, 14)
                 .addGroup(jPanelLeftLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(btnInsuranceFunds)
                     .addGroup(jPanelLeftLayout.createSequentialGroup()
                         .addGap(14, 14, 14)
-                        .addComponent(btnLogout, javax.swing.GroupLayout.PREFERRED_SIZE, 167, javax.swing.GroupLayout.PREFERRED_SIZE))))
-            .addGroup(jPanelLeftLayout.createSequentialGroup()
-                .addGap(36, 36, 36)
-                .addComponent(btnOrderMedicines))
+                        .addComponent(btnInsuranceFunds))
+                    .addGroup(jPanelLeftLayout.createSequentialGroup()
+                        .addGap(36, 36, 36)
+                        .addComponent(btnOrderMedicines)))
+                .addContainerGap())
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanelLeftLayout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(jPanelLeftLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(btnAddDoctors)
-                    .addComponent(btnViewDoctors))
-                .addGap(39, 39, 39))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanelLeftLayout.createSequentialGroup()
+                        .addGroup(jPanelLeftLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(btnAddDoctors)
+                            .addComponent(btnViewDoctors))
+                        .addGap(39, 39, 39))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanelLeftLayout.createSequentialGroup()
+                        .addComponent(btnLogout, javax.swing.GroupLayout.PREFERRED_SIZE, 167, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addContainerGap())))
         );
         jPanelLeftLayout.setVerticalGroup(
             jPanelLeftLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -492,9 +496,9 @@ public class AdminHospital extends javax.swing.JPanel {
                 .addComponent(btnOrderMedicines)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(btnInsuranceFunds)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGap(267, 267, 267)
                 .addComponent(btnLogout)
-                .addContainerGap(728, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         cardPanel.setPreferredSize(new java.awt.Dimension(1000, 1000));
@@ -823,8 +827,6 @@ public class AdminHospital extends javax.swing.JPanel {
 
         cardPanel.add(AddDoctors, "card2");
 
-        lblHeaderHospital.setText("Welcome to ");
-
         ReuestInsuranceFunds.setPreferredSize(new java.awt.Dimension(1000, 1000));
 
         btnSend.setText("Send");
@@ -895,7 +897,7 @@ public class AdminHospital extends javax.swing.JPanel {
                     .addGroup(ReuestInsuranceFundsLayout.createSequentialGroup()
                         .addGap(206, 206, 206)
                         .addComponent(btnSend)))
-                .addContainerGap(192, Short.MAX_VALUE))
+                .addContainerGap(194, Short.MAX_VALUE))
         );
         ReuestInsuranceFundsLayout.setVerticalGroup(
             ReuestInsuranceFundsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -916,8 +918,12 @@ public class AdminHospital extends javax.swing.JPanel {
                     .addComponent(txtAmount, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(29, 29, 29)
                 .addComponent(btnSend)
-                .addContainerGap(543, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
+
+        cardPanel.add(ReuestInsuranceFunds, "card5");
+
+        lblHeaderHospital.setText("Welcome to ");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
@@ -936,10 +942,7 @@ public class AdminHospital extends javax.swing.JPanel {
                         .addContainerGap())
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                         .addComponent(lblHeaderHospital, javax.swing.GroupLayout.PREFERRED_SIZE, 369, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(171, 171, 171))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addComponent(ReuestInsuranceFunds, javax.swing.GroupLayout.PREFERRED_SIZE, 742, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addContainerGap())))
+                        .addGap(171, 171, 171))))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -949,15 +952,10 @@ public class AdminHospital extends javax.swing.JPanel {
                         .addGap(17, 17, 17)
                         .addComponent(lblHospitalLogo, javax.swing.GroupLayout.PREFERRED_SIZE, 102, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addComponent(lblHeaderHospital, javax.swing.GroupLayout.PREFERRED_SIZE, 59, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(ReuestInsuranceFunds, javax.swing.GroupLayout.PREFERRED_SIZE, 1021, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(cardPanel, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(0, 0, Short.MAX_VALUE)
-                        .addComponent(jPanelLeft, javax.swing.GroupLayout.PREFERRED_SIZE, 1058, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(jPanelLeft, javax.swing.GroupLayout.DEFAULT_SIZE, 1058, Short.MAX_VALUE)
+                    .addComponent(cardPanel, javax.swing.GroupLayout.DEFAULT_SIZE, 1058, Short.MAX_VALUE))
                 .addContainerGap())
         );
     }// </editor-fold>//GEN-END:initComponents
