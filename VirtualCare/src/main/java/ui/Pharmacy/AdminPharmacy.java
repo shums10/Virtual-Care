@@ -16,7 +16,6 @@ import javax.swing.JSplitPane;
 import javax.swing.table.DefaultTableModel;
 import model.AdminDetails;
 import model.DeliveryHeadDetails;
-import model.InsuranceAgentDetails;
 import model.PharmacyOrders;
 import ui.Hospital.AdminHospital;
 import ui.User.UserSystem;
@@ -494,6 +493,9 @@ public class AdminPharmacy extends javax.swing.JPanel {
             if(!DHExists(DH)){
                 AddDelHeadtoDB(DH);
                 JOptionPane.showMessageDialog(this, "Delivery Head Added");
+            }
+            else{
+                JOptionPane.showMessageDialog(this, "Delivery Head " + DHlist.get(0).getFirstName() + "already exists for " + a.getOrganization());
             }
         }
     }//GEN-LAST:event_btnAddDHActionPerformed
