@@ -159,7 +159,10 @@ public class AdminPharmacy extends javax.swing.JPanel {
     
     boolean DHExists(DeliveryHeadDetails DH){
         PullDHtoList();
-        if(DHlist.isEmpty() || DHlist == null){
+        if(DHlist == null){
+            return false;
+        }
+        else if(DHlist.isEmpty()){
             return false;
         }
         else{
@@ -476,12 +479,15 @@ public class AdminPharmacy extends javax.swing.JPanel {
 
     private void btnAssignDeliveyActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAssignDeliveyActionPerformed
         // TODO add your handling code here:
+        PullPhOrderstoList();
+        populateOrderstable();
         Card.show(CardLayout, "card2");
         CardLayout.setVisible(true);
     }//GEN-LAST:event_btnAssignDeliveyActionPerformed
 
     private void btnAddDeliveryActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAddDeliveryActionPerformed
         // TODO add your handling code here:
+        clearfields();
         Card.show(CardLayout, "card3");
         CardLayout.setVisible(true);
     }//GEN-LAST:event_btnAddDeliveryActionPerformed

@@ -345,6 +345,8 @@ public class AdminHospital extends javax.swing.JPanel {
     
     boolean checkDuplicateInsurance(){
         PullInsuranceRequeststoList();
+        if(InsReq == null)
+            return true;
         Iterator itr = InsReq.iterator();
         while(itr.hasNext()){
             InsuranceRequests Ir = (InsuranceRequests)itr.next();

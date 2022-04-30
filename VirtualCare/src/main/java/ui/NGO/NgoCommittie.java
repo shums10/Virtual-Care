@@ -238,6 +238,7 @@ public class NgoCommittie extends javax.swing.JPanel {
         else{
             N.setStatus("Declined");
             UserDashboard.AddNGOtoDB(N);
+            JOptionPane.showMessageDialog(this, "Request Declined.");
         }
     }//GEN-LAST:event_btnDeclineNCActionPerformed
 
@@ -265,8 +266,9 @@ public class NgoCommittie extends javax.swing.JPanel {
             JOptionPane.showMessageDialog(this, "View a Patient first.");
         }
         else{
-            N.setStatus("Committee Review");
+            N.setStatus("Approved");
             UserDashboard.AddNGOtoDB(N);
+            JOptionPane.showMessageDialog(this, "Request Approved.");
         }
     }//GEN-LAST:event_btnApproveNCActionPerformed
 
