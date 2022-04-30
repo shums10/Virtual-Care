@@ -116,7 +116,7 @@ public class UserDashboard extends javax.swing.JPanel {
      ImageIcon login2 = new ImageIcon(FilePath2);
      lblViewAppointments.setIcon(login2);
      
-     String FilePath3 = s+"/images/HC10.gif";
+     String FilePath3 = s+"/images/HC2.gif";
      // URL imgLogin = getClass().getResource(FilePath1 );
      ImageIcon login3 = new ImageIcon(FilePath3);
      lblUserDB.setIcon(login3);
@@ -136,6 +136,12 @@ public class UserDashboard extends javax.swing.JPanel {
      // URL imgLogin = getClass().getResource(FilePath1 );
      ImageIcon login6 = new ImageIcon(FilePath6);
      lblAccountDetails.setIcon(login6);
+     
+     
+     String FilePath7 = s+"/images/HC15.jpg";
+     // URL imgLogin = getClass().getResource(FilePath1 );
+     ImageIcon login7 = new ImageIcon(FilePath7);
+     lblcardbg.setIcon(login7);
      
      }
     
@@ -482,6 +488,7 @@ public class UserDashboard extends javax.swing.JPanel {
         btnRequestFund = new javax.swing.JButton();
         btnLogout = new javax.swing.JButton();
         cardLayout = new javax.swing.JPanel();
+        lblcardbg = new javax.swing.JLabel();
         ViewAppointments = new javax.swing.JPanel();
         jScrollPane2 = new javax.swing.JScrollPane();
         tableViewAppointment = new javax.swing.JTable();
@@ -520,6 +527,7 @@ public class UserDashboard extends javax.swing.JPanel {
         cmbBoxPrices = new javax.swing.JComboBox<>();
         btnView = new javax.swing.JButton();
         lblUserDB = new javax.swing.JLabel();
+        lblVirtualCare = new javax.swing.JLabel();
         AccountDetails = new javax.swing.JPanel();
         lblReenterPassword = new javax.swing.JLabel();
         lblFirstName = new javax.swing.JLabel();
@@ -622,6 +630,11 @@ public class UserDashboard extends javax.swing.JPanel {
         cardLayout.setBackground(new java.awt.Color(102, 102, 255));
         cardLayout.setPreferredSize(new java.awt.Dimension(1100, 1100));
         cardLayout.setLayout(new java.awt.CardLayout());
+
+        lblcardbg.setMaximumSize(new java.awt.Dimension(1100, 1100));
+        lblcardbg.setPreferredSize(new java.awt.Dimension(1100, 1100));
+        lblcardbg.setRequestFocusEnabled(false);
+        cardLayout.add(lblcardbg, "card2");
 
         ViewAppointments.setBackground(new java.awt.Color(102, 102, 255));
         ViewAppointments.setMinimumSize(new java.awt.Dimension(823, 697));
@@ -836,39 +849,40 @@ public class UserDashboard extends javax.swing.JPanel {
         FundRequest.setLayout(FundRequestLayout);
         FundRequestLayout.setHorizontalGroup(
             FundRequestLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(FundRequestLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                .addGroup(FundRequestLayout.createSequentialGroup()
+                    .addContainerGap()
+                    .addGroup(FundRequestLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                        .addComponent(lblRequestAmount)
+                        .addComponent(lblExplanation)
+                        .addComponent(lblAnnualIncome))
+                    .addGap(88, 88, 88)
+                    .addGroup(FundRequestLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addComponent(txtExplanation, javax.swing.GroupLayout.PREFERRED_SIZE, 400, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(txtAnnualIncome, javax.swing.GroupLayout.PREFERRED_SIZE, 133, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(txtRequestAmount, javax.swing.GroupLayout.PREFERRED_SIZE, 133, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(cmbNGOOrgs, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGap(64, 64, 64))
+                .addGroup(javax.swing.GroupLayout.Alignment.LEADING, FundRequestLayout.createSequentialGroup()
+                    .addGap(80, 80, 80)
+                    .addGroup(FundRequestLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addComponent(jScrollPane4, javax.swing.GroupLayout.PREFERRED_SIZE, 528, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(jLabel2))
+                    .addGap(0, 0, Short.MAX_VALUE)))
             .addGroup(FundRequestLayout.createSequentialGroup()
                 .addGroup(FundRequestLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(FundRequestLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                        .addGroup(FundRequestLayout.createSequentialGroup()
-                            .addContainerGap()
-                            .addGroup(FundRequestLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                .addGroup(FundRequestLayout.createSequentialGroup()
-                                    .addGroup(FundRequestLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                                        .addComponent(lblRequestAmount)
-                                        .addComponent(lblExplanation)
-                                        .addComponent(lblAnnualIncome))
-                                    .addGap(88, 88, 88)
-                                    .addGroup(FundRequestLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                        .addComponent(txtExplanation, javax.swing.GroupLayout.PREFERRED_SIZE, 400, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addComponent(txtAnnualIncome, javax.swing.GroupLayout.PREFERRED_SIZE, 133, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addComponent(txtRequestAmount, javax.swing.GroupLayout.PREFERRED_SIZE, 133, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addComponent(cmbNGOOrgs, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                                .addComponent(lblFundRequest, javax.swing.GroupLayout.PREFERRED_SIZE, 736, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                        .addGroup(javax.swing.GroupLayout.Alignment.LEADING, FundRequestLayout.createSequentialGroup()
-                            .addGap(115, 115, 115)
-                            .addGroup(FundRequestLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                .addComponent(jScrollPane4, javax.swing.GroupLayout.PREFERRED_SIZE, 528, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addComponent(jLabel2))
-                            .addGap(0, 103, Short.MAX_VALUE)))
                     .addGroup(FundRequestLayout.createSequentialGroup()
                         .addGap(192, 192, 192)
-                        .addComponent(btnRequest)))
-                .addGap(0, 0, 0))
+                        .addComponent(btnRequest))
+                    .addGroup(FundRequestLayout.createSequentialGroup()
+                        .addGap(65, 65, 65)
+                        .addComponent(lblFundRequest, javax.swing.GroupLayout.PREFERRED_SIZE, 633, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap())
         );
         FundRequestLayout.setVerticalGroup(
             FundRequestLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(FundRequestLayout.createSequentialGroup()
-                .addContainerGap()
+                .addGap(68, 68, 68)
                 .addGroup(FundRequestLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(lblExplanation)
                     .addComponent(txtExplanation, javax.swing.GroupLayout.PREFERRED_SIZE, 221, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -888,8 +902,9 @@ public class UserDashboard extends javax.swing.JPanel {
                 .addComponent(btnRequest)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jScrollPane4, javax.swing.GroupLayout.PREFERRED_SIZE, 141, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
-                .addComponent(lblFundRequest, javax.swing.GroupLayout.DEFAULT_SIZE, 490, Short.MAX_VALUE))
+                .addGap(27, 27, 27)
+                .addComponent(lblFundRequest, javax.swing.GroupLayout.PREFERRED_SIZE, 390, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         cardLayout.add(FundRequest, "card6");
@@ -932,6 +947,7 @@ public class UserDashboard extends javax.swing.JPanel {
         });
         UserDB.add(cmbBoxCity, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 470, -1, -1));
 
+        cmbBoxTreatment.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Dentist", "Orthopedic", "Oncologist", "Cardiologist", "Genral Physicist" }));
         cmbBoxTreatment.setToolTipText("");
         cmbBoxTreatment.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         cmbBoxTreatment.addActionListener(new java.awt.event.ActionListener() {
@@ -963,7 +979,11 @@ public class UserDashboard extends javax.swing.JPanel {
         lblUserDB.setMaximumSize(new java.awt.Dimension(1000, 1000));
         lblUserDB.setMinimumSize(new java.awt.Dimension(750, 330));
         lblUserDB.setPreferredSize(new java.awt.Dimension(750, 390));
-        UserDB.add(lblUserDB, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 520, 830, 410));
+        UserDB.add(lblUserDB, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 560, 810, 370));
+
+        lblVirtualCare.setFont(new java.awt.Font("Lucida Grande", 1, 14)); // NOI18N
+        lblVirtualCare.setText("VIRTUAL CARE");
+        UserDB.add(lblVirtualCare, new org.netbeans.lib.awtextra.AbsoluteConstraints(390, 0, -1, -1));
 
         cardLayout.add(UserDB, "card2");
 
@@ -1409,6 +1429,8 @@ public class UserDashboard extends javax.swing.JPanel {
     private javax.swing.JLabel lblStreet;
     private javax.swing.JLabel lblUserDB;
     private javax.swing.JLabel lblViewAppointments;
+    private javax.swing.JLabel lblVirtualCare;
+    private javax.swing.JLabel lblcardbg;
     private javax.swing.JTable tableDoctors;
     private javax.swing.JTable tableHospitals;
     private javax.swing.JTable tableViewAppointment;
