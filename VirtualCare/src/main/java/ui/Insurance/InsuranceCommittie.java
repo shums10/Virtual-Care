@@ -15,7 +15,6 @@ import javax.swing.ImageIcon;
 import javax.swing.JOptionPane;
 import javax.swing.JSplitPane;
 import javax.swing.table.DefaultTableModel;
-import model.AdminDetails;
 import model.InsuranceRequests;
 import ui.Hospital.AdminHospital;
 import ui.User.UserSystem;

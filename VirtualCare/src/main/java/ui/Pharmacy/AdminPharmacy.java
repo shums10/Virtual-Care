@@ -177,12 +177,12 @@ public class AdminPharmacy extends javax.swing.JPanel {
             P = (PharmacyOrders)itr.next();
             if(P.getFromHospital().equalsIgnoreCase(Hospital) && P.getMedicine().equalsIgnoreCase(Medicine)){
                 
-                P.setStatus("Delivered");
+                P.setStatus("Delivery Review");
                 AdminHospital.AddPhOrderstoDB(P);
                 break;
             }
         }
-        JOptionPane.showMessageDialog(this, "Request Approved.");
+        JOptionPane.showMessageDialog(this, "Request Sent for Delivery.");
         populateOrderstable();
     }//GEN-LAST:event_btnDeliveredActionPerformed
 
