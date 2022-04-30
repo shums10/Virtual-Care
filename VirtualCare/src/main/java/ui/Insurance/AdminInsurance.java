@@ -459,7 +459,7 @@ public class AdminInsurance extends javax.swing.JPanel {
         // TODO add your handling code here:
         UserSystem LoginPanel = new UserSystem();
         SplitPane.removeAll();
-        SplitPane.add(LoginPanel);
+        SplitPane.add(LoginPanel.SplitPane);
         SplitPane.repaint();
     }//GEN-LAST:event_btnLogoutActionPerformed
 
@@ -483,6 +483,8 @@ public class AdminInsurance extends javax.swing.JPanel {
 
     private void btnViewRequestsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnViewRequestsActionPerformed
         // TODO add your handling code here:
+        PullInsuranceRequeststoList();
+        populateInsurancetable();
         Card.show(CardLayout, "card3");
         CardLayout.setVisible(true);
     }//GEN-LAST:event_btnViewRequestsActionPerformed
@@ -493,6 +495,7 @@ public class AdminInsurance extends javax.swing.JPanel {
             InsuranceAgentDetails IA = makeAgent();
             AddInsAgenttoDB(IA);
             clearfields();
+            JOptionPane.showMessageDialog(this, "Agent Added");
         }
     }//GEN-LAST:event_jButton2ActionPerformed
 

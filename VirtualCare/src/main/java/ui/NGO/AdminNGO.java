@@ -69,9 +69,10 @@ public class AdminNGO extends javax.swing.JPanel {
             Iterator itr = NGOReqs.iterator();
             while(itr.hasNext()){
                 NGORequests N = (NGORequests)itr.next();
-
-                String data[] = {N.getPatientID(), String.valueOf(N.getAnnualIncome()), String.valueOf(N.getAmount()), N.getStatus()};
-                NGOMod.addRow(data);
+                if(N.getStatus().equalsIgnoreCase("Pending")){
+                    String data[] = {N.getPatientID(), String.valueOf(N.getAnnualIncome()), String.valueOf(N.getAmount()), N.getStatus()};
+                    NGOMod.addRow(data);
+                }
             }
         }
         catch(NullPointerException E){
@@ -239,12 +240,14 @@ public class AdminNGO extends javax.swing.JPanel {
             return;
         int Row = NGORequestsTable.getSelectedRow();
         String PatientID = NGORequestsTable.getValueAt(Row, 0).toString();
+        int Amount = Integer.parseInt(NGORequestsTable.getValueAt(Row, 2).toString());
+        int AnnualIncome = Integer.parseInt(NGORequestsTable.getValueAt(Row, 1).toString());
         
         NGORequests N;
         Iterator itr = NGOReqs.iterator();
         while(itr.hasNext()){
             N = (NGORequests)itr.next();
-            if(N.getPatientID().equalsIgnoreCase(PatientID)){
+            if(N.getPatientID().equalsIgnoreCase(PatientID) && N.getAmount() == Amount && N.getAnnualIncome() == AnnualIncome){
                 ShowExplaination(N);
                 this.N = N;
             }
@@ -261,6 +264,7 @@ public class AdminNGO extends javax.swing.JPanel {
             N.setStatus("Committee Review");
             UserDashboard.AddNGOtoDB(N);
             JOptionPane.showMessageDialog(this, "Request forwarded to committee.");
+            populateNGOtable();
         }
     }//GEN-LAST:event_jButton2ActionPerformed
 
@@ -273,6 +277,7 @@ public class AdminNGO extends javax.swing.JPanel {
             N.setStatus("Declined");
             UserDashboard.AddNGOtoDB(N);
             JOptionPane.showMessageDialog(this, "Request Declined.");
+            populateNGOtable();
         }
     }//GEN-LAST:event_jButton3ActionPerformed
 

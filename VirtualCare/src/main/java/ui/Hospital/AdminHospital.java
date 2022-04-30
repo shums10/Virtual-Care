@@ -185,7 +185,7 @@ public class AdminHospital extends javax.swing.JPanel {
                 PharmacyOrders P = (PharmacyOrders)itr.next();
 
                 if(P.getFromHospital().equalsIgnoreCase(a.getOrganization())){
-                    String data[] = {P.getFromHospital(), P.getMedicine(), String.valueOf(P.getQuantity()), P.getStatus()};
+                    String data[] = {P.getToOrg(), P.getMedicine(), String.valueOf(P.getQuantity()), P.getStatus()};
                     PhMod.addRow(data);
                 }
             }

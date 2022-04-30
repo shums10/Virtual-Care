@@ -199,7 +199,7 @@ public class InsuranceCommittie extends javax.swing.JPanel {
         // TODO add your handling code here:
         UserSystem LoginPanel = new UserSystem();
         SplitPane.removeAll();
-        SplitPane.add(LoginPanel);
+        SplitPane.add(LoginPanel.SplitPane);
         SplitPane.repaint();
     }//GEN-LAST:event_btnLogoutICActionPerformed
 

@@ -33,6 +33,8 @@ public class DeliveryHead extends javax.swing.JPanel {
         this.PhMod = PhMod;
         lblDeliveryEnterprise.setText("Delivery " + DH.getOrganization());
         this.SplitPane = SplitPane;
+        PullPhOrderstoList();
+        populateOrderstable();
     }
     
     JSplitPane SplitPane;

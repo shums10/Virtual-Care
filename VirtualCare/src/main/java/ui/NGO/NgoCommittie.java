@@ -239,6 +239,7 @@ public class NgoCommittie extends javax.swing.JPanel {
             N.setStatus("Declined");
             UserDashboard.AddNGOtoDB(N);
             JOptionPane.showMessageDialog(this, "Request Declined.");
+            populateNGOtable();
         }
     }//GEN-LAST:event_btnDeclineNCActionPerformed
 
@@ -248,12 +249,14 @@ public class NgoCommittie extends javax.swing.JPanel {
             return;
         int Row = NGORequestsTableNC.getSelectedRow();
         String PatientID = NGORequestsTableNC.getValueAt(Row, 0).toString();
+        int Amount = Integer.parseInt(NGORequestsTableNC.getValueAt(Row, 2).toString());
+        String Organisation = NGORequestsTableNC.getValueAt(Row, 3).toString();
         
         NGORequests N;
         Iterator itr = NGOReqs.iterator();
         while(itr.hasNext()){
             N = (NGORequests)itr.next();
-            if(N.getPatientID().equalsIgnoreCase(PatientID)){
+            if(N.getPatientID().equalsIgnoreCase(PatientID) && N.getAmount() == Amount && N.getToNGOOrg().equalsIgnoreCase(Organisation)){
                 ShowExplaination(N);
                 this.N = N;
             }
@@ -269,6 +272,7 @@ public class NgoCommittie extends javax.swing.JPanel {
             N.setStatus("Approved");
             UserDashboard.AddNGOtoDB(N);
             JOptionPane.showMessageDialog(this, "Request Approved.");
+            populateNGOtable();
         }
     }//GEN-LAST:event_btnApproveNCActionPerformed
 

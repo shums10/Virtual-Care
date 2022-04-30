@@ -145,7 +145,6 @@ public class InsuranceAgent extends javax.swing.JPanel {
             }
         });
 
-        btnLogOutIA.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/LogoutIcon.png"))); // NOI18N
         btnLogOutIA.setText("LogOut");
         btnLogOutIA.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -182,7 +181,7 @@ public class InsuranceAgent extends javax.swing.JPanel {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnForward)
                     .addComponent(btnDeclineIA))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 150, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 159, Short.MAX_VALUE)
                 .addComponent(btnLogOutIA)
                 .addGap(40, 40, 40))
         );
@@ -236,7 +235,7 @@ public class InsuranceAgent extends javax.swing.JPanel {
         // TODO add your handling code here:
         UserSystem LoginPanel = new UserSystem();
         SplitPane.removeAll();
-        SplitPane.add(LoginPanel);
+        SplitPane.add(LoginPanel.SplitPane);
         SplitPane.repaint();
     }//GEN-LAST:event_btnLogOutIAActionPerformed
 
