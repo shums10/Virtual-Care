@@ -87,7 +87,7 @@ public class UserDashboard extends javax.swing.JPanel {
             }
             while(Htr.hasNext()){
                 DoctorDetails d = (DoctorDetails)Htr.next();
-                Departments.add(d.getOrganisation());
+                Hospitals.add(d.getOrganisation());
             }
             this.Cities = Cities;
             this.Departments = Departments;
@@ -164,6 +164,7 @@ public class UserDashboard extends javax.swing.JPanel {
     }
     
     void populateHospitaltable(){
+        UserMod.setRowCount(0);
         try{
             Iterator itr = Doctors.iterator();
             TreeMap<Integer, DoctorDetails> filter = new TreeMap<>();
@@ -194,7 +195,7 @@ public class UserDashboard extends javax.swing.JPanel {
             }
         }
         catch(NullPointerException E){
-            JOptionPane.showMessageDialog(this, "No Doctors Added.");
+            JOptionPane.showMessageDialog(this, "No Doctors available.");
         }
     }
     
@@ -284,6 +285,8 @@ public class UserDashboard extends javax.swing.JPanel {
     }
     
     void populatedropdowns(){
+        cmbBoxCity.removeAllItems();
+        cmbBoxTreatment.removeAllItems();
         try{
             Iterator Ctr = Cities.iterator();
             Iterator Dtr = Departments.iterator();
@@ -312,6 +315,7 @@ public class UserDashboard extends javax.swing.JPanel {
             while(doctoritr.hasNext()){
                 d = (DoctorDetails)doctoritr.next();
                 Doctors.add(d);
+                System.out.println("Doctor Pulled: " + d.getFirstName());
             }
         }
         catch(DatabaseClosedException | Db4oIOException E){
@@ -388,6 +392,7 @@ public class UserDashboard extends javax.swing.JPanel {
                     d.AddAppointments(u);
                     UserSystem.Doctordb.store(d);
                     UserSystem.Userdb.store(u);
+                    break;
                 }
             }
         }
@@ -1334,14 +1339,8 @@ public class UserDashboard extends javax.swing.JPanel {
         // TODO add your handling code here:
         if(tableDoctors.getSelectedRow() < 0)
             return;
-        try{
         BookAppointment();
         JOptionPane.showMessageDialog(this, "Appointment Booked.");
-        }
-        catch(NullPointerException E){
-            JOptionPane.showMessageDialog(this, "No Doctors Added");
-        }
-
     }//GEN-LAST:event_btnBookAppointmentActionPerformed
 
     private void btnRequestActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRequestActionPerformed

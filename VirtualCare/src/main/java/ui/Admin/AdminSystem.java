@@ -697,7 +697,7 @@ public class AdminSystem extends javax.swing.JPanel {
         a.setEmail(tableViewOrganisations.getValueAt(Row, 2).toString().trim());
         a.setRatings(Integer.parseInt(tableViewOrganisations.getValueAt(Row, 3).toString().trim()));
         AddAdmintoDB(a);
-        JOptionPane.showMessageDialog(this, "Admin Deleted.");
+        JOptionPane.showMessageDialog(this, "Admin Edited.");
         PullAdminstoHashMap();
         displayOrgs(cmbBoxSelectEnterpriseAS1.getSelectedItem().toString());
     }//GEN-LAST:event_btnEditActionPerformed

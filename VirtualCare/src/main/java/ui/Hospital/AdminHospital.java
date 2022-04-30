@@ -311,7 +311,9 @@ public class AdminHospital extends javax.swing.JPanel {
             Iterator doctoritr = doctorresult.iterator();
             while(doctoritr.hasNext()){
                 d = (DoctorDetails)doctoritr.next();
-                DoctorMap.put(d.getEmail(), d);
+                if(d.getOrganisation().equalsIgnoreCase(a.getOrganization())){
+                    DoctorMap.put(d.getEmail(), d);
+                }
             }
         }
         catch(DatabaseClosedException | Db4oIOException E){
