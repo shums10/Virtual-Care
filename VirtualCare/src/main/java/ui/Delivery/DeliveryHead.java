@@ -4,6 +4,19 @@
  */
 package ui.Delivery;
 
+import com.db4o.ext.DatabaseClosedException;
+import com.db4o.ext.Db4oIOException;
+import java.util.ArrayList;
+import java.util.Iterator;
+import java.util.List;
+import javax.swing.JOptionPane;
+import javax.swing.JSplitPane;
+import javax.swing.table.DefaultTableModel;
+import model.DeliveryHeadDetails;
+import model.PharmacyOrders;
+import ui.Hospital.AdminHospital;
+import ui.User.UserSystem;
+
 /**
  *
  * @author shubhampatil
@@ -13,10 +26,54 @@ public class DeliveryHead extends javax.swing.JPanel {
     /**
      * Creates new form DeliveryHead
      */
-    public DeliveryHead() {
+    public DeliveryHead(JSplitPane SplitPane, DeliveryHeadDetails DH) {
         initComponents();
+        this.DH = DH;
+        DefaultTableModel PhMod = (DefaultTableModel) tblMedicineRequests.getModel();
+        this.PhMod = PhMod;
+        lblDeliveryEnterprise.setText("Delivery " + DH.getOrganization());
+        this.SplitPane = SplitPane;
     }
+    
+    JSplitPane SplitPane;
+    DeliveryHeadDetails DH;
+    ArrayList<PharmacyOrders> PhReq;
+    DefaultTableModel PhMod;
 
+    void PullPhOrderstoList(){
+        ArrayList<PharmacyOrders> PhReq = new ArrayList<>();
+
+        PharmacyOrders P;
+        try {
+            List<PharmacyOrders> Pharmacyresult = UserSystem.Phardb.query(PharmacyOrders.class);
+            if(Pharmacyresult.isEmpty())
+                return;
+            Iterator Phitr = Pharmacyresult.iterator();
+            while(Phitr.hasNext()){
+                P = (PharmacyOrders)Phitr.next();
+                if(DH.getOrganization().equalsIgnoreCase(P.getToOrg()))
+                    PhReq.add(P);
+            }
+        }
+        catch(DatabaseClosedException | Db4oIOException E){
+            JOptionPane.showMessageDialog(this, "Database Error.");
+        }
+        this.PhReq = PhReq;
+    }
+    
+    void populateOrderstable(){
+        PhMod.setRowCount(0);
+        Iterator itr = PhReq.iterator();
+        while(itr.hasNext()){
+            PharmacyOrders P = (PharmacyOrders)itr.next();
+
+            if(P.getStatus().equalsIgnoreCase("Delivery Review")){
+                String data[] = {P.getFromHospital(), P.getMedicine(), String.valueOf(P.getQuantity())};
+                PhMod.addRow(data);
+            }
+        }
+    }
+    
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -40,7 +97,7 @@ public class DeliveryHead extends javax.swing.JPanel {
                 {null, null, null}
             },
             new String [] {
-                "Hospital", "Medicine Name", "Quatinty"
+                "Hospital", "Medicine Name", "Quantity"
             }
         ) {
             boolean[] canEdit = new boolean [] {
@@ -55,9 +112,19 @@ public class DeliveryHead extends javax.swing.JPanel {
 
         lblDeliveryEnterprise.setText("Delivery Enterprise");
 
-        btnDeliveredDH.setText("Delivered");
+        btnDeliveredDH.setText("Deliver");
+        btnDeliveredDH.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnDeliveredDHActionPerformed(evt);
+            }
+        });
 
         btnLogoutDH.setText("Logout");
+        btnLogoutDH.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnLogoutDHActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
@@ -94,6 +161,38 @@ public class DeliveryHead extends javax.swing.JPanel {
                 .addGap(20, 20, 20))
         );
     }// </editor-fold>//GEN-END:initComponents
+
+    private void btnLogoutDHActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLogoutDHActionPerformed
+        // TODO add your handling code here:
+        UserSystem LoginPanel = new UserSystem();
+        SplitPane.removeAll();
+        SplitPane.add(LoginPanel.SplitPane);
+        SplitPane.repaint();
+    }//GEN-LAST:event_btnLogoutDHActionPerformed
+
+    private void btnDeliveredDHActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDeliveredDHActionPerformed
+        // TODO add your handling code here:
+        if(tblMedicineRequests.getSelectedRow() < 0)
+            return;
+        int Row = tblMedicineRequests.getSelectedRow();
+        String Medicine = tblMedicineRequests.getValueAt(Row, 1).toString();
+        String Hospital = tblMedicineRequests.getValueAt(Row, 0).toString();
+        
+        PharmacyOrders P;
+        
+        Iterator itr = PhReq.iterator();
+        while(itr.hasNext()){
+            P = (PharmacyOrders)itr.next();
+            if(P.getFromHospital().equalsIgnoreCase(Hospital) && P.getMedicine().equalsIgnoreCase(Medicine)){
+                
+                P.setStatus("Delivered");
+                AdminHospital.AddPhOrderstoDB(P);
+                break;
+            }
+        }
+        JOptionPane.showMessageDialog(this, "Request Delivered");
+        populateOrderstable();
+    }//GEN-LAST:event_btnDeliveredDHActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
