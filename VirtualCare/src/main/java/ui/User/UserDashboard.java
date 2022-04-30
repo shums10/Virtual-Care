@@ -284,14 +284,19 @@ public class UserDashboard extends javax.swing.JPanel {
     }
     
     void populatedropdowns(){
-        Iterator Ctr = Cities.iterator();
-        Iterator Dtr = Departments.iterator();
-        
-        while(Ctr.hasNext()){
-            cmbBoxCity.addItem(Ctr.next().toString());
+        try{
+            Iterator Ctr = Cities.iterator();
+            Iterator Dtr = Departments.iterator();
+
+            while(Ctr.hasNext()){
+                cmbBoxCity.addItem(Ctr.next().toString());
+            }
+            while(Dtr.hasNext()){
+                cmbBoxTreatment.addItem(Dtr.next().toString());
+            }
         }
-        while(Dtr.hasNext()){
-            cmbBoxTreatment.addItem(Dtr.next().toString());
+        catch(NullPointerException E){
+            JOptionPane.showMessageDialog(this, "No Doctors Available.");
         }
     }
     
