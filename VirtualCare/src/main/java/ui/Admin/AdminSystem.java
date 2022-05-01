@@ -36,7 +36,7 @@ public class AdminSystem extends javax.swing.JPanel {
         initComponents();
         this.a = a;
         Card = (CardLayout) cardLayout.getLayout();
-        cardLayout.setVisible(false);
+        cardLayout.setVisible(true);
         DefaultTableModel OrgMod = (DefaultTableModel) tableViewOrganisations.getModel();
         DefaultTableModel UserMod = (DefaultTableModel) UsersTable.getModel();
         this.UserMod = UserMod;
@@ -53,16 +53,16 @@ public class AdminSystem extends javax.swing.JPanel {
     DefaultTableModel UserMod;
     DefaultTableModel OrgMod;
     
-    
+//    
 //    private void DisplayImage() {
 //     Path currentRelativePath = Paths.get("");
 //     String s = currentRelativePath.toAbsolutePath().toString();
-//     
-//     // Logout Button
-//     String FilePath1 = s+"/images/HC16.gif.";
+     
+     // Logout Button
+//     String FilePath1 = s+"/images/HC17.gif.";
 //     // URL imgLogin = getClass().getResource(FilePath1 );
 //     ImageIcon login1 = new ImageIcon(FilePath1);
-//     lblAdminSP.setIcon(login1);
+//     lblAdminDB.setIcon(login1);
 //    }
     
     void PullUserstoHashMap(){
@@ -256,6 +256,7 @@ public class AdminSystem extends javax.swing.JPanel {
         btnDeleteUser = new javax.swing.JButton();
 
         setBackground(new java.awt.Color(51, 153, 255));
+        setPreferredSize(new java.awt.Dimension(1200, 1200));
 
         sidePanelAS.setBackground(new java.awt.Color(0, 102, 204));
 
@@ -314,6 +315,7 @@ public class AdminSystem extends javax.swing.JPanel {
         cardLayout.setLayout(new java.awt.CardLayout());
 
         AdminDashboard.setBackground(new java.awt.Color(51, 153, 255));
+        AdminDashboard.setPreferredSize(new java.awt.Dimension(1200, 1200));
 
         lblVirtualCare.setFont(new java.awt.Font("Lucida Grande", 1, 14)); // NOI18N
         lblVirtualCare.setText("VIRTUAL CARE");
@@ -372,23 +374,24 @@ public class AdminSystem extends javax.swing.JPanel {
             .addGroup(AdminDashboardLayout.createSequentialGroup()
                 .addGroup(AdminDashboardLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(AdminDashboardLayout.createSequentialGroup()
-                        .addGap(188, 188, 188)
+                        .addGap(170, 170, 170)
                         .addGroup(AdminDashboardLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                             .addComponent(lblEmailId)
-                            .addComponent(lblPassword))
+                            .addComponent(lblPassword)
+                            .addComponent(lblRatings)
+                            .addComponent(lblLocation)
+                            .addComponent(lblNameOfOrganisation))
+                        .addGap(27, 27, 27)
                         .addGroup(AdminDashboardLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(AdminDashboardLayout.createSequentialGroup()
-                                .addGap(57, 57, 57)
-                                .addGroup(AdminDashboardLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                                    .addComponent(txtPasswordAS, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 186, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(txtNameOfOrganisationAS, javax.swing.GroupLayout.PREFERRED_SIZE, 189, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                            .addGroup(AdminDashboardLayout.createSequentialGroup()
-                                .addGap(58, 58, 58)
-                                .addComponent(txtEmailIdAS, javax.swing.GroupLayout.PREFERRED_SIZE, 189, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                            .addComponent(txtRatingsAS, javax.swing.GroupLayout.PREFERRED_SIZE, 189, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(txtLocationAS, javax.swing.GroupLayout.PREFERRED_SIZE, 189, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(txtEmailIdAS, javax.swing.GroupLayout.PREFERRED_SIZE, 189, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(txtPasswordAS, javax.swing.GroupLayout.PREFERRED_SIZE, 186, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(txtNameOfOrganisationAS, javax.swing.GroupLayout.PREFERRED_SIZE, 189, javax.swing.GroupLayout.PREFERRED_SIZE)))
                     .addGroup(AdminDashboardLayout.createSequentialGroup()
                         .addGap(213, 213, 213)
                         .addComponent(jButton1AS)))
-                .addContainerGap(421, Short.MAX_VALUE))
+                .addGap(293, 293, 293))
             .addGroup(AdminDashboardLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(AdminDashboardLayout.createSequentialGroup()
                     .addGroup(AdminDashboardLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -399,28 +402,28 @@ public class AdminSystem extends javax.swing.JPanel {
                             .addGap(213, 213, 213)
                             .addComponent(lblADDORGANISTION))
                         .addGroup(AdminDashboardLayout.createSequentialGroup()
-                            .addGap(111, 111, 111)
-                            .addGroup(AdminDashboardLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                .addComponent(lblNameOfOrganisation)
-                                .addComponent(lblLocation, javax.swing.GroupLayout.Alignment.TRAILING)
-                                .addComponent(lblRatings, javax.swing.GroupLayout.Alignment.TRAILING))
-                            .addGap(55, 55, 55)
-                            .addGroup(AdminDashboardLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                .addComponent(txtLocationAS, javax.swing.GroupLayout.PREFERRED_SIZE, 189, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addComponent(txtRatingsAS, javax.swing.GroupLayout.PREFERRED_SIZE, 189, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                        .addGroup(AdminDashboardLayout.createSequentialGroup()
                             .addContainerGap()
                             .addGroup(AdminDashboardLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                 .addComponent(lblSelectEnterpriseAS)
                                 .addComponent(cmbBoxSelectEnterpriseAS, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                    .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                    .addContainerGap(575, Short.MAX_VALUE)))
         );
         AdminDashboardLayout.setVerticalGroup(
             AdminDashboardLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, AdminDashboardLayout.createSequentialGroup()
-                .addGap(142, 142, 142)
-                .addComponent(txtNameOfOrganisationAS, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(111, 111, 111)
+            .addGroup(AdminDashboardLayout.createSequentialGroup()
+                .addGap(146, 146, 146)
+                .addGroup(AdminDashboardLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(txtNameOfOrganisationAS, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(lblNameOfOrganisation))
+                .addGap(22, 22, 22)
+                .addGroup(AdminDashboardLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(lblLocation, javax.swing.GroupLayout.PREFERRED_SIZE, 26, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(txtLocationAS, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(21, 21, 21)
+                .addGroup(AdminDashboardLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(lblRatings)
+                    .addComponent(txtRatingsAS, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(18, 18, 18)
                 .addGroup(AdminDashboardLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(lblEmailId)
                     .addComponent(txtEmailIdAS, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -430,7 +433,7 @@ public class AdminSystem extends javax.swing.JPanel {
                     .addComponent(txtPasswordAS, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(44, 44, 44)
                 .addComponent(jButton1AS)
-                .addGap(153, 153, 153))
+                .addGap(764, 764, 764))
             .addGroup(AdminDashboardLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(AdminDashboardLayout.createSequentialGroup()
                     .addContainerGap()
@@ -441,17 +444,7 @@ public class AdminSystem extends javax.swing.JPanel {
                     .addComponent(lblSelectEnterpriseAS)
                     .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                     .addComponent(cmbBoxSelectEnterpriseAS, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                    .addComponent(lblNameOfOrganisation)
-                    .addGap(26, 26, 26)
-                    .addGroup(AdminDashboardLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                        .addComponent(lblLocation)
-                        .addComponent(txtLocationAS, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGap(18, 18, 18)
-                    .addGroup(AdminDashboardLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                        .addComponent(lblRatings)
-                        .addComponent(txtRatingsAS, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addContainerGap(325, Short.MAX_VALUE)))
+                    .addContainerGap(1060, Short.MAX_VALUE)))
         );
 
         cardLayout.add(AdminDashboard, "card2");
@@ -513,18 +506,15 @@ public class AdminSystem extends javax.swing.JPanel {
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 913, Short.MAX_VALUE)
                 .addContainerGap())
             .addGroup(ViewOrganisationLayout.createSequentialGroup()
+                .addGap(25, 25, 25)
                 .addGroup(ViewOrganisationLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(ViewOrganisationLayout.createSequentialGroup()
-                        .addGap(25, 25, 25)
-                        .addGroup(ViewOrganisationLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(cmbBoxSelectEnterpriseAS1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(lblSelectEnterpriseAS1)))
-                    .addGroup(ViewOrganisationLayout.createSequentialGroup()
-                        .addGap(303, 303, 303)
-                        .addComponent(btnEdit)
-                        .addGap(27, 27, 27)
-                        .addComponent(btnDelete)))
-                .addGap(0, 0, 0))
+                    .addComponent(cmbBoxSelectEnterpriseAS1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(lblSelectEnterpriseAS1)))
+            .addGroup(ViewOrganisationLayout.createSequentialGroup()
+                .addGap(303, 303, 303)
+                .addComponent(btnEdit)
+                .addGap(27, 27, 27)
+                .addComponent(btnDelete))
         );
         ViewOrganisationLayout.setVerticalGroup(
             ViewOrganisationLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -618,9 +608,7 @@ public class AdminSystem extends javax.swing.JPanel {
                 .addGap(0, 0, 0)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(sidePanelAS, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(cardLayout, javax.swing.GroupLayout.PREFERRED_SIZE, 580, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(0, 0, 0))))
+                    .addComponent(cardLayout, javax.swing.GroupLayout.PREFERRED_SIZE, 580, javax.swing.GroupLayout.PREFERRED_SIZE)))
         );
     }// </editor-fold>//GEN-END:initComponents
 
