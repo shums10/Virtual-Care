@@ -103,6 +103,8 @@ public class AdminNGO extends javax.swing.JPanel {
         jButton3 = new javax.swing.JButton();
         btnLogout = new javax.swing.JButton();
 
+        setBackground(new java.awt.Color(51, 153, 255));
+
         jLabel1.setText("NGO ADMIN");
 
         NGORequestsTable.setModel(new javax.swing.table.DefaultTableModel(

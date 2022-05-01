@@ -96,6 +96,8 @@ public class InsuranceCommittie extends javax.swing.JPanel {
         btnDeclineIC = new javax.swing.JButton();
         btnLogoutIC = new javax.swing.JButton();
 
+        setBackground(new java.awt.Color(51, 153, 255));
+
         tblViewInsuranceRequest.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null, null, null},
@@ -142,18 +144,19 @@ public class InsuranceCommittie extends javax.swing.JPanel {
         this.setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addGap(200, 200, 200)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 664, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(86, 86, 86))
             .addGroup(layout.createSequentialGroup()
                 .addGap(200, 200, 200)
-                .addComponent(btnLogoutIC)
-                .addGap(45, 45, 45)
-                .addComponent(btnApproveIC)
-                .addGap(139, 139, 139)
-                .addComponent(btnDeclineIC)
-                .addGap(60, 60, 60))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 664, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(86, 86, 86))
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(btnLogoutIC)
+                        .addGap(45, 45, 45)
+                        .addComponent(btnApproveIC)
+                        .addGap(139, 139, 139)
+                        .addComponent(btnDeclineIC)
+                        .addGap(60, 60, 60))))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)

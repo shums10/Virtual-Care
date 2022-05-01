@@ -172,6 +172,10 @@ public class AdminInsurance extends javax.swing.JPanel {
         btnfwdtoAgent = new javax.swing.JButton();
         btnDecline = new javax.swing.JButton();
 
+        setBackground(new java.awt.Color(51, 153, 255));
+
+        jPanel1.setBackground(new java.awt.Color(0, 102, 204));
+
         btnAddAgent.setText("Add Agent");
         btnAddAgent.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -223,6 +227,8 @@ public class AdminInsurance extends javax.swing.JPanel {
         );
 
         CardLayout.setLayout(new java.awt.CardLayout());
+
+        AddAgent.setBackground(new java.awt.Color(51, 153, 255));
 
         jLabel2.setText("Adding Agent");
 
@@ -314,6 +320,8 @@ public class AdminInsurance extends javax.swing.JPanel {
         );
 
         CardLayout.add(AddAgent, "card2");
+
+        ViewRequests.setBackground(new java.awt.Color(51, 153, 255));
 
         tblViewInsuranceRequest.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
