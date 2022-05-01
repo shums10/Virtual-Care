@@ -91,6 +91,8 @@ public class DeliveryHead extends javax.swing.JPanel {
         btnDeliveredDH = new javax.swing.JButton();
         btnLogoutDH = new javax.swing.JButton();
 
+        setBackground(new java.awt.Color(102, 102, 255));
+
         tblMedicineRequests.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null},
@@ -136,15 +138,12 @@ public class DeliveryHead extends javax.swing.JPanel {
                 .addGap(200, 200, 200)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(layout.createSequentialGroup()
-                                .addGap(254, 254, 254)
-                                .addComponent(lblDeliveryEnterprise))
-                            .addGroup(layout.createSequentialGroup()
-                                .addComponent(btnLogoutDH)
-                                .addGap(159, 159, 159)
-                                .addComponent(btnDeliveredDH)))
-                        .addGap(0, 0, 0))
+                        .addGap(254, 254, 254)
+                        .addComponent(lblDeliveryEnterprise))
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(btnLogoutDH)
+                        .addGap(159, 159, 159)
+                        .addComponent(btnDeliveredDH))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                         .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 630, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(93, 93, 93))))
