@@ -11,8 +11,12 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.text.SimpleDateFormat;
 import java.util.Arrays;
+import java.util.HashMap;
+import java.util.Iterator;
+import java.util.List;
 import javax.swing.ImageIcon;
 import javax.swing.JOptionPane;
+import static ui.User.UserSystem.Userdb;
 
 /**
  *
@@ -26,6 +30,31 @@ public class SignUp extends javax.swing.JPanel {
     public SignUp() {
         initComponents();
         DisplayImage();
+        PullUserstoHashMap();
+    }
+    
+    HashMap<String, UserDetails> UserMap;
+    
+    void PullUserstoHashMap(){
+        HashMap<String, UserDetails> UserMap = new HashMap<>();
+        UserDetails u;
+        
+        try {
+            List<UserDetails> userresult = Userdb.query(UserDetails.class);
+            
+            if(userresult.isEmpty())
+                return;
+
+            Iterator useritr = userresult.iterator();
+            while(useritr.hasNext()){
+                u = (UserDetails)useritr.next();
+                UserMap.put(u.getEmail(), u);
+            }
+        }
+        catch(DatabaseClosedException | Db4oIOException E){
+            JOptionPane.showMessageDialog(this, "Database Error.");
+        }
+        this.UserMap = UserMap;
     }
     
     public static void AddUsertoDB(UserDetails u){     
@@ -107,6 +136,17 @@ public class SignUp extends javax.swing.JPanel {
         }
         else if(txtPassword.getText().trim().equals("")){
             JOptionPane.showMessageDialog(this, "Fields can't be blank");
+            return false;
+        }
+        else{
+            return true;
+        }
+    }
+    
+    boolean checkduplicateentry(){
+        String Email = txtEmailId.getText().trim();
+        PullUserstoHashMap();
+        if(UserMap.get(Email) == null){
             return false;
         }
         else{
@@ -338,14 +378,16 @@ public class SignUp extends javax.swing.JPanel {
         // TODO add your handling code here:
         if(CheckBlankFields()){
             if(Arrays.toString(txtPassword.getPassword()).equals(Arrays.toString(txtReenterPassword.getPassword()))){
-                try{
-                    UserDetails u = MakeUser();
-                    AddUsertoDB(u);
-                    ClearAllFields();
-                    JOptionPane.showMessageDialog(this, "User Added.");
-                }
-                catch(NumberFormatException E){
-                    JOptionPane.showMessageDialog(this, "PINCode should be a number.");
+                if(!checkduplicateentry()){
+                    try{
+                        UserDetails u = MakeUser();
+                        AddUsertoDB(u);
+                        ClearAllFields();
+                        JOptionPane.showMessageDialog(this, "User Added.");
+                    }
+                    catch(NumberFormatException E){
+                        JOptionPane.showMessageDialog(this, "PINCode should be a number.");
+                    }
                 }
             }      
             else

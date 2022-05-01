@@ -193,19 +193,21 @@ public class InsuranceAgent extends javax.swing.JPanel {
             return;
         int Row = tblViewInsuranceRequest.getSelectedRow();
         String PatientEmail = tblViewInsuranceRequest.getValueAt(Row, 1).toString();
+        String Hospital = tblViewInsuranceRequest.getValueAt(Row, 0).toString();
+        int Amount = Integer.parseInt(tblViewInsuranceRequest.getValueAt(Row, 2).toString().trim());
         
         InsuranceRequests I;
         
         Iterator itr = InsReq.iterator();
         while(itr.hasNext()){
             I = (InsuranceRequests)itr.next();
-            if(I.getPatientEmail().equalsIgnoreCase(PatientEmail)){
+            if(I.getPatientEmail().equalsIgnoreCase(PatientEmail) && I.getFromHospital().equalsIgnoreCase(Hospital) && I.getAmount() == Amount){
                 I.setStatus("Committee Review");
                 AdminHospital.AddInsRequeststoDB(I);
+                JOptionPane.showMessageDialog(this, "Request forwarded to Committee");
                 break;
             }
         }
-        JOptionPane.showMessageDialog(this, "Request forwarded to Committee");
         populateInsurancetable();
     }//GEN-LAST:event_btnForwardActionPerformed
 
@@ -215,19 +217,21 @@ public class InsuranceAgent extends javax.swing.JPanel {
             return;
         int Row = tblViewInsuranceRequest.getSelectedRow();
         String PatientEmail = tblViewInsuranceRequest.getValueAt(Row, 1).toString();
+        String Hospital = tblViewInsuranceRequest.getValueAt(Row, 0).toString();
+        int Amount = Integer.parseInt(tblViewInsuranceRequest.getValueAt(Row, 2).toString().trim());
         
         InsuranceRequests I;
         
         Iterator itr = InsReq.iterator();
         while(itr.hasNext()){
             I = (InsuranceRequests)itr.next();
-            if(I.getPatientEmail().equalsIgnoreCase(PatientEmail)){
+            if(I.getPatientEmail().equalsIgnoreCase(PatientEmail) && I.getFromHospital().equalsIgnoreCase(Hospital) && I.getAmount() == Amount){
                 I.setStatus("Declined");
                 AdminHospital.AddInsRequeststoDB(I);
+                JOptionPane.showMessageDialog(this, "Request Declined.");
                 break;
             }
         }
-        JOptionPane.showMessageDialog(this, "Request Declined.");
         populateInsurancetable();
     }//GEN-LAST:event_btnDeclineIAActionPerformed
 
