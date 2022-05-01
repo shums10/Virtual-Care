@@ -291,6 +291,8 @@ public class AdminPharmacy extends javax.swing.JPanel {
 
         CardLayout.add(AssignDelivery, "card2");
 
+        AddDeliveryHead.setBackground(new java.awt.Color(51, 153, 255));
+
         jLabel2.setText("Adding Delivery Head");
 
         jLabel3.setText("First Name:");
