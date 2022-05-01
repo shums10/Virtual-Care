@@ -198,7 +198,7 @@ public class AdminPharmacy extends javax.swing.JPanel {
 
         setBackground(new java.awt.Color(204, 204, 204));
 
-        jPanel1.setBackground(new java.awt.Color(53, 72, 58));
+        jPanel1.setBackground(new java.awt.Color(0, 102, 204));
 
         btnLogout.setText("Logout");
         btnLogout.addActionListener(new java.awt.event.ActionListener() {
@@ -252,7 +252,7 @@ public class AdminPharmacy extends javax.swing.JPanel {
 
         CardLayout.setLayout(new java.awt.CardLayout());
 
-        AssignDelivery.setBackground(new java.awt.Color(204, 204, 204));
+        AssignDelivery.setBackground(new java.awt.Color(51, 153, 255));
         AssignDelivery.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         jLabel1.setText("Pharmacy");
@@ -290,6 +290,8 @@ public class AdminPharmacy extends javax.swing.JPanel {
         AssignDelivery.add(btnDelivered, new org.netbeans.lib.awtextra.AbsoluteConstraints(252, 283, -1, -1));
 
         CardLayout.add(AssignDelivery, "card2");
+
+        AddDeliveryHead.setBackground(new java.awt.Color(51, 153, 255));
 
         jLabel2.setText("Adding Delivery Head");
 

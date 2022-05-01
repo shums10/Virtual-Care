@@ -119,10 +119,7 @@ public class DoctorsDashboard extends javax.swing.JPanel {
         addPrescribtion = new javax.swing.JPanel();
         txtAddPrescribtion = new javax.swing.JTextField();
 
-        jLabel1.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
-        jLabel1.setText("DOCTOR DASHBOARD");
-
-        sidePanel.setBackground(new java.awt.Color(0, 51, 51));
+        jLabel1.setText("Doctors Dashboard");
 
         jButton1.setText("View Patients");
         jButton1.addActionListener(new java.awt.event.ActionListener() {
@@ -154,14 +151,12 @@ public class DoctorsDashboard extends javax.swing.JPanel {
             .addGroup(sidePanelLayout.createSequentialGroup()
                 .addGap(115, 115, 115)
                 .addComponent(jButton1)
-                .addGap(18, 18, 18)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(btnLogout)
                 .addGap(60, 60, 60))
         );
 
         cardLayout.setLayout(new java.awt.CardLayout());
-
-        viewPatients.setBackground(new java.awt.Color(0, 255, 255));
 
         tblViewPatientsDD.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -205,7 +200,9 @@ public class DoctorsDashboard extends javax.swing.JPanel {
         addPrescribtion.setLayout(addPrescribtionLayout);
         addPrescribtionLayout.setHorizontalGroup(
             addPrescribtionLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(txtAddPrescribtion, javax.swing.GroupLayout.DEFAULT_SIZE, 401, Short.MAX_VALUE)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, addPrescribtionLayout.createSequentialGroup()
+                .addComponent(txtAddPrescribtion, javax.swing.GroupLayout.DEFAULT_SIZE, 389, Short.MAX_VALUE)
+                .addContainerGap())
         );
         addPrescribtionLayout.setVerticalGroup(
             addPrescribtionLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -222,14 +219,12 @@ public class DoctorsDashboard extends javax.swing.JPanel {
                         .addGap(51, 51, 51)
                         .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 652, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(viewPatientsLayout.createSequentialGroup()
-                        .addGap(291, 291, 291)
-                        .addComponent(addPrescribtion, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, viewPatientsLayout.createSequentialGroup()
-                        .addGap(177, 177, 177)
+                        .addGap(85, 85, 85)
                         .addComponent(jButton2)
-                        .addGap(122, 122, 122)
-                        .addComponent(btnAddPrescribtion)
-                        .addGap(133, 133, 133)))
+                        .addGap(67, 67, 67)
+                        .addGroup(viewPatientsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(btnAddPrescribtion)
+                            .addComponent(addPrescribtion, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
                 .addContainerGap(49, Short.MAX_VALUE))
         );
         viewPatientsLayout.setVerticalGroup(
@@ -252,25 +247,26 @@ public class DoctorsDashboard extends javax.swing.JPanel {
         this.setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jLabel1)
+                .addGap(318, 318, 318))
             .addGroup(layout.createSequentialGroup()
                 .addComponent(sidePanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(cardLayout, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(264, 264, 264)
-                        .addComponent(jLabel1)
-                        .addContainerGap())))
+                .addComponent(cardLayout, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(21, 21, 21)
+                .addGap(27, 27, 27)
                 .addComponent(jLabel1)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(cardLayout, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addContainerGap())
-            .addComponent(sidePanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(sidePanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(cardLayout, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addContainerGap())))
         );
     }// </editor-fold>//GEN-END:initComponents
 
