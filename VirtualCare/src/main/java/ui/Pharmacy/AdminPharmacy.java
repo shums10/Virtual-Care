@@ -226,18 +226,16 @@ public class AdminPharmacy extends javax.swing.JPanel {
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addContainerGap()
+                .addGap(20, 20, 20)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(btnLogout)
                     .addComponent(btnAddDelivery)
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(8, 8, 8)
-                        .addComponent(btnAssignDelivey)))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(btnLogout)
-                .addGap(41, 41, 41))
+                    .addComponent(btnAssignDelivey))
+                .addContainerGap(33, Short.MAX_VALUE))
         );
+
+        jPanel1Layout.linkSize(javax.swing.SwingConstants.HORIZONTAL, new java.awt.Component[] {btnAddDelivery, btnAssignDelivey, btnLogout});
+
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
@@ -255,8 +253,9 @@ public class AdminPharmacy extends javax.swing.JPanel {
         AssignDelivery.setBackground(new java.awt.Color(51, 153, 255));
         AssignDelivery.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        jLabel1.setText("Pharmacy");
-        AssignDelivery.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(230, 0, 245, 49));
+        jLabel1.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
+        jLabel1.setText("PHARMACY");
+        AssignDelivery.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(190, 10, 245, 49));
 
         tblMedicineRequests.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
