@@ -226,18 +226,17 @@ public class AdminPharmacy extends javax.swing.JPanel {
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
+                .addContainerGap()
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(btnAddDelivery)
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addContainerGap()
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(btnAddDelivery)
-                            .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addGap(8, 8, 8)
-                                .addComponent(btnAssignDelivey))))
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(34, 34, 34)
-                        .addComponent(btnLogout)))
+                        .addGap(8, 8, 8)
+                        .addComponent(btnAssignDelivey)))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(btnLogout)
+                .addGap(41, 41, 41))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -246,16 +245,18 @@ public class AdminPharmacy extends javax.swing.JPanel {
                 .addComponent(btnAssignDelivey)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(btnAddDelivery)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 325, Short.MAX_VALUE)
+                .addGap(18, 18, 18)
                 .addComponent(btnLogout)
-                .addContainerGap())
+                .addContainerGap(315, Short.MAX_VALUE))
         );
 
         CardLayout.setLayout(new java.awt.CardLayout());
 
         AssignDelivery.setBackground(new java.awt.Color(204, 204, 204));
+        AssignDelivery.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         jLabel1.setText("Pharmacy");
+        AssignDelivery.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(230, 0, 245, 49));
 
         tblMedicineRequests.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -278,40 +279,15 @@ public class AdminPharmacy extends javax.swing.JPanel {
         });
         jScrollPane1.setViewportView(tblMedicineRequests);
 
+        AssignDelivery.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 98, 630, 137));
+
         btnDelivered.setText("Assign Delivery");
         btnDelivered.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnDeliveredActionPerformed(evt);
             }
         });
-
-        javax.swing.GroupLayout AssignDeliveryLayout = new javax.swing.GroupLayout(AssignDelivery);
-        AssignDelivery.setLayout(AssignDeliveryLayout);
-        AssignDeliveryLayout.setHorizontalGroup(
-            AssignDeliveryLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(AssignDeliveryLayout.createSequentialGroup()
-                .addGap(0, 147, Short.MAX_VALUE)
-                .addGroup(AssignDeliveryLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, AssignDeliveryLayout.createSequentialGroup()
-                        .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 245, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(205, 205, 205))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, AssignDeliveryLayout.createSequentialGroup()
-                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 630, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(20, 20, 20))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, AssignDeliveryLayout.createSequentialGroup()
-                        .addComponent(btnDelivered)
-                        .addGap(286, 286, 286))))
-        );
-        AssignDeliveryLayout.setVerticalGroup(
-            AssignDeliveryLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, AssignDeliveryLayout.createSequentialGroup()
-                .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 49, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(49, 49, 49)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 137, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(48, 48, 48)
-                .addComponent(btnDelivered)
-                .addContainerGap(317, Short.MAX_VALUE))
-        );
+        AssignDelivery.add(btnDelivered, new org.netbeans.lib.awtextra.AbsoluteConstraints(252, 283, -1, -1));
 
         CardLayout.add(AssignDelivery, "card2");
 
