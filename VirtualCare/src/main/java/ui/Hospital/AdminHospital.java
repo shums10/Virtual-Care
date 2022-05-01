@@ -422,6 +422,9 @@ public class AdminHospital extends javax.swing.JPanel {
         tblInsuranceReqs = new javax.swing.JTable();
         lblHeaderHospital = new javax.swing.JLabel();
 
+        setBackground(new java.awt.Color(102, 102, 255));
+
+        jPanelLeft.setBackground(new java.awt.Color(0, 102, 204));
         jPanelLeft.setPreferredSize(new java.awt.Dimension(1000, 1000));
 
         btnAddDoctors.setText("ADD Doctors");
@@ -503,6 +506,8 @@ public class AdminHospital extends javax.swing.JPanel {
         cardPanel.setPreferredSize(new java.awt.Dimension(1000, 1000));
         cardPanel.setLayout(new java.awt.CardLayout());
 
+        ViewDoctors.setBackground(new java.awt.Color(102, 102, 255));
+
         tableViewDoctorsAH.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
 
@@ -567,6 +572,8 @@ public class AdminHospital extends javax.swing.JPanel {
         );
 
         cardPanel.add(ViewDoctors, "card3");
+
+        OrderMedicines.setBackground(new java.awt.Color(102, 102, 255));
 
         txtMedicineName.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -668,6 +675,7 @@ public class AdminHospital extends javax.swing.JPanel {
 
         cardPanel.add(OrderMedicines, "card4");
 
+        AddDoctors.setBackground(new java.awt.Color(102, 102, 255));
         AddDoctors.setPreferredSize(new java.awt.Dimension(1000, 1000));
 
         txtFees.addActionListener(new java.awt.event.ActionListener() {
@@ -746,7 +754,6 @@ public class AdminHospital extends javax.swing.JPanel {
         AddDoctorsLayout.setHorizontalGroup(
             AddDoctorsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, AddDoctorsLayout.createSequentialGroup()
-                .addGap(0, 0, 0)
                 .addComponent(lblAddDoctors)
                 .addGap(303, 303, 303))
             .addGroup(AddDoctorsLayout.createSequentialGroup()
@@ -827,6 +834,7 @@ public class AdminHospital extends javax.swing.JPanel {
 
         cardPanel.add(AddDoctors, "card2");
 
+        ReuestInsuranceFunds.setBackground(new java.awt.Color(102, 102, 255));
         ReuestInsuranceFunds.setPreferredSize(new java.awt.Dimension(1000, 1000));
 
         btnSend.setText("Send");
@@ -936,9 +944,7 @@ public class AdminHospital extends javax.swing.JPanel {
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                         .addComponent(cardPanel, javax.swing.GroupLayout.PREFERRED_SIZE, 742, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addContainerGap())
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addComponent(lblHeaderHospital, javax.swing.GroupLayout.PREFERRED_SIZE, 369, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(0, 0, 0))))
+                    .addComponent(lblHeaderHospital, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 369, javax.swing.GroupLayout.PREFERRED_SIZE)))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)

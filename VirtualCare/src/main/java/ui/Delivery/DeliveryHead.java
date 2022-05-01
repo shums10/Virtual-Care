@@ -91,8 +91,6 @@ public class DeliveryHead extends javax.swing.JPanel {
         btnDeliveredDH = new javax.swing.JButton();
         btnLogoutDH = new javax.swing.JButton();
 
-        setBackground(new java.awt.Color(204, 204, 255));
-
         tblMedicineRequests.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null},
@@ -114,8 +112,7 @@ public class DeliveryHead extends javax.swing.JPanel {
         });
         jScrollPane1.setViewportView(tblMedicineRequests);
 
-        lblDeliveryEnterprise.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
-        lblDeliveryEnterprise.setText("DELIVERY ENTERPRISE");
+        lblDeliveryEnterprise.setText("Delivery Enterprise");
 
         btnDeliveredDH.setText("Deliver");
         btnDeliveredDH.addActionListener(new java.awt.event.ActionListener() {
@@ -135,33 +132,35 @@ public class DeliveryHead extends javax.swing.JPanel {
         this.setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addGap(200, 200, 200)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                        .addGroup(layout.createSequentialGroup()
-                            .addComponent(btnLogoutDH)
-                            .addGap(159, 159, 159)
-                            .addComponent(btnDeliveredDH))
-                        .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                            .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 630, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addGap(93, 93, 93)))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(layout.createSequentialGroup()
+                                .addGap(254, 254, 254)
+                                .addComponent(lblDeliveryEnterprise))
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(btnLogoutDH)
+                                .addGap(159, 159, 159)
+                                .addComponent(btnDeliveredDH)))
+                        .addGap(0, 0, 0))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addComponent(lblDeliveryEnterprise)
-                        .addGap(304, 304, 304))))
+                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 630, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(93, 93, 93))))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(24, 24, 24)
+                .addGap(34, 34, 34)
                 .addComponent(lblDeliveryEnterprise)
-                .addGap(57, 57, 57)
+                .addGap(47, 47, 47)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 137, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(31, 31, 31)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnDeliveredDH)
                     .addComponent(btnLogoutDH))
-                .addContainerGap(66, Short.MAX_VALUE))
+                .addContainerGap(75, Short.MAX_VALUE))
         );
     }// </editor-fold>//GEN-END:initComponents
 
