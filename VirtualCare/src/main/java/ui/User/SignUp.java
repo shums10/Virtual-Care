@@ -16,6 +16,8 @@ import java.util.Iterator;
 import java.util.List;
 import javax.swing.ImageIcon;
 import javax.swing.JOptionPane;
+import org.apache.commons.validator.routines.EmailValidator;
+import static ui.Admin.AdminSystem.isValidPassword;
 import static ui.User.UserSystem.Userdb;
 
 /**
@@ -70,8 +72,10 @@ public class SignUp extends javax.swing.JPanel {
     UserDetails MakeUser(){
         UserDetails u = new UserDetails();
         u.setCity(txtCity.getText().trim());
+
         SimpleDateFormat formatter = new SimpleDateFormat("dd-MMM-yyyy");
         u.setDOB(formatter.format(txtDoB.getDate()));
+        
         System.out.println(u.getDOB());
         u.setEmail(txtEmailId.getText().trim());
         u.setFirstName(txtFirstName.getText().trim());
@@ -115,12 +119,12 @@ public class SignUp extends javax.swing.JPanel {
             JOptionPane.showMessageDialog(this, "Fields can't be blank");
             return false;
         }
-        else if(txtDoB.getDate().equals("")){
+        else if(txtDoB.getDate() == null){
             JOptionPane.showMessageDialog(this, "Fields can't be blank");
             return false;
         }
-        else if(txtEmailId.getText().trim().equals("")){
-            JOptionPane.showMessageDialog(this, "Fields can't be blank");
+        else if(!EmailValidator.getInstance().isValid(txtEmailId.getText().trim())){
+            JOptionPane.showMessageDialog(this, "Invalid Email ID");
             return false;
         }
         else if(txtFirstName.getText().trim().equals("")){
@@ -139,8 +143,8 @@ public class SignUp extends javax.swing.JPanel {
             JOptionPane.showMessageDialog(this, "Fields can't be blank");
             return false;
         }
-        else if(txtPassword.getText().trim().equals("")){
-            JOptionPane.showMessageDialog(this, "Fields can't be blank");
+        else if(!isValidPassword(txtPassword.getText().trim())){
+            JOptionPane.showMessageDialog(this, "Password must have one numeric, one lowercase, one uppercase, one symbol (@#$%) and length should be between 8 to 20");
             return false;
         }
         else{

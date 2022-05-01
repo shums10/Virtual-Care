@@ -22,6 +22,8 @@ import model.DoctorDetails;
 import model.InsuranceRequests;
 import model.PharmacyOrders;
 import model.UserDetails;
+import org.apache.commons.validator.routines.EmailValidator;
+import static ui.Admin.AdminSystem.isValidPassword;
 import ui.User.UserSystem;
 
 /**
@@ -222,6 +224,43 @@ public class AdminHospital extends javax.swing.JPanel {
         txtPasswordAH.setText("");
     }
     
+     boolean CheckBlankFields(){
+        if(txtFirstNameAH.getText().trim().equals("")){
+            JOptionPane.showMessageDialog(this, "Fields can't be blank");
+            return false;
+        }
+        else if(txtLastNameAH.getText().trim().equals("")){
+            JOptionPane.showMessageDialog(this, "Fields can't be blank");
+            return false;
+        }
+        else if(txtAvailableDays.getText().trim().equals("")){
+            JOptionPane.showMessageDialog(this, "Fields can't be blank");
+            return false;
+        }
+        else if(txtTime.getText().trim().equals("")){
+            JOptionPane.showMessageDialog(this, "Fields can't be blank");
+            return false;
+        }
+        else if(txtFees.getText().trim().equals("")){
+            JOptionPane.showMessageDialog(this, "Fields can't be blank");
+            return false;
+        }
+        else if(txtRatings.getText().trim().equals("")){
+            JOptionPane.showMessageDialog(this, "Fields can't be blank");
+            return false;
+        }
+        else if(!EmailValidator.getInstance().isValid(txtEmailIdAH.getText().trim())){
+            JOptionPane.showMessageDialog(this, "Invalid Email ID");
+            return false;
+        }
+        else if(!isValidPassword(txtPasswordAH.getText().trim())){
+            JOptionPane.showMessageDialog(this, "Password must have one numeric, one lowercase, one uppercase, one symbol (@#$%) and length should be between 8 to 20");
+            return false;
+        }
+        else
+            return true;
+    }
+    
     DoctorDetails MakeDoctor(){
         DoctorDetails d = new DoctorDetails();
         d.setDepartment(cmbBoxDepartment.getSelectedItem().toString());
@@ -322,6 +361,16 @@ public class AdminHospital extends javax.swing.JPanel {
         this.DoctorMap = DoctorMap;
     }
     
+    boolean checkduplicateentry(){
+        String Email = txtEmailIdAH.getText().trim();
+        PullDoctorstoHashMap();
+        if(DoctorMap.get(Email) == null){
+            return false;
+        }
+        else{
+            return true;
+        }
+    }
     
     public static void AddDoctortoDB(DoctorDetails d){
         try {
@@ -981,14 +1030,21 @@ public class AdminHospital extends javax.swing.JPanel {
 
     private void btnRegisterDoctorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRegisterDoctorActionPerformed
         // TODO add your handling code here:
-        try{
-        DoctorDetails d = MakeDoctor();
-        AddDoctortoDB(d);
-        JOptionPane.showMessageDialog(this, "Doctor Added.");
-        }
-        catch(NumberFormatException E){
-            JOptionPane.showMessageDialog(this, "Fees and Ratings should be a number");
-            return;
+        if(CheckBlankFields()){
+            if(!checkduplicateentry()){
+                try{
+                DoctorDetails d = MakeDoctor();
+                AddDoctortoDB(d);
+                JOptionPane.showMessageDialog(this, "Doctor Added.");
+                }
+                catch(NumberFormatException E){
+                    JOptionPane.showMessageDialog(this, "Fees and Ratings should be a number");
+                    return;
+                }
+            }
+            else{
+                JOptionPane.showMessageDialog(this, "Another doctor with same email already exists");
+            }
         }
         clearallfields();
     }//GEN-LAST:event_btnRegisterDoctorActionPerformed

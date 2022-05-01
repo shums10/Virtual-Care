@@ -9,6 +9,7 @@ import com.db4o.ext.Db4oIOException;
 import java.awt.CardLayout;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
 import javax.swing.JOptionPane;
@@ -17,7 +18,8 @@ import javax.swing.table.DefaultTableModel;
 import model.AdminDetails;
 import model.InsuranceAgentDetails;
 import model.InsuranceRequests;
-import model.PharmacyOrders;
+import org.apache.commons.validator.routines.EmailValidator;
+import static ui.Admin.AdminSystem.isValidPassword;
 import ui.Hospital.AdminHospital;
 import ui.User.UserSystem;
 
@@ -47,6 +49,7 @@ public class AdminInsurance extends javax.swing.JPanel {
     JSplitPane SplitPane;
     AdminDetails a;
     ArrayList<InsuranceRequests> InsReq;
+    HashMap<String, InsuranceAgentDetails> InsAgentMap;
     DefaultTableModel InsMod;
     
     /**
@@ -74,6 +77,39 @@ public class AdminInsurance extends javax.swing.JPanel {
             JOptionPane.showMessageDialog(this, "Database Error.");
         }
         this.InsReq = InsReq;
+    }
+    
+    void PullAgentstoHashMap(){
+        HashMap<String, InsuranceAgentDetails> InsAgentMap = new HashMap<>();
+        InsuranceAgentDetails IA;
+        
+        try {
+            List<InsuranceAgentDetails> IAresult = UserSystem.InsAgentdb.query(InsuranceAgentDetails.class);
+            
+            if(IAresult.isEmpty())
+                return;
+
+            Iterator IAitr = IAresult.iterator();
+            while(IAitr.hasNext()){
+                IA = (InsuranceAgentDetails)IAitr.next();
+                InsAgentMap.put(IA.getEmail(), IA);
+            }
+        }
+        catch(DatabaseClosedException | Db4oIOException E){
+            JOptionPane.showMessageDialog(this, "Database Error.");
+        }
+        this.InsAgentMap = InsAgentMap;
+    }
+    
+    boolean checkduplicateentry(){
+        String Email = txtEmailAI.getText().trim();
+        PullAgentstoHashMap();
+        if(InsAgentMap.get(Email) == null){
+            return false;
+        }
+        else{
+            return true;
+        }
     }
     
     void populateInsurancetable(){
@@ -105,12 +141,12 @@ public class AdminInsurance extends javax.swing.JPanel {
             JOptionPane.showMessageDialog(this, "Fill all the fields");
             return false;
         }
-        else if(txtEmailAI.getText().equals("")){
-            JOptionPane.showMessageDialog(this, "Fill all the fields");
+        else if(!EmailValidator.getInstance().isValid(txtEmailAI.getText().trim())){
+            JOptionPane.showMessageDialog(this, "Invalid Email ID");
             return false;
         }
-        else if(txtIAPassword.getText().equals("")){
-            JOptionPane.showMessageDialog(this, "Fill all the fields");
+        else if(!isValidPassword(txtIAPassword.getText().trim())){
+            JOptionPane.showMessageDialog(this, "Password must have one numeric, one lowercase, one uppercase, one symbol (@#$%) and length should be between 8 to 20");
             return false;
         }
         else{
@@ -499,10 +535,20 @@ public class AdminInsurance extends javax.swing.JPanel {
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
         // TODO add your handling code here:
         if(checkAgent()){
-            InsuranceAgentDetails IA = makeAgent();
-            AddInsAgenttoDB(IA);
-            clearfields();
-            JOptionPane.showMessageDialog(this, "Agent Added");
+            try{
+                if(!checkduplicateentry()){
+                    InsuranceAgentDetails IA = makeAgent();
+                    AddInsAgenttoDB(IA);
+                    clearfields();
+                    JOptionPane.showMessageDialog(this, "Agent Added");
+                }
+                else{
+                    JOptionPane.showMessageDialog(this, "Agent Already Exists");
+                }
+            }
+            catch(NullPointerException E){
+                return;
+            }
         }
     }//GEN-LAST:event_jButton2ActionPerformed
 

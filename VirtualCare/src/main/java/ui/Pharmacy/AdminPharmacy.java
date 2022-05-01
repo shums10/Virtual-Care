@@ -17,6 +17,8 @@ import javax.swing.table.DefaultTableModel;
 import model.AdminDetails;
 import model.DeliveryHeadDetails;
 import model.PharmacyOrders;
+import org.apache.commons.validator.routines.EmailValidator;
+import static ui.Admin.AdminSystem.isValidPassword;
 import ui.Hospital.AdminHospital;
 import ui.User.UserSystem;
 
@@ -79,12 +81,12 @@ public class AdminPharmacy extends javax.swing.JPanel {
             JOptionPane.showMessageDialog(this, "Fields can't be blank");
             return false;
         }
-        else if(jTextField2.getText().equals("")){
-            JOptionPane.showMessageDialog(this, "Fields can't be blank");
+        else if(!EmailValidator.getInstance().isValid(jTextField2.getText().trim())){
+            JOptionPane.showMessageDialog(this, "Invalid Email ID");
             return false;
         }
-        else if(jPasswordField1.getText().equals("")){
-            JOptionPane.showMessageDialog(this, "Fields can't be blank");
+        else if(!isValidPassword(jPasswordField1.getText().trim())){
+            JOptionPane.showMessageDialog(this, "Password must have one numeric, one lowercase, one uppercase, one symbol (@#$%) and length should be between 8 to 20");
             return false;
         }
         else{

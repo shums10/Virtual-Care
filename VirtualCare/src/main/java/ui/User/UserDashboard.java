@@ -17,7 +17,15 @@ import java.util.HashMap;
 import java.util.Iterator;
 import java.util.LinkedHashSet;
 import java.util.List;
-import javax.swing.DefaultComboBoxModel;
+import java.util.Properties;
+import javax.mail.Message;
+import javax.mail.MessagingException;
+import javax.mail.PasswordAuthentication;
+import javax.mail.Session;
+import javax.mail.Transport;
+import javax.mail.internet.AddressException;
+import javax.mail.internet.InternetAddress;
+import javax.mail.internet.MimeMessage;
 import javax.swing.ImageIcon;
 import javax.swing.JOptionPane;
 import javax.swing.JSplitPane;
@@ -531,6 +539,27 @@ public class UserDashboard extends javax.swing.JPanel {
         return d;
     }
     
+    DoctorDetails PullDoctorfromAppointments(){
+        ArrayList<DoctorDetails> Docs = new ArrayList<>();
+        try{
+            Docs = u.getAppointments();
+
+            Iterator itr = Docs.iterator();
+
+            while(itr.hasNext()){
+                DoctorDetails d = (DoctorDetails)itr.next();
+                int row = tableViewAppointment.getSelectedRow();
+                if(d.getOrganisation().equalsIgnoreCase(tableViewAppointment.getValueAt(row, 0).toString()) && (d.getFirstName()+d.getLastName()).equalsIgnoreCase(tableViewAppointment.getValueAt(row, 1).toString()) && d.getLocation().equalsIgnoreCase(tableViewAppointment.getValueAt(row, 2).toString())){
+                    return d;
+                }
+            }
+        }
+        catch(NullPointerException N){
+            return Docs.get(0);
+        }
+        return Docs.get(0);
+    }
+    
     
     boolean CheckBlankFieldsNGO(){
         if(txtExplanation.getText().trim().equals("")){
@@ -548,6 +577,69 @@ public class UserDashboard extends javax.swing.JPanel {
         else{
             return true;
         }
+    }
+    
+    void SendEmail(String uEmail, String dEmail){
+        // Recipient's email ID needs to be mentioned.
+        String to = uEmail;
+        String cc = dEmail;
+        // Sender's email ID needs to be mentioned
+        String from = "neu.virtualcare@gmail.com";
+
+        // Assuming you are sending email from through gmails smtp
+        String host = "smtp.gmail.com";
+
+        // Get system properties
+        Properties properties = System.getProperties();
+
+        // Setup mail server
+        properties.put("mail.smtp.host", host);
+        properties.put("mail.smtp.port", "465");
+        properties.put("mail.smtp.ssl.enable", "true");
+        properties.put("mail.smtp.auth", "true");
+
+        // Get the Session object.// and pass username and password
+        Session session = Session.getInstance(properties, new javax.mail.Authenticator() {
+
+            protected PasswordAuthentication getPasswordAuthentication() {
+
+                return new PasswordAuthentication("neu.virtualcare@gmail.com", "Swaroop&Shubham1");
+
+            }
+
+        });
+
+        // Used to debug SMTP issues
+        session.setDebug(true);
+
+        try {
+            // Create a default MimeMessage object.
+            MimeMessage message = new MimeMessage(session);
+
+            // Set From: header field of the header.
+            message.setFrom(new InternetAddress(from));
+
+            // Set To: header field of the header.
+            message.addRecipient(Message.RecipientType.TO, new InternetAddress(to));
+            message.addRecipient(Message.RecipientType.CC, new InternetAddress(cc));
+            // Set Subject: header field
+            message.setSubject("New Appointment!");
+
+            // Now set the actual message
+            message.setText("You have an Appointment scheduled, join now: https://northeastern.zoom.us/j/92296166774");
+
+            System.out.println("sending...");
+            // Send message
+            Transport.send(message);
+            JOptionPane.showMessageDialog(this, "Email Sent!");
+        } 
+        catch(AddressException aex){
+            aex.printStackTrace();
+        }
+        catch (MessagingException mex) {
+            mex.printStackTrace();
+        }
+
     }
     
     void viewprescription(){
@@ -787,6 +879,11 @@ public class UserDashboard extends javax.swing.JPanel {
         jScrollPane2.setViewportView(tableViewAppointment);
 
         btnJoinVirtually.setText("Join Virtually");
+        btnJoinVirtually.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnJoinVirtuallyActionPerformed(evt);
+            }
+        });
 
         ViewPrescription.setText("View Prescription");
         ViewPrescription.addActionListener(new java.awt.event.ActionListener() {
@@ -1413,42 +1510,37 @@ public class UserDashboard extends javax.swing.JPanel {
     private void btnUpdateUADActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnUpdateUADActionPerformed
         // TODO add your handling code here:
         PullUserstoHashMap();
-            if(!checkduplicateentry()){
-                try{
-                if(Arrays.toString(txtOldPasswordUAD.getPassword()).equals(u.getPassword())){
-                    if(!txtFirstNameUAD.getText().trim().equals(""))
-                        u.setFirstName(txtFirstNameUAD.getText().trim());
-                    if(!txtLastNameUAD.getText().trim().equals(""))
-                        u.setLastName(txtLastNameUAD.getText().trim()); 
-                    if(!txtDobUAD.getDateFormatString().trim().equals("")){
-                        SimpleDateFormat formatter = new SimpleDateFormat("dd-MMM-yyyy");
-                        u.setDOB(formatter.format(txtDobUAD.getDate()));
-                    }
-                    if(!txtPhoneNumberAD.getText().trim().equals(""))
-                        u.setPhonenumber(Long.parseLong(txtPhoneNumberAD.getText().trim()));
-                    if(!txtStreetUAD.getText().trim().equals(""))
-                        u.setStreet(txtStreetUAD.getText().trim());
-                    if(!txtCityUAD.getText().trim().equals(""))
-                        u.setCity(txtCityUAD.getText().trim());
-                    if(!txtPinCodeUAD.getText().trim().equals(""))
-                        u.setPinCode(Integer.parseInt(txtPinCodeUAD.getText().trim()));
-                    if(!txtEmailIdUAD.getText().trim().equals(""))
-                        u.setEmail(txtEmailIdUAD.getText().trim());
-                    if(!(new String(txtNewPasswordUAD.getPassword()).equals("")))
-                        u.setPassword(Arrays.toString(txtNewPasswordUAD.getPassword()));
+            try{
+            if(Arrays.toString(txtOldPasswordUAD.getPassword()).equals(u.getPassword())){
+                if(!txtFirstNameUAD.getText().trim().equals(""))
+                    u.setFirstName(txtFirstNameUAD.getText().trim());
+                if(!txtLastNameUAD.getText().trim().equals(""))
+                    u.setLastName(txtLastNameUAD.getText().trim()); 
+                if(txtDobUAD.getDate() != null){
+                    SimpleDateFormat formatter = new SimpleDateFormat("dd-MMM-yyyy");
+                    u.setDOB(formatter.format(txtDobUAD.getDate()));
+                }
+                if(!txtPhoneNumberAD.getText().trim().equals(""))
+                    u.setPhonenumber(Long.parseLong(txtPhoneNumberAD.getText().trim()));
+                if(!txtStreetUAD.getText().trim().equals(""))
+                    u.setStreet(txtStreetUAD.getText().trim());
+                if(!txtCityUAD.getText().trim().equals(""))
+                    u.setCity(txtCityUAD.getText().trim());
+                if(!txtPinCodeUAD.getText().trim().equals(""))
+                    u.setPinCode(Integer.parseInt(txtPinCodeUAD.getText().trim()));
+//                    if(!txtEmailIdUAD.getText().trim().equals(""))
+//                        u.setEmail(txtEmailIdUAD.getText().trim());
+                if(!(new String(txtNewPasswordUAD.getPassword()).equals("")))
+                    u.setPassword(Arrays.toString(txtNewPasswordUAD.getPassword()));
 
-                    SignUp.AddUsertoDB(u);
-                    JOptionPane.showMessageDialog(this, "Details Updated.");
-                }
-                else
-                    JOptionPane.showMessageDialog(this, "Incorrect Password.");
-                }
-                catch(NumberFormatException E){
-                    JOptionPane.showMessageDialog(this, "PinCode should be a number.");
-                }
+                SignUp.AddUsertoDB(u);
+                JOptionPane.showMessageDialog(this, "Details Updated.");
             }
-            else{
-                JOptionPane.showMessageDialog(this, "Email already Exists");
+            else
+                JOptionPane.showMessageDialog(this, "Incorrect Password.");
+            }
+            catch(NumberFormatException E){
+                JOptionPane.showMessageDialog(this, "PinCode should be a number.");
             }
     }//GEN-LAST:event_btnUpdateUADActionPerformed
 
@@ -1526,6 +1618,14 @@ public class UserDashboard extends javax.swing.JPanel {
         String Hospital = tableHospitals.getValueAt(tableHospitals.getSelectedRow(), 0).toString();
         populateDoctorstable(Hospital);
     }//GEN-LAST:event_cmbDepartmentActionPerformed
+
+    private void btnJoinVirtuallyActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnJoinVirtuallyActionPerformed
+        // TODO add your handling code here:
+        if(tableViewAppointment.getSelectedRow()<0)
+            return;
+        DoctorDetails d = PullDoctorfromAppointments();
+        SendEmail(u.getEmail(), d.getEmail());
+    }//GEN-LAST:event_btnJoinVirtuallyActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

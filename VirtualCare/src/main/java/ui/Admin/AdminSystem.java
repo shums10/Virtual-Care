@@ -7,20 +7,20 @@ package ui.Admin;
 import com.db4o.ext.DatabaseClosedException;
 import com.db4o.ext.Db4oIOException;
 import java.awt.CardLayout;
-import java.nio.file.Path;
-import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collection;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
-import javax.swing.ImageIcon;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 import javax.swing.JOptionPane;
 import javax.swing.JSplitPane;
 import javax.swing.table.DefaultTableModel;
 import model.AdminDetails;
 import model.UserDetails;
+import org.apache.commons.validator.routines.EmailValidator;
 import ui.User.UserSystem;
 
 /**
@@ -191,17 +191,82 @@ public class AdminSystem extends javax.swing.JPanel {
             JOptionPane.showMessageDialog(this, "Fields can't be blank");
             return false;
         }
-        else if(txtEmailIdAS.getText().trim().equals("")){
-            JOptionPane.showMessageDialog(this, "Fields can't be blank");
+        else if(!EmailValidator.getInstance().isValid(txtEmailIdAS.getText().trim())){
+            JOptionPane.showMessageDialog(this, "Invalid Email ID");
             return false;
         }
-        else if(txtPasswordAS.getText().trim().equals("")){
-            JOptionPane.showMessageDialog(this, "Fields can't be blank");
+        else if(!isValidPassword(txtPasswordAS.getText().trim())){
+            JOptionPane.showMessageDialog(this, "Password must have one numeric, one lowercase, one uppercase, one symbol (@#$%) and length should be between 8 to 20");
             return false;
         }
         else
             return true;
     }
+    
+    public static boolean isValidPassword(String password)
+    {
+        String regex = "^(?=.*\\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[@#$%]).{8,20}$";
+        Pattern pattern = Pattern.compile(regex);
+        Matcher matcher = pattern.matcher(password);
+        return matcher.matches();
+    }
+    
+    boolean checkduplicateentry(){
+        String Email = txtEmailIdAS.getText().trim();
+        PullAdminstoHashMap();
+        if(AdminMap.get(Email) == null){
+            return false;
+        }
+        else{
+            return true;
+        }
+    }
+    
+    boolean checkduplicatetableentry(){
+        int Row = tableViewOrganisations.getSelectedRow();
+        String Email = tableViewOrganisations.getValueAt(Row, 2).toString().trim();
+        PullAdminstoHashMap();
+        if(AdminMap.get(Email) == null){
+            return false;
+        }
+        else{
+            return true;
+        }
+    }
+    
+    boolean checkblanktablefields(){
+        int Row = tableViewOrganisations.getSelectedRow();
+        try{
+            String Name = tableViewOrganisations.getValueAt(Row, 0).toString();
+            String Location = tableViewOrganisations.getValueAt(Row, 1).toString();
+            String Email = tableViewOrganisations.getValueAt(Row, 2).toString();
+            int Ratings = Integer.parseInt(tableViewOrganisations.getValueAt(Row, 3).toString());
+            if(Name.equals("")){
+                JOptionPane.showMessageDialog(this, "Fields can't be blank");
+                return false;
+            }
+            else if(Location.equals("")){
+                JOptionPane.showMessageDialog(this, "Fields can't be blank");
+                return false;
+            }
+            else if(Email.equals("")){
+                JOptionPane.showMessageDialog(this, "Fields can't be blank");
+                return false;
+            }
+            else if(Ratings > 5 || Ratings < 0){
+                JOptionPane.showMessageDialog(this, "Invalid Ratings");
+                return false;
+            }
+            else{
+                return true;
+            }
+        }
+        catch(NumberFormatException E){
+            JOptionPane.showMessageDialog(this, "Ratings should be a number");
+            return false;
+        }
+    }
+    
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -259,7 +324,7 @@ public class AdminSystem extends javax.swing.JPanel {
             }
         });
 
-        btnViewOrganisations.setText("View Organsatios");
+        btnViewOrganisations.setText("View Organsations");
         btnViewOrganisations.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnViewOrganisationsActionPerformed(evt);
@@ -464,7 +529,15 @@ public class AdminSystem extends javax.swing.JPanel {
             new String [] {
                 "Name", "Location", "Email ", "Ratings"
             }
-        ));
+        ) {
+            boolean[] canEdit = new boolean [] {
+                true, true, false, true
+            };
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
+        });
         jScrollPane1.setViewportView(tableViewOrganisations);
 
         btnEdit.setText("Edit");
@@ -623,13 +696,18 @@ public class AdminSystem extends javax.swing.JPanel {
     private void jButton1ASActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ASActionPerformed
         // TODO add your handling code here:
         if(CheckBlankFields()){
-            try{
-                AdminDetails a = makeAdmin();
-                AddAdmintoDB(a);
-                JOptionPane.showMessageDialog(this, "Organization Added");
+            if(!checkduplicateentry()){
+                try{
+                    AdminDetails a = makeAdmin();
+                    AddAdmintoDB(a);
+                    JOptionPane.showMessageDialog(this, "Organization Added");
+                }
+                catch(NumberFormatException E){
+                    JOptionPane.showMessageDialog(this, "Ratings should be a number");
+                }
             }
-            catch(NumberFormatException E){
-                JOptionPane.showMessageDialog(this, "Ratings should be a number");
+            else{
+                JOptionPane.showMessageDialog(this, "An Organisation with same email already exists");
             }
         }
         clearorgfields();
@@ -668,6 +746,8 @@ public class AdminSystem extends javax.swing.JPanel {
     private void btnDeleteUserActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDeleteUserActionPerformed
         // TODO add your handling code here:
         int Row = UsersTable.getSelectedRow();
+        if(Row<0)
+            return;
         UserDetails u = UserMap.get(UsersTable.getValueAt(Row, 3).toString());
         RemoveuserfromDB(u);
         UserMap.remove(u.getEmail());
@@ -678,6 +758,9 @@ public class AdminSystem extends javax.swing.JPanel {
     private void btnDeleteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDeleteActionPerformed
         // TODO add your handling code here:
         int Row = tableViewOrganisations.getSelectedRow();
+        if(Row<0)
+            return;
+        displayOrgs(cmbBoxSelectEnterpriseAS1.getSelectedItem().toString());
         AdminDetails a = AdminMap.get(tableViewOrganisations.getValueAt(Row, 2).toString());
         RemoveAdminfromDB(a);
         AdminMap.remove(a.getEmail());
@@ -689,15 +772,19 @@ public class AdminSystem extends javax.swing.JPanel {
     private void btnEditActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEditActionPerformed
         // TODO add your handling code here:
         int Row = tableViewOrganisations.getSelectedRow();
-        AdminDetails a = AdminMap.get(tableViewOrganisations.getValueAt(Row, 2).toString());
-        a.setOrganization(tableViewOrganisations.getValueAt(Row, 0).toString().trim());
-        a.setLocation(tableViewOrganisations.getValueAt(Row, 1).toString().trim());
-        a.setEmail(tableViewOrganisations.getValueAt(Row, 2).toString().trim());
-        a.setRatings(Integer.parseInt(tableViewOrganisations.getValueAt(Row, 3).toString().trim()));
-        AddAdmintoDB(a);
-        JOptionPane.showMessageDialog(this, "Admin Edited.");
-        PullAdminstoHashMap();
-        displayOrgs(cmbBoxSelectEnterpriseAS1.getSelectedItem().toString());
+        if(Row < 0)
+            return;
+        if(checkblanktablefields()){
+            AdminDetails a = AdminMap.get(tableViewOrganisations.getValueAt(Row, 2).toString().trim());
+            a.setOrganization(tableViewOrganisations.getValueAt(Row, 0).toString().trim());
+            a.setLocation(tableViewOrganisations.getValueAt(Row, 1).toString().trim());
+//            a.setEmail(tableViewOrganisations.getValueAt(Row, 2).toString().trim());
+            a.setRatings(Integer.parseInt(tableViewOrganisations.getValueAt(Row, 3).toString().trim()));
+            AddAdmintoDB(a);
+            JOptionPane.showMessageDialog(this, "Admin Edited.");
+            PullAdminstoHashMap();
+            displayOrgs(cmbBoxSelectEnterpriseAS1.getSelectedItem().toString());
+        }
     }//GEN-LAST:event_btnEditActionPerformed
 
     private void cmbBoxSelectEnterpriseAS1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmbBoxSelectEnterpriseAS1ActionPerformed

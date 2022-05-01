@@ -248,8 +248,6 @@ public class UserSystem extends javax.swing.JFrame {
         rdBtnAdmin = new javax.swing.JRadioButton();
         lblEnterprise = new javax.swing.JLabel();
         txtPassword = new javax.swing.JPasswordField();
-        FillAdmin = new javax.swing.JButton();
-        FillUser = new javax.swing.JButton();
         rdBtnDoctor = new javax.swing.JRadioButton();
         rdBtnOther = new javax.swing.JRadioButton();
         cmbBoxOrg = new javax.swing.JComboBox<>();
@@ -312,20 +310,6 @@ public class UserSystem extends javax.swing.JFrame {
 
         lblEnterprise.setText("Enterprise:");
 
-        FillAdmin.setText("FillAdmin");
-        FillAdmin.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                FillAdminActionPerformed(evt);
-            }
-        });
-
-        FillUser.setText("FillUser");
-        FillUser.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                FillUserActionPerformed(evt);
-            }
-        });
-
         buttonGroup1.add(rdBtnDoctor);
         rdBtnDoctor.setText("Doctor");
         rdBtnDoctor.addActionListener(new java.awt.event.ActionListener() {
@@ -349,8 +333,6 @@ public class UserSystem extends javax.swing.JFrame {
         });
 
         lblOrg.setText("Organisation");
-
-        lblDB.setSize(new java.awt.Dimension(1000, 16));
 
         javax.swing.GroupLayout LogInPanelLayout = new javax.swing.GroupLayout(LogInPanel);
         LogInPanel.setLayout(LogInPanelLayout);
@@ -387,30 +369,24 @@ public class UserSystem extends javax.swing.JFrame {
                                     .addComponent(lblEnterprise, javax.swing.GroupLayout.PREFERRED_SIZE, 112, javax.swing.GroupLayout.PREFERRED_SIZE)
                                     .addComponent(cmbBoxEnterprise, javax.swing.GroupLayout.PREFERRED_SIZE, 166, javax.swing.GroupLayout.PREFERRED_SIZE)))
                             .addGroup(LogInPanelLayout.createSequentialGroup()
-                                .addGroup(LogInPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addGroup(LogInPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                                        .addGroup(LogInPanelLayout.createSequentialGroup()
-                                            .addGap(158, 158, 158)
-                                            .addComponent(btnSignIn, javax.swing.GroupLayout.PREFERRED_SIZE, 135, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                        .addGroup(javax.swing.GroupLayout.Alignment.LEADING, LogInPanelLayout.createSequentialGroup()
-                                            .addGap(67, 67, 67)
-                                            .addComponent(rdBtnUser)
-                                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                            .addComponent(rdBtnAdmin)
-                                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                            .addComponent(rdBtnDoctor)))
+                                .addGroup(LogInPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                                     .addGroup(LogInPanelLayout.createSequentialGroup()
-                                        .addGap(39, 39, 39)
-                                        .addComponent(FillAdmin)))
+                                        .addGap(158, 158, 158)
+                                        .addComponent(btnSignIn, javax.swing.GroupLayout.PREFERRED_SIZE, 135, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, LogInPanelLayout.createSequentialGroup()
+                                        .addGap(67, 67, 67)
+                                        .addComponent(rdBtnUser)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                        .addComponent(rdBtnAdmin)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                        .addComponent(rdBtnDoctor)))
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addGroup(LogInPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(FillUser)
-                                    .addComponent(rdBtnOther)))))
+                                .addComponent(rdBtnOther))))
                     .addGroup(LogInPanelLayout.createSequentialGroup()
                         .addGap(455, 455, 455)
                         .addComponent(lblVirtualCare, javax.swing.GroupLayout.PREFERRED_SIZE, 115, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addComponent(lblDB, javax.swing.GroupLayout.PREFERRED_SIZE, 1049, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(216, Short.MAX_VALUE))
         );
         LogInPanelLayout.setVerticalGroup(
             LogInPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -440,13 +416,9 @@ public class UserSystem extends javax.swing.JFrame {
                     .addComponent(rdBtnOther))
                 .addGap(46, 46, 46)
                 .addComponent(btnSignIn, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
-                .addGroup(LogInPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(FillAdmin)
-                    .addComponent(FillUser))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGap(60, 60, 60)
                 .addComponent(lblDB, javax.swing.GroupLayout.PREFERRED_SIZE, 567, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(444, Short.MAX_VALUE))
+                .addContainerGap(426, Short.MAX_VALUE))
         );
 
         SplitPane.setRightComponent(LogInPanel);
@@ -643,20 +615,6 @@ public class UserSystem extends javax.swing.JFrame {
         setAdminElementsVisibility(true);
     }//GEN-LAST:event_rdBtnAdminActionPerformed
 
-    private void FillAdminActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_FillAdminActionPerformed
-        // TODO add your handling code here:
-        txtUserEmail.setText("SysAdmin@virtualcare.com");
-        txtPassword.setText("SysAdmin");
-        rdBtnAdmin.setSelected(true);
-    }//GEN-LAST:event_FillAdminActionPerformed
-
-    private void FillUserActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_FillUserActionPerformed
-        // TODO add your handling code here:
-        txtUserEmail.setText("hariyapratik@gmail.com");
-        txtPassword.setText("xyz");
-        rdBtnUser.setSelected(true);
-    }//GEN-LAST:event_FillUserActionPerformed
-
     private void cmbBoxOrgActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmbBoxOrgActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_cmbBoxOrgActionPerformed
@@ -707,8 +665,6 @@ public class UserSystem extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton FillAdmin;
-    private javax.swing.JButton FillUser;
     private javax.swing.JPanel LogInPanel;
     public javax.swing.JSplitPane SplitPane;
     private javax.swing.JButton btnLogIn;
