@@ -7,12 +7,12 @@ package ui.Hospital;
 import java.awt.CardLayout;
 import java.util.ArrayList;
 import java.util.Iterator;
-import java.util.LinkedHashSet;
 import javax.swing.JOptionPane;
 import javax.swing.JSplitPane;
 import javax.swing.table.DefaultTableModel;
 import model.DoctorDetails;
 import model.UserDetails;
+import ui.User.SignUp;
 import ui.User.UserSystem;
 
 /**
@@ -74,8 +74,8 @@ public class DoctorsDashboard extends javax.swing.JPanel {
             if(PatientEmail.equalsIgnoreCase(u.getEmail())){
                 Appointments.remove(u);
                 u.getAppointments().remove(d);
-                UserSystem.Doctordb.store(d);
-                UserSystem.Userdb.store(u);
+                AdminHospital.AddDoctortoDB(d);
+                SignUp.AddUsertoDB(u);
                 break;
             }
         }   
@@ -89,12 +89,17 @@ public class DoctorsDashboard extends javax.swing.JPanel {
                 UserDetails u = (UserDetails)itr.next();
                 if(u.getEmail().equals(tblViewPatientsDD.getValueAt(row,3).toString())){
                     d.AddPrescription(u, txtAddPrescribtion.getText().trim());
+                    AdminHospital.AddDoctortoDB(d);
                 }
             }
         }
         catch(NullPointerException E){
             JOptionPane.showMessageDialog(this, "No Appointments Available.");
         }
+    }
+    
+    void clearfield(){
+        txtAddPrescribtion.setText("");
     }
     
     /**
@@ -151,9 +156,9 @@ public class DoctorsDashboard extends javax.swing.JPanel {
             .addGroup(sidePanelLayout.createSequentialGroup()
                 .addGap(115, 115, 115)
                 .addComponent(jButton1)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGap(52, 52, 52)
                 .addComponent(btnLogout)
-                .addGap(60, 60, 60))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         cardLayout.setLayout(new java.awt.CardLayout());
@@ -291,7 +296,7 @@ public class DoctorsDashboard extends javax.swing.JPanel {
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
         // TODO add your handling code here:
-        if(tblViewPatientsDD.getSelectedRow() == 0)
+        if(tblViewPatientsDD.getSelectedRow() < 0)
             return;
         deleteAppointment();
         JOptionPane.showMessageDialog(this, "Appointment Deleted.");
@@ -305,6 +310,7 @@ public class DoctorsDashboard extends javax.swing.JPanel {
             return;
         }
         AddPrescription();
+        clearfield();
         JOptionPane.showMessageDialog(this, "Prescription Added.");
     }//GEN-LAST:event_btnAddPrescribtionActionPerformed
 

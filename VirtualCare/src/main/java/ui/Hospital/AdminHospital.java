@@ -323,7 +323,7 @@ public class AdminHospital extends javax.swing.JPanel {
     }
     
     
-    void AddDoctortoDB(DoctorDetails d){
+    public static void AddDoctortoDB(DoctorDetails d){
         try {
             UserSystem.Doctordb.store(d);
             System.out.println("Stored: " + d.getEmail());

@@ -440,13 +440,14 @@ public class AdminPharmacy extends javax.swing.JPanel {
         int Row = tblMedicineRequests.getSelectedRow();
         String Medicine = tblMedicineRequests.getValueAt(Row, 1).toString();
         String Hospital = tblMedicineRequests.getValueAt(Row, 0).toString();
+        int Quantity = Integer.parseInt(tblMedicineRequests.getValueAt(Row, 2).toString());
         
         PharmacyOrders P;
         
         Iterator itr = PhReq.iterator();
         while(itr.hasNext()){
             P = (PharmacyOrders)itr.next();
-            if(P.getFromHospital().equalsIgnoreCase(Hospital) && P.getMedicine().equalsIgnoreCase(Medicine)){
+            if(P.getFromHospital().equalsIgnoreCase(Hospital) && P.getMedicine().equalsIgnoreCase(Medicine) && P.getQuantity() == Quantity){
                 
                 P.setStatus("Delivery Review");
                 AdminHospital.AddPhOrderstoDB(P);

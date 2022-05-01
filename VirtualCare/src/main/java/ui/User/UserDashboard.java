@@ -13,12 +13,10 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.Collection;
-import java.util.Collections;
 import java.util.Iterator;
 import java.util.LinkedHashSet;
 import java.util.List;
-import java.util.TreeMap;
+import javax.swing.DefaultComboBoxModel;
 import javax.swing.ImageIcon;
 import javax.swing.JOptionPane;
 import javax.swing.JSplitPane;
@@ -27,6 +25,7 @@ import model.AdminDetails;
 import model.DoctorDetails;
 import model.NGORequests;
 import model.UserDetails;
+import ui.Hospital.AdminHospital;
 
 /**
  *
@@ -45,12 +44,14 @@ public class UserDashboard extends javax.swing.JPanel {
         DefaultTableModel UserMod = (DefaultTableModel) tableHospitals.getModel();
         DefaultTableModel AptMod = (DefaultTableModel) tableDoctors.getModel();
         DefaultTableModel ViewAptMod = (DefaultTableModel) tableViewAppointment.getModel();
-        DefaultTableModel NGOMod = (DefaultTableModel) tblNGORequests.getModel();    
+        DefaultTableModel NGOMod = (DefaultTableModel) tblNGORequests.getModel(); 
         cardLayout.setVisible(false);
         PullDoctorstoList();
+        PullAdminstoList();
+        populateCityHashSet();
         this.UserMod = UserMod;
         this.AptMod = AptMod;
-        this.ViewAptMod = AptMod;
+        this.ViewAptMod = ViewAptMod;
         this.NGOMod = NGOMod;
         this.SplitPane = SplitPane;
         DisplayImage();
@@ -69,38 +70,53 @@ public class UserDashboard extends javax.swing.JPanel {
     ArrayList<NGORequests> NGOReqs;
     LinkedHashSet<String> Cities;
     LinkedHashSet<String> Departments;
-    LinkedHashSet<String> Hospitals;
     LinkedHashSet<String> NGOOrgs;
     
-    void populateHashSets(){
+    void populateCityHashSet(){
         LinkedHashSet<String> Cities = new LinkedHashSet<>();
-        LinkedHashSet<String> Departments = new LinkedHashSet<>();
-        LinkedHashSet<String> Hospitals = new LinkedHashSet<>();
         try{
-            Iterator Cityitr = Doctors.iterator();
-            Iterator Deptitr = Doctors.iterator();
-            Iterator Htr = Doctors.iterator();
-
-            while(Cityitr.hasNext()){
-                DoctorDetails d = (DoctorDetails)Cityitr.next();
-                Cities.add(d.getLocation());
-            }
-            while(Deptitr.hasNext()){
-                DoctorDetails d = (DoctorDetails)Deptitr.next();
-                Departments.add(d.getDepartment());
-            }
-            while(Htr.hasNext()){
-                DoctorDetails d = (DoctorDetails)Htr.next();
-                Hospitals.add(d.getOrganisation());
+            Iterator itr = Admins.iterator();
+            
+            while(itr.hasNext()){
+                AdminDetails a = (AdminDetails)itr.next();
+                if(a.getEnterprise().equalsIgnoreCase("Hospital")){
+                   Cities.add(a.getLocation()); 
+                }
             }
             this.Cities = Cities;
+        }
+        catch(NullPointerException E){
+            JOptionPane.showMessageDialog(this, "No Hospitals Added.");
+        }
+        
+    }
+    
+    void populateDepartmentsHashSet(String Hospital){
+        LinkedHashSet<String> Departments = new LinkedHashSet<>();
+        try{
+            Iterator Deptitr = Doctors.iterator();
+
+            while(Deptitr.hasNext()){
+                DoctorDetails d = (DoctorDetails)Deptitr.next();
+                if(d.getOrganisation().equalsIgnoreCase(Hospital))
+                    Departments.add(d.getDepartment());
+            }
             this.Departments = Departments;
-            this.Hospitals = Hospitals;
         }
         catch(NullPointerException E){
             JOptionPane.showMessageDialog(this, "No Doctors Added.");
         }
     }
+    
+    void populatedepartmentsdropdown(){
+        cmbDepartment.removeAllItems();
+        Iterator itr = Departments.iterator();
+        while(itr.hasNext()){
+            cmbDepartment.addItem(itr.next().toString());
+        }
+
+    }
+    
      private void DisplayImage() {
      Path currentRelativePath = Paths.get("");
      String s = currentRelativePath.toAbsolutePath().toString();
@@ -212,37 +228,35 @@ public class UserDashboard extends javax.swing.JPanel {
     
     void populateHospitaltable(){
         UserMod.setRowCount(0);
+        PullAdminstoList();
         try{
-            Iterator itr = Doctors.iterator();
-            TreeMap<Integer, DoctorDetails> filter = new TreeMap<>();
+            Iterator itr = Admins.iterator();
             while(itr.hasNext()){
-                DoctorDetails d = (DoctorDetails)itr.next();
-                if(cmbBoxTreatment.getSelectedItem().equals(d.getDepartment()) && cmbBoxCity.getSelectedItem().equals(d.getLocation())){
-                    filter.put(d.getFees(), d);
-                }
-            }
-            Collection C = filter.keySet();
-            if(cmbBoxPrices.getSelectedIndex() == 0){
-                Iterator Ctr = C.iterator();
-                while(Ctr.hasNext()){
-                    DoctorDetails d = filter.get((Integer)Ctr.next());
-                    String data[] = {d.getOrganisation(), d.getLocation(), "$" + String.valueOf(d.getFees()), String.valueOf(d.getRatings())};
-                    UserMod.addRow(data);
-                }
-            }
-            else{
-                ArrayList<Integer> Keys = new ArrayList<>(C);
-                Collections.reverse(Keys);
-                Iterator Ctr = Keys.iterator();
-                while(Ctr.hasNext()){
-                    DoctorDetails d = filter.get((Integer)Ctr.next());
-                    String data[] = {d.getOrganisation(), d.getLocation(), "$" + String.valueOf(d.getFees()), String.valueOf(d.getRatings())};
+                AdminDetails a = (AdminDetails)itr.next();
+
+                if(a.getEnterprise().equalsIgnoreCase("Hospital") && cmbBoxCity.getSelectedItem().toString().equalsIgnoreCase(a.getLocation())){
+                    PullDoctorstoList();
+                    Iterator Dtr = Doctors.iterator();
+                    int Avgprice = 0;
+                    int totalnumber = 1;
+                    while(Dtr.hasNext()){
+                        DoctorDetails d = (DoctorDetails)Dtr.next();
+                        if(a.getOrganization().equalsIgnoreCase(d.getOrganisation())){
+                            Avgprice = Avgprice + d.getFees();
+                            totalnumber++;
+                        }
+                    }
+                    if(totalnumber == 1)
+                        Avgprice = Avgprice/totalnumber;
+                    else
+                        Avgprice = Avgprice/--totalnumber;
+                    String data[] = {a.getOrganization(), a.getLocation(), String.valueOf(Avgprice), String.valueOf(a.getRatings())};
                     UserMod.addRow(data);
                 }
             }
         }
         catch(NullPointerException E){
-            JOptionPane.showMessageDialog(this, "No Doctors available.");
+               return;
         }
     }
     
@@ -262,53 +276,64 @@ public class UserDashboard extends javax.swing.JPanel {
         }
     }
     
-    void populateAppointmentstable(){
+    void populateDoctorstable(String Hospital){
         AptMod.setRowCount(0);
-        int Row = tableHospitals.getSelectedRow();
-        String Hospital = tableHospitals.getValueAt(Row, 0).toString();
-        String City = tableHospitals.getValueAt(Row, 1).toString();
         try{
             Iterator itr = Doctors.iterator();
             while(itr.hasNext()){
                 DoctorDetails d = (DoctorDetails)itr.next();
-                if(d.getLocation().equalsIgnoreCase(City) && d.getOrganisation().equalsIgnoreCase(Hospital)){
-                    String data[] = {d.getFirstName() + d.getLastName(), d.getTime(), String.valueOf(d.getFees()), String.valueOf(d.getRatings())};
+                if(d.getOrganisation().equalsIgnoreCase(Hospital) && d.getDepartment().equalsIgnoreCase(cmbDepartment.getSelectedItem().toString())){
+                    String data[] = {d.getFirstName() + d.getLastName(), d.getDepartment(), d.getTime(), String.valueOf(d.getFees()), String.valueOf(d.getRatings())};
                     AptMod.addRow(data);
                 }
             }
         }
         catch(NullPointerException E){
-            JOptionPane.showMessageDialog(this, "No Doctors Available.");
+            populateCityHashSet();
+            populatedepartmentsdropdown();
+            populateDoctorstable(Hospital);
         }
     }
     
-    void CheckBlankFields(){
+    boolean CheckBlankFields(){
         if(txtCityUAD.getText().trim().equals("")){
             JOptionPane.showMessageDialog(this, "Fields can't be blank");
+            return false;
         }
         else if(txtDobUAD.getDate().toString().equals("")){
             JOptionPane.showMessageDialog(this, "Fields can't be blank");
+            return false;
         }
         else if(txtEmailIdUAD.getText().trim().equals("")){
             JOptionPane.showMessageDialog(this, "Fields can't be blank");
+            return false;
         }
         else if(txtFirstNameUAD.getText().trim().equals("")){
             JOptionPane.showMessageDialog(this, "Fields can't be blank");
+            return false;
         }
         else if(txtPhoneNumberAD.getText().trim().equals("")){
             JOptionPane.showMessageDialog(this, "Fields can't be blank");
+            return false;
         }
         else if(txtLastNameUAD.getText().trim().equals("")){
             JOptionPane.showMessageDialog(this, "Fields can't be blank");
+            return false;
         }
         else if(txtPinCodeUAD.getText().trim().equals("")){
             JOptionPane.showMessageDialog(this, "Fields can't be blank");
+            return false;
         }
         else if(txtStreetUAD.getText().trim().equals("")){
             JOptionPane.showMessageDialog(this, "Fields can't be blank");
+            return false;
         }
         else if(txtNewPasswordUAD.getText().trim().equals("")){
             JOptionPane.showMessageDialog(this, "Fields can't be blank");
+            return false;
+        }
+        else{
+            return true;
         }
     }
     
@@ -331,23 +356,13 @@ public class UserDashboard extends javax.swing.JPanel {
         }
     }
     
-    void populatedropdowns(){
+    void populatecitydropdown(){
         cmbBoxCity.removeAllItems();
-        cmbBoxTreatment.removeAllItems();
-        try{
             Iterator Ctr = Cities.iterator();
-            Iterator Dtr = Departments.iterator();
-
             while(Ctr.hasNext()){
-                cmbBoxCity.addItem(Ctr.next().toString());
+                String x = Ctr.next().toString();
+                cmbBoxCity.addItem(x);
             }
-            while(Dtr.hasNext()){
-                cmbBoxTreatment.addItem(Dtr.next().toString());
-            }
-        }
-        catch(NullPointerException E){
-            JOptionPane.showMessageDialog(this, "No Doctors Available.");
-        }
     }
     
     void PullDoctorstoList(){
@@ -362,7 +377,6 @@ public class UserDashboard extends javax.swing.JPanel {
             while(doctoritr.hasNext()){
                 d = (DoctorDetails)doctoritr.next();
                 Doctors.add(d);
-                System.out.println("Doctor Pulled: " + d.getFirstName());
             }
         }
         catch(DatabaseClosedException | Db4oIOException E){
@@ -430,33 +444,36 @@ public class UserDashboard extends javax.swing.JPanel {
     void BookAppointment(){
         int Row = tableDoctors.getSelectedRow();
         String FullName = tableDoctors.getValueAt(Row, 0).toString();
-        try{
             Iterator itr = Doctors.iterator();
             while(itr.hasNext()){
                 DoctorDetails d = (DoctorDetails)itr.next();
                 if(FullName.equalsIgnoreCase(d.getFirstName()+d.getLastName())){
                     u.AddAppointments(d);
                     d.AddAppointments(u);
-                    UserSystem.Doctordb.store(d);
-                    UserSystem.Userdb.store(u);
+                    AdminHospital.AddDoctortoDB(d);
+                    SignUp.AddUsertoDB(u);
                     break;
                 }
             }
-        }
-        catch(NullPointerException E){
-            JOptionPane.showMessageDialog(this, "No doctors Added.");
-        }
     }
     
-    void CheckBlankFieldsNGO(){
+    
+    
+    boolean CheckBlankFieldsNGO(){
         if(txtExplanation.getText().trim().equals("")){
             JOptionPane.showMessageDialog(this, "Fields can't be blank");
+            return false;
         }
         else if(txtAnnualIncome.getText().trim().equals("")){
             JOptionPane.showMessageDialog(this, "Fields can't be blank");
+            return false;
         }
         else if(txtRequestAmount.getText().trim().equals("")){
             JOptionPane.showMessageDialog(this, "Fields can't be blank");
+            return false;
+        }
+        else{
+            return true;
         }
     }
     
@@ -469,12 +486,39 @@ public class UserDashboard extends javax.swing.JPanel {
             while(itr.hasNext()){
                 DoctorDetails d = (DoctorDetails)itr.next();
 
-                if((d.getFirstName()+d.getLastName()).equalsIgnoreCase(Doctor) && d.getOrganisation().equalsIgnoreCase(Hospital))
-                    JOptionPane.showMessageDialog(this, d.GetPrescription(u));
+                if((d.getFirstName()+d.getLastName()).equalsIgnoreCase(Doctor) && d.getOrganisation().equalsIgnoreCase(Hospital)){
+                    if(d.GetPrescription(u).equalsIgnoreCase("")){
+                        JOptionPane.showMessageDialog(this, "No Prescription Available.");
+                    }
+                    else{
+                        JOptionPane.showMessageDialog(this, d.GetPrescription(u));
+                    }
+                }
             }
         }
         catch(NullPointerException E){
             JOptionPane.showMessageDialog(this, "No Prescription Available.");
+        }
+    }
+    
+    boolean CheckDuplicateNGORequest(NGORequests N){
+        PullNGORequeststoList();
+        if(NGOReqs == null){
+            return false;
+        }
+        else if(NGOReqs.isEmpty()){
+            return false;
+        }
+        else{
+            Iterator itr = NGOReqs.iterator();
+            
+            while(itr.hasNext()){
+                NGORequests NG = (NGORequests)itr.next();
+                if(NG.getPatientID().equalsIgnoreCase(N.getPatientID()) && NG.getAmount() == N.getAmount() && NG.getToNGOOrg().equalsIgnoreCase(N.getToNGOOrg()) && NG.getAnnualIncome() == N.getAnnualIncome()){
+                    return true;
+                }
+            }
+            return false;
         }
     }
     /**
@@ -508,6 +552,8 @@ public class UserDashboard extends javax.swing.JPanel {
         tableDoctors = new javax.swing.JTable();
         btnBookAppointment = new javax.swing.JButton();
         lblBookAppointment = new javax.swing.JLabel();
+        jLabel1 = new javax.swing.JLabel();
+        cmbDepartment = new javax.swing.JComboBox<>();
         FundRequest = new javax.swing.JPanel();
         lblAnnualIncome = new javax.swing.JLabel();
         txtAnnualIncome = new javax.swing.JTextField();
@@ -522,12 +568,10 @@ public class UserDashboard extends javax.swing.JPanel {
         tblNGORequests = new javax.swing.JTable();
         lblFundRequest = new javax.swing.JLabel();
         UserDB = new javax.swing.JPanel();
-        jLabel1 = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
         tableHospitals = new javax.swing.JTable();
         lblPrices = new javax.swing.JLabel();
         cmbBoxCity = new javax.swing.JComboBox<>();
-        cmbBoxTreatment = new javax.swing.JComboBox<>();
         lblCity = new javax.swing.JLabel();
         cmbBoxPrices = new javax.swing.JComboBox<>();
         btnView = new javax.swing.JButton();
@@ -730,17 +774,14 @@ public class UserDashboard extends javax.swing.JPanel {
 
         tableDoctors.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null}
+
             },
             new String [] {
-                "Doctor", "Time", "Price", "Ratings"
+                "Doctor", "Department", "Time", "Price", "Ratings"
             }
         ) {
             boolean[] canEdit = new boolean [] {
-                false, false, false, false
+                false, false, false, false, false
             };
 
             public boolean isCellEditable(int rowIndex, int columnIndex) {
@@ -757,6 +798,14 @@ public class UserDashboard extends javax.swing.JPanel {
         });
 
         lblBookAppointment.setBackground(new java.awt.Color(102, 102, 255));
+
+        jLabel1.setText("Department:");
+
+        cmbDepartment.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cmbDepartmentActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout BookAppointmentLayout = new javax.swing.GroupLayout(BookAppointment);
         BookAppointment.setLayout(BookAppointmentLayout);
@@ -775,7 +824,11 @@ public class UserDashboard extends javax.swing.JPanel {
                                 .addContainerGap()
                                 .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 766, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addGroup(BookAppointmentLayout.createSequentialGroup()
-                                .addGap(294, 294, 294)
+                                .addGap(37, 37, 37)
+                                .addGroup(BookAppointmentLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(jLabel1)
+                                    .addComponent(cmbDepartment, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addGap(199, 199, 199)
                                 .addComponent(btnBookAppointment)))
                         .addGap(0, 163, Short.MAX_VALUE))
                     .addComponent(lblBookAppointment, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
@@ -794,8 +847,13 @@ public class UserDashboard extends javax.swing.JPanel {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 247, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(30, 30, 30)
-                .addComponent(btnBookAppointment)
-                .addGap(71, 71, 71)
+                .addGroup(BookAppointmentLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(btnBookAppointment)
+                    .addGroup(BookAppointmentLayout.createSequentialGroup()
+                        .addComponent(jLabel1)
+                        .addGap(18, 18, 18)
+                        .addComponent(cmbDepartment, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addGap(41, 41, 41)
                 .addComponent(lblBookAppointment, javax.swing.GroupLayout.PREFERRED_SIZE, 356, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(169, Short.MAX_VALUE))
         );
@@ -919,9 +977,6 @@ public class UserDashboard extends javax.swing.JPanel {
         UserDB.setPreferredSize(new java.awt.Dimension(1000, 1000));
         UserDB.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        jLabel1.setText("Department");
-        UserDB.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(116, 23, -1, -1));
-
         tableHospitals.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
 
@@ -951,16 +1006,6 @@ public class UserDashboard extends javax.swing.JPanel {
             }
         });
         UserDB.add(cmbBoxCity, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 470, -1, -1));
-
-        cmbBoxTreatment.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Dentist", "Orthopedic", "Oncologist", "Cardiologist", "Genral Physicist" }));
-        cmbBoxTreatment.setToolTipText("");
-        cmbBoxTreatment.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
-        cmbBoxTreatment.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                cmbBoxTreatmentActionPerformed(evt);
-            }
-        });
-        UserDB.add(cmbBoxTreatment, new org.netbeans.lib.awtextra.AbsoluteConstraints(138, 51, -1, -1));
 
         lblCity.setText("City");
         UserDB.add(lblCity, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 440, -1, -1));
@@ -1203,16 +1248,12 @@ public class UserDashboard extends javax.swing.JPanel {
         );
     }// </editor-fold>//GEN-END:initComponents
 
-    private void cmbBoxTreatmentActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmbBoxTreatmentActionPerformed
-        // TODO add your handling code here:
-        populateHospitaltable();
-    }//GEN-LAST:event_cmbBoxTreatmentActionPerformed
-
     private void btnViewAppointmentsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnViewAppointmentsActionPerformed
         // TODO add your handling code here:
         populateviewappointments();
         cardLayout.setVisible(true);
         Card.show(cardLayout, "card4");
+        
     }//GEN-LAST:event_btnViewAppointmentsActionPerformed
 
     private void btnAccountActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAccountActionPerformed
@@ -1220,6 +1261,7 @@ public class UserDashboard extends javax.swing.JPanel {
         fillaccountfields();
         cardLayout.setVisible(true);
         Card.show(cardLayout, "card7");
+        
     }//GEN-LAST:event_btnAccountActionPerformed
 
     private void txtCityUADActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtCityUADActionPerformed
@@ -1265,10 +1307,11 @@ public class UserDashboard extends javax.swing.JPanel {
     private void btnDashboardActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDashboardActionPerformed
         // TODO add your handling code here:
         PullDoctorstoList();
-        populateHashSets();
-        populatedropdowns();
+        populateCityHashSet();
+        populatecitydropdown();
         cardLayout.setVisible(true);
         Card.show(cardLayout, "card2");
+        populateHospitaltable();
     }//GEN-LAST:event_btnDashboardActionPerformed
 
     private void btnRequestFundActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRequestFundActionPerformed
@@ -1284,7 +1327,7 @@ public class UserDashboard extends javax.swing.JPanel {
 
     private void btnUpdateUADActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnUpdateUADActionPerformed
         // TODO add your handling code here:
-        CheckBlankFields();
+        if(CheckBlankFields()){
             try{
             if(Arrays.toString(txtOldPasswordUAD.getPassword()).equals(u.getPassword())){
                 if(!txtFirstNameUAD.getText().trim().equals(""))
@@ -1317,8 +1360,8 @@ public class UserDashboard extends javax.swing.JPanel {
             catch(NumberFormatException E){
                 JOptionPane.showMessageDialog(this, "PinCode should be a number.");
             }
-        
-
+        }
+       
     }//GEN-LAST:event_btnUpdateUADActionPerformed
 
     private void txtNewPasswordUADActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtNewPasswordUADActionPerformed
@@ -1342,7 +1385,9 @@ public class UserDashboard extends javax.swing.JPanel {
         String Hospital = tableHospitals.getValueAt(tableHospitals.getSelectedRow(), 0).toString();
         lblHeaderHospital.setText("Welcome to" + Hospital);
         PullDoctorstoList();
-        populateAppointmentstable();
+        populateDepartmentsHashSet(Hospital);
+        populatedepartmentsdropdown();
+        populateDoctorstable(Hospital);
         cardLayout.setVisible(true);
         Card.show(cardLayout, "card5");
     }//GEN-LAST:event_btnViewActionPerformed
@@ -1357,23 +1402,35 @@ public class UserDashboard extends javax.swing.JPanel {
 
     private void btnRequestActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRequestActionPerformed
         // TODO add your handling code here:
-        CheckBlankFieldsNGO();
-        try{
-            NGORequests N = MakeNGORequests();
-            AddNGOtoDB(N);
+        if(CheckBlankFieldsNGO()){
+            try{
+                NGORequests N = MakeNGORequests();
+                if(!CheckDuplicateNGORequest(N)){
+                    AddNGOtoDB(N);
+                    JOptionPane.showMessageDialog(this, "Request Sent");
+                }
+                else{
+                    JOptionPane.showMessageDialog(this, "Duplicate Entry");
+                }
+            }
+            catch(NumberFormatException E){
+                JOptionPane.showMessageDialog(this, "Amount should be a number.");
+            }
+            PullNGORequeststoList();
+            populateNGOtable();
         }
-        catch(NumberFormatException E){
-            JOptionPane.showMessageDialog(this, "Amount should be a number.");
-        }
-        PullNGORequeststoList();
-        populateNGOtable();
-        JOptionPane.showMessageDialog(this, "Request Sent");
     }//GEN-LAST:event_btnRequestActionPerformed
 
     private void ViewPrescriptionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ViewPrescriptionActionPerformed
         // TODO add your handling code here:
         viewprescription();
     }//GEN-LAST:event_ViewPrescriptionActionPerformed
+
+    private void cmbDepartmentActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmbDepartmentActionPerformed
+        // TODO add your handling code here:
+        String Hospital = tableHospitals.getValueAt(tableHospitals.getSelectedRow(), 0).toString();
+        populateDoctorstable(Hospital);
+    }//GEN-LAST:event_cmbDepartmentActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -1396,7 +1453,7 @@ public class UserDashboard extends javax.swing.JPanel {
     private javax.swing.JPanel cardLayout;
     private javax.swing.JComboBox<String> cmbBoxCity;
     private javax.swing.JComboBox<String> cmbBoxPrices;
-    private javax.swing.JComboBox<String> cmbBoxTreatment;
+    private javax.swing.JComboBox<String> cmbDepartment;
     private javax.swing.JComboBox<String> cmbNGOOrgs;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
