@@ -303,8 +303,11 @@ public class DoctorsDashboard extends javax.swing.JPanel {
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
         // TODO add your handling code here:
-        if(tblViewPatientsDD.getSelectedRow() < 0)
-            return;
+        if(tblViewPatientsDD.getSelectedRow() < 0){
+            JOptionPane.showMessageDialog(this, "Please select a record");
+         return;            
+        }
+           
         deleteAppointment();
         JOptionPane.showMessageDialog(this, "Appointment Deleted.");
         populateappointmentstable();
