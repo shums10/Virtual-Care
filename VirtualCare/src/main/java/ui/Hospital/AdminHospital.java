@@ -4,6 +4,7 @@
  */
 package ui.Hospital;
 
+import CommonUtils.Validation;
 import com.db4o.ext.DatabaseClosedException;
 import com.db4o.ext.Db4oIOException;
 import java.awt.CardLayout;
@@ -982,9 +983,11 @@ public class AdminHospital extends javax.swing.JPanel {
     private void btnRegisterDoctorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRegisterDoctorActionPerformed
         // TODO add your handling code here:
         try{
-        DoctorDetails d = MakeDoctor();
-        AddDoctortoDB(d);
-        JOptionPane.showMessageDialog(this, "Doctor Added.");
+        if(checkDoctor()){
+            DoctorDetails d = MakeDoctor();
+            AddDoctortoDB(d);
+            JOptionPane.showMessageDialog(this, "Doctor Added.");
+        }
         }
         catch(NumberFormatException E){
             JOptionPane.showMessageDialog(this, "Fees and Ratings should be a number");
@@ -1049,8 +1052,11 @@ public class AdminHospital extends javax.swing.JPanel {
 
     private void btnDeleteAHActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDeleteAHActionPerformed
         // TODO add your handling code here:
-        if(tableViewDoctorsAH.getSelectedRow() < 0)
-            return;
+        if(tableViewDoctorsAH.getSelectedRow() < 0){
+            JOptionPane.showMessageDialog(this, "Please select a record");
+             return;
+        }
+           
         int Row = tableViewDoctorsAH.getSelectedRow();
         DoctorDetails d = DoctorMap.get(tableViewDoctorsAH.getValueAt(Row, 4).toString());
         RemoveDoctorfromDB(d);
@@ -1089,13 +1095,16 @@ public class AdminHospital extends javax.swing.JPanel {
 
     private void btnOrderActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnOrderActionPerformed
         // TODO add your handling code here:
-        PharmacyOrders Ph = MakePhOrders();
-        AddPhOrderstoDB(Ph);
-        txtMedicineName.setText("");
-        txtQuantity.setText("");
-        PullPhOrderstoList();
-        populatePhOrderstable();
-        JOptionPane.showMessageDialog(this, "Order Placed");
+        if(checkOrder()){
+            PharmacyOrders Ph = MakePhOrders();
+            AddPhOrderstoDB(Ph);
+            txtMedicineName.setText("");
+            txtQuantity.setText("");
+            PullPhOrderstoList();
+            populatePhOrderstable();
+            JOptionPane.showMessageDialog(this, "Order Placed");
+        }
+        
     }//GEN-LAST:event_btnOrderActionPerformed
 
     private void btnPhDeleteOrderActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPhDeleteOrderActionPerformed
@@ -1178,4 +1187,41 @@ public class AdminHospital extends javax.swing.JPanel {
     private javax.swing.JTextField txtRatings;
     private javax.swing.JTextField txtTime;
     // End of variables declaration//GEN-END:variables
+
+    private boolean checkDoctor() {
+         Validation validate = new Validation();
+        if(!validate.isNotNullAndEmpty(txtFirstNameAH.getText()) || !validate.isAlphabetic(txtFirstNameAH.getText())){
+            JOptionPane.showMessageDialog(this, "Please enter valid first name");
+            return false;
+        }
+        else if(!validate.isNotNullAndEmpty(txtLastNameAH.getText()) || !validate.isAlphabetic(txtLastNameAH.getText())){
+            JOptionPane.showMessageDialog(this, "Please enter valid last name");
+            return false;
+        }else if(!validate.isNotNullAndEmpty(txtAvailableDays.getText()) || !validate.isNumeric(txtAvailableDays.getText())){
+            JOptionPane.showMessageDialog(this, "Please enter valid working days");
+            return false;
+        }else if(!validate.isNotNullAndEmpty(txtEmailIdAH.getText()) || !validate.isValidEmail(txtEmailIdAH.getText())){
+            JOptionPane.showMessageDialog(this, "Please enter valid email");
+            return false;
+        }else if(!validate.isNotNullAndEmpty(txtPasswordAH.getText())){
+            JOptionPane.showMessageDialog(this, "Please enter valid password");
+            return false;
+        } else{
+            return true;
+        }
+    }
+
+    private boolean checkOrder() {
+         Validation validate = new Validation();
+        if(!validate.isNotNullAndEmpty(txtMedicineName.getText())){
+            JOptionPane.showMessageDialog(this, "Please enter medicine");
+            return false;
+        }else if(!validate.isNotNullAndEmpty(txtQuantity.getText()) || !validate.isNumeric(txtQuantity.getText())){
+            JOptionPane.showMessageDialog(this, "Please enter valid quantity");
+            return false;
+        }else{
+            return true;
+        }
+
+    }
 }
