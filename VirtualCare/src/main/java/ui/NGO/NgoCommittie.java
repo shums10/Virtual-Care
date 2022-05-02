@@ -239,8 +239,10 @@ public class NgoCommittie extends javax.swing.JPanel {
 
     private void btnViewActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnViewActionPerformed
         // TODO add your handling code here:
-        if(NGORequestsTableNC.getSelectedRow() < 0)
+        if(NGORequestsTableNC.getSelectedRow() < 0){
+            JOptionPane.showMessageDialog(this, "Please select a record");
             return;
+        }
         int Row = NGORequestsTableNC.getSelectedRow();
         String PatientID = NGORequestsTableNC.getValueAt(Row, 0).toString();
         int Amount = Integer.parseInt(NGORequestsTableNC.getValueAt(Row, 2).toString());
