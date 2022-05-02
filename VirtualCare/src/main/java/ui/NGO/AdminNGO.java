@@ -227,8 +227,11 @@ public class AdminNGO extends javax.swing.JPanel {
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         // TODO add your handling code here:
-        if(NGORequestsTable.getSelectedRow() < 0)
+        if(NGORequestsTable.getSelectedRow() < 0){
+            JOptionPane.showMessageDialog(this, "Please select a record");
             return;
+        }
+          
         int Row = NGORequestsTable.getSelectedRow();
         String PatientID = NGORequestsTable.getValueAt(Row, 0).toString();
         int Amount = Integer.parseInt(NGORequestsTable.getValueAt(Row, 2).toString());
