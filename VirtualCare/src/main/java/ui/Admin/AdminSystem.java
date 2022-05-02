@@ -216,12 +216,16 @@ public class AdminSystem extends javax.swing.JPanel {
     boolean checkduplicateentry(){
         String Email = txtEmailIdAS.getText().trim();
         PullAdminstoHashMap();
-        
-        if(AdminMap.get(Email) == null){
-            return false;
+        try{
+            if(AdminMap.get(Email) == null){
+                return false;
+            }
+            else{
+                return true;
+            }
         }
-        else{
-            return true;
+        catch(NullPointerException E){
+            return false;
         }
     }
     

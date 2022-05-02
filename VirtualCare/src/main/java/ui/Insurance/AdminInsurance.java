@@ -107,11 +107,16 @@ public class AdminInsurance extends javax.swing.JPanel {
     boolean checkduplicateentry(){
         String Email = txtEmailAI.getText().trim();
         PullAgentstoHashMap();
-        if(InsAgentMap.get(Email) == null){
-            return false;
+        try{
+            if(InsAgentMap.get(Email) == null){
+                return false;
+            }
+            else{
+                return true;
+            }
         }
-        else{
-            return true;
+        catch(NullPointerException E){
+            return false;
         }
     }
     

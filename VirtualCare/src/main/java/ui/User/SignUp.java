@@ -158,11 +158,16 @@ public class SignUp extends javax.swing.JPanel {
     boolean checkduplicateentry(){
         String Email = txtEmailId.getText().trim();
         PullUserstoHashMap();
-        if(UserMap.get(Email) == null){
-            return false;
+        try{
+            if(UserMap.get(Email) == null){
+                return false;
+            }
+            else{
+                return true;
+            }
         }
-        else{
-            return true;
+        catch(NullPointerException E){
+            return false;
         }
     }
     
