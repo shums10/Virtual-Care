@@ -42,7 +42,6 @@ public class AdminSystem extends javax.swing.JPanel {
         this.UserMod = UserMod;
         this.OrgMod = OrgMod;
         this.SplitPane = SplitPane;
-//        DisplayImage();
     }
     
     JSplitPane SplitPane;
@@ -53,17 +52,7 @@ public class AdminSystem extends javax.swing.JPanel {
     DefaultTableModel UserMod;
     DefaultTableModel OrgMod;
     
-//    
-//    private void DisplayImage() {
-//     Path currentRelativePath = Paths.get("");
-//     String s = currentRelativePath.toAbsolutePath().toString();
-     
-     // Logout Button
-//     String FilePath1 = s+"/images/HC17.gif.";
-//     // URL imgLogin = getClass().getResource(FilePath1 );
-//     ImageIcon login1 = new ImageIcon(FilePath1);
-//     lblAdminDB.setIcon(login1);
-//    }
+
     
     void PullUserstoHashMap(){
         HashMap<String, UserDetails> UserMap = new HashMap<>();
@@ -84,6 +73,7 @@ public class AdminSystem extends javax.swing.JPanel {
         }
         this.UserMap = UserMap;
     }
+    
     void PullAdminstoHashMap(){
         HashMap<String, AdminDetails> AdminMap = new HashMap<>();
 
@@ -158,6 +148,7 @@ public class AdminSystem extends javax.swing.JPanel {
             JOptionPane.showMessageDialog(this, "Database Error.");
         }
     }
+    
     void RemoveAdminfromDB(AdminDetails a){
         try {
             UserSystem.Admindb.delete(a);
@@ -167,6 +158,7 @@ public class AdminSystem extends javax.swing.JPanel {
             JOptionPane.showMessageDialog(this, "Database Error.");
         }
     }
+    
     void displayOrgs(String Enterprise){
         OrgMod.setRowCount(0);
         try{

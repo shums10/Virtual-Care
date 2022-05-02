@@ -13,6 +13,7 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.HashMap;
 import java.util.Iterator;
 import java.util.LinkedHashSet;
 import java.util.List;
@@ -26,6 +27,7 @@ import model.DoctorDetails;
 import model.NGORequests;
 import model.UserDetails;
 import ui.Hospital.AdminHospital;
+import static ui.User.UserSystem.Userdb;
 
 /**
  *
@@ -68,6 +70,7 @@ public class UserDashboard extends javax.swing.JPanel {
     ArrayList<DoctorDetails> Doctors;
     ArrayList<AdminDetails> Admins;
     ArrayList<NGORequests> NGOReqs;
+    HashMap<String, UserDetails> UserMap;
     LinkedHashSet<String> Cities;
     LinkedHashSet<String> Departments;
     LinkedHashSet<String> NGOOrgs;
@@ -158,11 +161,42 @@ public class UserDashboard extends javax.swing.JPanel {
      // URL imgLogin = getClass().getResource(FilePath1 );
      ImageIcon login7 = new ImageIcon(FilePath7);
      lblcardbg.setIcon(login7);
-     
 
-     
      }
     
+    void PullUserstoHashMap(){
+        HashMap<String, UserDetails> UserMap = new HashMap<>();
+        UserDetails u;
+        
+        try {
+            List<UserDetails> userresult = Userdb.query(UserDetails.class);
+            
+            if(userresult.isEmpty())
+                return;
+
+            Iterator useritr = userresult.iterator();
+            while(useritr.hasNext()){
+                u = (UserDetails)useritr.next();
+                UserMap.put(u.getEmail(), u);
+            }
+        }
+        catch(DatabaseClosedException | Db4oIOException E){
+            JOptionPane.showMessageDialog(this, "Database Error.");
+        }
+        this.UserMap = UserMap;
+    }
+    
+    boolean checkduplicateentry(){
+        String Email = txtEmailIdUAD.getText().trim();
+        PullUserstoHashMap();
+        if(UserMap.get(Email) == null){
+            return false;
+        }
+        else{
+            return true;
+        }
+    }
+     
     void populateNGOOrgsHashSet(){
         LinkedHashSet<String> NGOOrgs = new LinkedHashSet<>();
         try{
@@ -235,8 +269,8 @@ public class UserDashboard extends javax.swing.JPanel {
             Iterator itr = Admins.iterator();
             while(itr.hasNext()){
                 AdminDetails a = (AdminDetails)itr.next();
-
-                if(a.getEnterprise().equalsIgnoreCase("Hospital") && cmbBoxCity.getSelectedItem().toString().equalsIgnoreCase(a.getLocation())){
+                
+                if(a.getEnterprise().equalsIgnoreCase("Hospital") && (cmbBoxCity.getSelectedItem().toString().equalsIgnoreCase(a.getLocation()) || cmbBoxCity.getSelectedItem().toString().equalsIgnoreCase("All"))){
                     PullDoctorstoList();
                     Iterator Dtr = Doctors.iterator();
                     int Avgprice = 0;
@@ -358,6 +392,26 @@ public class UserDashboard extends javax.swing.JPanel {
         }
     }
     
+    boolean checkduplicateappointments(DoctorDetails D){
+        ArrayList<DoctorDetails> Docs = new ArrayList<>();
+        try{
+            Docs = u.getAppointments();
+
+            Iterator itr = Docs.iterator();
+
+            while(itr.hasNext()){
+                DoctorDetails d = (DoctorDetails)itr.next();
+                if(D == d){
+                    return true;
+                }
+            }
+        }
+        catch(NullPointerException N){
+            return false;
+        }
+        return false;
+    }
+    
     void populatecitydropdown(){
         cmbBoxCity.removeAllItems();
             Iterator Ctr = Cities.iterator();
@@ -365,6 +419,7 @@ public class UserDashboard extends javax.swing.JPanel {
                 String x = Ctr.next().toString();
                 cmbBoxCity.addItem(x);
             }
+            cmbBoxCity.addItem("All");
     }
     
     void PullDoctorstoList(){
@@ -459,6 +514,22 @@ public class UserDashboard extends javax.swing.JPanel {
             }
     }
     
+    DoctorDetails PullDoctor(String Hospital){
+        ArrayList<DoctorDetails> Doctors = new ArrayList<>();
+        Doctors = this.Doctors;
+        int row = tableDoctors.getSelectedRow();
+        String FullName = tableDoctors.getValueAt(row, 0).toString();
+        String Department = tableDoctors.getValueAt(row, 1).toString();
+        Iterator itr = Doctors.iterator();
+        while(itr.hasNext()){
+            DoctorDetails D = (DoctorDetails)itr.next();
+            if((D.getFirstName()+D.getLastName()).equalsIgnoreCase(FullName) && D.getOrganisation().equalsIgnoreCase(Hospital) && D.getDepartment().equalsIgnoreCase(Department)){
+                return D;
+            }
+        }
+        DoctorDetails d = new DoctorDetails();
+        return d;
+    }
     
     
     boolean CheckBlankFieldsNGO(){
@@ -481,6 +552,8 @@ public class UserDashboard extends javax.swing.JPanel {
     
     void viewprescription(){
         int row = tableViewAppointment.getSelectedRow();
+        if(row<0)
+            return;
         String Doctor = tableViewAppointment.getValueAt(row, 1).toString();
         String Hospital = tableViewAppointment.getValueAt(row, 0).toString();
         try{
@@ -762,7 +835,7 @@ public class UserDashboard extends javax.swing.JPanel {
                 .addGroup(ViewAppointmentsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(lblPrescription, javax.swing.GroupLayout.PREFERRED_SIZE, 267, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(lblViewAppointments, javax.swing.GroupLayout.PREFERRED_SIZE, 413, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(124, Short.MAX_VALUE))
+                .addContainerGap(517, Short.MAX_VALUE))
         );
 
         cardLayout.add(ViewAppointments, "card4");
@@ -976,7 +1049,7 @@ public class UserDashboard extends javax.swing.JPanel {
                     .addGroup(FundRequestLayout.createSequentialGroup()
                         .addGap(89, 89, 89)
                         .addComponent(lblFundRequest, javax.swing.GroupLayout.PREFERRED_SIZE, 503, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(208, Short.MAX_VALUE))
+                .addContainerGap(589, Short.MAX_VALUE))
         );
 
         cardLayout.add(FundRequest, "card6");
@@ -1130,23 +1203,20 @@ public class UserDashboard extends javax.swing.JPanel {
         AccountDetailsLayout.setHorizontalGroup(
             AccountDetailsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(AccountDetailsLayout.createSequentialGroup()
+                .addContainerGap()
                 .addGroup(AccountDetailsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(AccountDetailsLayout.createSequentialGroup()
-                        .addContainerGap()
-                        .addGroup(AccountDetailsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(lblFirstName)
-                            .addComponent(lblLastName)
-                            .addComponent(lblStreet)
-                            .addComponent(lblCity2)
-                            .addComponent(lblCity1)
-                            .addComponent(lblEmailId)
-                            .addComponent(lblPassword)
-                            .addComponent(lblReenterPassword)
-                            .addComponent(lblPhoneNumber)))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, AccountDetailsLayout.createSequentialGroup()
-                        .addGap(187, 187, 187)
-                        .addComponent(lblAge)))
-                .addGap(47, 47, 47)
+                    .addGroup(AccountDetailsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                        .addComponent(lblFirstName)
+                        .addComponent(lblLastName)
+                        .addComponent(lblStreet)
+                        .addComponent(lblCity2)
+                        .addComponent(lblCity1)
+                        .addComponent(lblEmailId)
+                        .addComponent(lblPassword)
+                        .addComponent(lblReenterPassword)
+                        .addComponent(lblPhoneNumber))
+                    .addComponent(lblAge))
+                .addGap(222, 222, 222)
                 .addGroup(AccountDetailsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addGroup(AccountDetailsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                         .addGroup(AccountDetailsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
@@ -1172,7 +1242,7 @@ public class UserDashboard extends javax.swing.JPanel {
                     .addGroup(AccountDetailsLayout.createSequentialGroup()
                         .addContainerGap()
                         .addComponent(lblAccountDetails, javax.swing.GroupLayout.PREFERRED_SIZE, 688, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(506, Short.MAX_VALUE))
+                .addContainerGap(500, Short.MAX_VALUE))
         );
 
         AccountDetailsLayout.linkSize(javax.swing.SwingConstants.HORIZONTAL, new java.awt.Component[] {lblAge, lblCity1, lblCity2, lblEmailId, lblFirstName, lblLastName, lblPassword, lblPhoneNumber, lblReenterPassword, lblStreet});
@@ -1189,10 +1259,13 @@ public class UserDashboard extends javax.swing.JPanel {
                             .addComponent(txtLastNameUAD, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(lblLastName)))
                     .addComponent(lblFirstName))
-                .addGap(19, 19, 19)
                 .addGroup(AccountDetailsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(txtDobUAD, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(lblAge))
+                    .addGroup(AccountDetailsLayout.createSequentialGroup()
+                        .addGap(19, 19, 19)
+                        .addComponent(txtDobUAD, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(AccountDetailsLayout.createSequentialGroup()
+                        .addGap(18, 18, 18)
+                        .addComponent(lblAge)))
                 .addGap(14, 14, 14)
                 .addGroup(AccountDetailsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(lblPhoneNumber)
@@ -1339,38 +1412,44 @@ public class UserDashboard extends javax.swing.JPanel {
 
     private void btnUpdateUADActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnUpdateUADActionPerformed
         // TODO add your handling code here:
+        PullUserstoHashMap();
         if(CheckBlankFields()){
-            try{
-            if(Arrays.toString(txtOldPasswordUAD.getPassword()).equals(u.getPassword())){
-                if(!txtFirstNameUAD.getText().trim().equals(""))
-                    u.setFirstName(txtFirstNameUAD.getText().trim());
-                if(!txtLastNameUAD.getText().trim().equals(""))
-                    u.setLastName(txtLastNameUAD.getText().trim()); 
-                if(!txtDobUAD.getDateFormatString().trim().equals("")){
-                    SimpleDateFormat formatter = new SimpleDateFormat("dd-MMM-yyyy");
-                    u.setDOB(formatter.format(txtDobUAD.getDate()));
+            if(!checkduplicateentry()){
+                try{
+                if(Arrays.toString(txtOldPasswordUAD.getPassword()).equals(u.getPassword())){
+                    if(!txtFirstNameUAD.getText().trim().equals(""))
+                        u.setFirstName(txtFirstNameUAD.getText().trim());
+                    if(!txtLastNameUAD.getText().trim().equals(""))
+                        u.setLastName(txtLastNameUAD.getText().trim()); 
+                    if(!txtDobUAD.getDateFormatString().trim().equals("")){
+                        SimpleDateFormat formatter = new SimpleDateFormat("dd-MMM-yyyy");
+                        u.setDOB(formatter.format(txtDobUAD.getDate()));
+                    }
+                    if(!txtPhoneNumberAD.getText().trim().equals(""))
+                        u.setPhonenumber(Long.parseLong(txtPhoneNumberAD.getText().trim()));
+                    if(!txtStreetUAD.getText().trim().equals(""))
+                        u.setStreet(txtStreetUAD.getText().trim());
+                    if(!txtCityUAD.getText().trim().equals(""))
+                        u.setCity(txtCityUAD.getText().trim());
+                    if(!txtPinCodeUAD.getText().trim().equals(""))
+                        u.setPinCode(Integer.parseInt(txtPinCodeUAD.getText().trim()));
+                    if(!txtEmailIdUAD.getText().trim().equals(""))
+                        u.setEmail(txtEmailIdUAD.getText().trim());
+                    if(!(new String(txtNewPasswordUAD.getPassword()).equals("")))
+                        u.setPassword(Arrays.toString(txtNewPasswordUAD.getPassword()));
+
+                    SignUp.AddUsertoDB(u);
+                    JOptionPane.showMessageDialog(this, "Details Updated.");
                 }
-                if(!txtPhoneNumberAD.getText().trim().equals(""))
-                    u.setPhonenumber(Long.parseLong(txtPhoneNumberAD.getText().trim()));
-                if(!txtStreetUAD.getText().trim().equals(""))
-                    u.setStreet(txtStreetUAD.getText().trim());
-                if(!txtCityUAD.getText().trim().equals(""))
-                    u.setCity(txtCityUAD.getText().trim());
-                if(!txtPinCodeUAD.getText().trim().equals(""))
-                    u.setPinCode(Integer.parseInt(txtPinCodeUAD.getText().trim()));
-                if(!txtEmailIdUAD.getText().trim().equals(""))
-                    u.setEmail(txtEmailIdUAD.getText().trim());
-                if(!(new String(txtNewPasswordUAD.getPassword()).equals("")))
-                    u.setPassword(Arrays.toString(txtNewPasswordUAD.getPassword()));
-            
-                SignUp.AddUsertoDB(u);
-                JOptionPane.showMessageDialog(this, "Details Updated.");
+                else
+                    JOptionPane.showMessageDialog(this, "Incorrect Password.");
+                }
+                catch(NumberFormatException E){
+                    JOptionPane.showMessageDialog(this, "PinCode should be a number.");
+                }
             }
-            else
-                JOptionPane.showMessageDialog(this, "Incorrect Password.");
-            }
-            catch(NumberFormatException E){
-                JOptionPane.showMessageDialog(this, "PinCode should be a number.");
+            else{
+                JOptionPane.showMessageDialog(this, "Email already Exists");
             }
         }
        
@@ -1408,8 +1487,15 @@ public class UserDashboard extends javax.swing.JPanel {
         // TODO add your handling code here:
         if(tableDoctors.getSelectedRow() < 0)
             return;
-        BookAppointment();
-        JOptionPane.showMessageDialog(this, "Appointment Booked.");
+        String Hospital = tableHospitals.getValueAt(tableHospitals.getSelectedRow(), 0).toString();
+        DoctorDetails D = PullDoctor(Hospital);
+        if(!checkduplicateappointments(D)){
+            BookAppointment();
+            JOptionPane.showMessageDialog(this, "Appointment Booked.");
+        }
+        else{
+            JOptionPane.showMessageDialog(this, "Appointment Already Exists.");
+        }
     }//GEN-LAST:event_btnBookAppointmentActionPerformed
 
     private void btnRequestActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRequestActionPerformed

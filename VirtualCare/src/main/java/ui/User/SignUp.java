@@ -403,6 +403,9 @@ public class SignUp extends javax.swing.JPanel {
                         JOptionPane.showMessageDialog(this, "PINCode should be a number.");
                     }
                 }
+                else{
+                    JOptionPane.showMessageDialog(this, "Email Already Exists");
+                }
             }      
             else
                 JOptionPane.showMessageDialog(this, "Re-enter Correct Password.");

@@ -255,6 +255,8 @@ public class AdminNGO extends javax.swing.JPanel {
             N.setStatus("Committee Review");
             UserDashboard.AddNGOtoDB(N);
             JOptionPane.showMessageDialog(this, "Request forwarded to committee.");
+            lblExplainationbox.setText("");
+            this.N = null;
             populateNGOtable();
         }
     }//GEN-LAST:event_jButton2ActionPerformed
@@ -268,6 +270,8 @@ public class AdminNGO extends javax.swing.JPanel {
             N.setStatus("Declined");
             UserDashboard.AddNGOtoDB(N);
             JOptionPane.showMessageDialog(this, "Request Declined.");
+            lblExplainationbox.setText("");
+            this.N = null;
             populateNGOtable();
         }
     }//GEN-LAST:event_jButton3ActionPerformed
