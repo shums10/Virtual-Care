@@ -196,7 +196,7 @@ public class AdminPharmacy extends javax.swing.JPanel {
         jTextField4 = new javax.swing.JTextField();
         jPasswordField1 = new javax.swing.JPasswordField();
 
-        setBackground(new java.awt.Color(204, 204, 204));
+        setBackground(new java.awt.Color(51, 153, 255));
 
         jPanel1.setBackground(new java.awt.Color(0, 102, 204));
 
@@ -250,6 +250,7 @@ public class AdminPharmacy extends javax.swing.JPanel {
                 .addContainerGap(315, Short.MAX_VALUE))
         );
 
+        CardLayout.setBackground(new java.awt.Color(51, 153, 255));
         CardLayout.setLayout(new java.awt.CardLayout());
 
         AssignDelivery.setBackground(new java.awt.Color(51, 153, 255));
@@ -359,7 +360,7 @@ public class AdminPharmacy extends javax.swing.JPanel {
                         .addComponent(jLabel6)
                         .addGap(34, 34, 34)
                         .addComponent(jTextField4, javax.swing.GroupLayout.PREFERRED_SIZE, 154, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(274, Short.MAX_VALUE))
+                .addContainerGap(221, Short.MAX_VALUE))
         );
         AddDeliveryHeadLayout.setVerticalGroup(
             AddDeliveryHeadLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -395,12 +396,12 @@ public class AdminPharmacy extends javax.swing.JPanel {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(791, Short.MAX_VALUE))
+                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, 163, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 0, 0))
             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                    .addContainerGap(166, Short.MAX_VALUE)
-                    .addComponent(CardLayout, javax.swing.GroupLayout.PREFERRED_SIZE, 797, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addContainerGap(215, Short.MAX_VALUE)
+                    .addComponent(CardLayout, javax.swing.GroupLayout.PREFERRED_SIZE, 748, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addContainerGap()))
         );
         layout.setVerticalGroup(

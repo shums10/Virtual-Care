@@ -145,17 +145,17 @@ public class InsuranceCommittie extends javax.swing.JPanel {
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap(109, Short.MAX_VALUE)
+                .addGap(200, 200, 200)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 664, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(92, 92, 92))
             .addGroup(layout.createSequentialGroup()
-                .addGap(131, 131, 131)
+                .addGap(200, 200, 200)
                 .addComponent(btnLogoutIC)
                 .addGap(39, 39, 39)
                 .addComponent(btnApproveIC)
                 .addGap(139, 139, 139)
                 .addComponent(btnDeclineIC)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGap(0, 0, 0))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
