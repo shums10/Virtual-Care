@@ -16,7 +16,10 @@ import java.util.LinkedHashSet;
 public class UserDetails{
     private int PinCode;
     private long phonenumber;
+    private boolean RegistrationForm;
 
+
+    
     public long getPhonenumber() {
         return phonenumber;
     }
@@ -99,5 +102,13 @@ public class UserDetails{
 
     public void setPassword(String Password) {
         this.Password = Password;
+    }
+
+    public boolean isRegistrationForm() {
+        return RegistrationForm;
+    }
+
+    public void setRegistrationForm(boolean RegistrationForm) {
+        this.RegistrationForm = RegistrationForm;
     }
 }
