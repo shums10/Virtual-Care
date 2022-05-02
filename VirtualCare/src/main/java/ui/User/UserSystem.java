@@ -350,8 +350,6 @@ public class UserSystem extends javax.swing.JFrame {
 
         lblOrg.setText("Organisation");
 
-        lblDB.setSize(new java.awt.Dimension(1000, 16));
-
         javax.swing.GroupLayout LogInPanelLayout = new javax.swing.GroupLayout(LogInPanel);
         LogInPanel.setLayout(LogInPanelLayout);
         LogInPanelLayout.setHorizontalGroup(

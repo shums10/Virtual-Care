@@ -347,11 +347,6 @@
               </Properties>
             </Component>
             <Component class="javax.swing.JLabel" name="lblDB">
-              <Properties>
-                <Property name="size" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
-                  <Dimension value="[1000, 16]"/>
-                </Property>
-              </Properties>
             </Component>
           </SubComponents>
         </Container>
