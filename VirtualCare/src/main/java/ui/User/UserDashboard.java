@@ -4,6 +4,7 @@
  */
 package ui.User;
 
+import CommonUtils.EmailUtility;
 import com.db4o.ext.DatabaseClosedException;
 import com.db4o.ext.Db4oIOException;
 import java.awt.CardLayout;
@@ -787,6 +788,11 @@ public class UserDashboard extends javax.swing.JPanel {
         jScrollPane2.setViewportView(tableViewAppointment);
 
         btnJoinVirtually.setText("Join Virtually");
+        btnJoinVirtually.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnJoinVirtuallyActionPerformed(evt);
+            }
+        });
 
         ViewPrescription.setText("View Prescription");
         ViewPrescription.addActionListener(new java.awt.event.ActionListener() {
@@ -1526,6 +1532,12 @@ public class UserDashboard extends javax.swing.JPanel {
         String Hospital = tableHospitals.getValueAt(tableHospitals.getSelectedRow(), 0).toString();
         populateDoctorstable(Hospital);
     }//GEN-LAST:event_cmbDepartmentActionPerformed
+
+    private void btnJoinVirtuallyActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnJoinVirtuallyActionPerformed
+        // TODO add your handling code here:
+        u.setRegistrationForm(false);
+        new EmailUtility().sendMail(u);
+    }//GEN-LAST:event_btnJoinVirtuallyActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
