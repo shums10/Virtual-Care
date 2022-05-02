@@ -4,9 +4,11 @@
  */
 package ui.Insurance;
 
+import CommonUtils.Validation;
 import com.db4o.ext.DatabaseClosedException;
 import com.db4o.ext.Db4oIOException;
 import java.awt.CardLayout;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Iterator;
@@ -14,10 +16,16 @@ import java.util.List;
 import javax.swing.JOptionPane;
 import javax.swing.JSplitPane;
 import javax.swing.table.DefaultTableModel;
+import javax.xml.transform.Result;
+import javax.xml.transform.Source;
+import javax.xml.validation.Validator;
 import model.AdminDetails;
 import model.InsuranceAgentDetails;
 import model.InsuranceRequests;
 import model.PharmacyOrders;
+import org.w3c.dom.ls.LSResourceResolver;
+import org.xml.sax.ErrorHandler;
+import org.xml.sax.SAXException;
 import ui.Hospital.AdminHospital;
 import ui.User.UserSystem;
 
@@ -97,19 +105,19 @@ public class AdminInsurance extends javax.swing.JPanel {
     
     
     boolean checkAgent(){
-        if(txtFirstNameAI.getText().equals("")){
-            JOptionPane.showMessageDialog(this, "Fill all the fields");
+        Validation validate =new Validation();
+        if(!validate.isNotNullAndEmpty(txtFirstNameAI.getText()) || !validate.isAlphabetic(txtFirstNameAI.getText())){
+            JOptionPane.showMessageDialog(this, "Please enter valid first name");
             return false;
         }
-        else if(txtLastNameAI.getText().equals("")){
-            JOptionPane.showMessageDialog(this, "Fill all the fields");
+        else if(!validate.isNotNullAndEmpty(txtLastNameAI.getText()) || !validate.isAlphabetic(txtLastNameAI.getText())){
+            JOptionPane.showMessageDialog(this, "Please enter valid last name");
             return false;
         }
-        else if(txtEmailAI.getText().equals("")){
-            JOptionPane.showMessageDialog(this, "Fill all the fields");
+        else if(!validate.isNotNullAndEmpty(txtEmailAI.getText()) || !validate.isValidEmail(txtEmailAI.getText())){
+            JOptionPane.showMessageDialog(this, "Please enter valid email");
             return false;
-        }
-        else if(txtIAPassword.getText().equals("")){
+        }else if(!validate.isNotNullAndEmpty(txtIAPassword.getText())){
             JOptionPane.showMessageDialog(this, "Fill all the fields");
             return false;
         }
