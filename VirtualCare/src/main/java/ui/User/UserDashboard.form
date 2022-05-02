@@ -234,7 +234,7 @@
                           <Component id="lblPrescription" min="-2" pref="267" max="-2" attributes="0"/>
                           <Component id="lblViewAppointments" min="-2" pref="413" max="-2" attributes="0"/>
                       </Group>
-                      <EmptySpace pref="124" max="32767" attributes="0"/>
+                      <EmptySpace pref="517" max="32767" attributes="0"/>
                   </Group>
               </Group>
             </DimensionLayout>
@@ -600,7 +600,7 @@
                               <Component id="lblFundRequest" min="-2" pref="503" max="-2" attributes="0"/>
                           </Group>
                       </Group>
-                      <EmptySpace pref="208" max="32767" attributes="0"/>
+                      <EmptySpace pref="589" max="32767" attributes="0"/>
                   </Group>
               </Group>
             </DimensionLayout>
@@ -919,27 +919,22 @@
             <DimensionLayout dim="0">
               <Group type="103" groupAlignment="0" attributes="0">
                   <Group type="102" alignment="0" attributes="0">
+                      <EmptySpace max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="0" attributes="0">
-                          <Group type="102" attributes="0">
-                              <EmptySpace min="-2" max="-2" attributes="0"/>
-                              <Group type="103" groupAlignment="1" attributes="0">
-                                  <Component id="lblFirstName" linkSize="1" alignment="1" min="-2" max="-2" attributes="0"/>
-                                  <Component id="lblLastName" linkSize="1" alignment="1" min="-2" max="-2" attributes="0"/>
-                                  <Component id="lblStreet" linkSize="1" alignment="1" min="-2" max="-2" attributes="0"/>
-                                  <Component id="lblCity2" linkSize="1" alignment="1" min="-2" max="-2" attributes="0"/>
-                                  <Component id="lblCity1" linkSize="1" alignment="1" min="-2" max="-2" attributes="0"/>
-                                  <Component id="lblEmailId" linkSize="1" alignment="1" min="-2" max="-2" attributes="0"/>
-                                  <Component id="lblPassword" linkSize="1" alignment="1" min="-2" max="-2" attributes="0"/>
-                                  <Component id="lblReenterPassword" linkSize="1" alignment="1" min="-2" max="-2" attributes="0"/>
-                                  <Component id="lblPhoneNumber" linkSize="1" alignment="1" min="-2" max="-2" attributes="0"/>
-                              </Group>
+                          <Group type="103" groupAlignment="1" attributes="0">
+                              <Component id="lblFirstName" linkSize="1" alignment="1" min="-2" max="-2" attributes="0"/>
+                              <Component id="lblLastName" linkSize="1" alignment="1" min="-2" max="-2" attributes="0"/>
+                              <Component id="lblStreet" linkSize="1" alignment="1" min="-2" max="-2" attributes="0"/>
+                              <Component id="lblCity2" linkSize="1" alignment="1" min="-2" max="-2" attributes="0"/>
+                              <Component id="lblCity1" linkSize="1" alignment="1" min="-2" max="-2" attributes="0"/>
+                              <Component id="lblEmailId" linkSize="1" alignment="1" min="-2" max="-2" attributes="0"/>
+                              <Component id="lblPassword" linkSize="1" alignment="1" min="-2" max="-2" attributes="0"/>
+                              <Component id="lblReenterPassword" linkSize="1" alignment="1" min="-2" max="-2" attributes="0"/>
+                              <Component id="lblPhoneNumber" linkSize="1" alignment="1" min="-2" max="-2" attributes="0"/>
                           </Group>
-                          <Group type="102" alignment="1" attributes="0">
-                              <EmptySpace min="-2" pref="187" max="-2" attributes="0"/>
-                              <Component id="lblAge" linkSize="1" min="-2" max="-2" attributes="0"/>
-                          </Group>
+                          <Component id="lblAge" linkSize="1" alignment="0" min="-2" max="-2" attributes="0"/>
                       </Group>
-                      <EmptySpace min="-2" pref="47" max="-2" attributes="0"/>
+                      <EmptySpace min="-2" pref="222" max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="1" attributes="0">
                           <Group type="103" groupAlignment="0" attributes="0">
                               <Group type="103" groupAlignment="1" attributes="0">
@@ -975,7 +970,7 @@
                               <Component id="lblAccountDetails" min="-2" pref="688" max="-2" attributes="0"/>
                           </Group>
                       </Group>
-                      <EmptySpace pref="506" max="32767" attributes="0"/>
+                      <EmptySpace pref="500" max="32767" attributes="0"/>
                   </Group>
               </Group>
             </DimensionLayout>
@@ -994,10 +989,15 @@
                           </Group>
                           <Component id="lblFirstName" alignment="0" min="-2" max="-2" attributes="0"/>
                       </Group>
-                      <EmptySpace min="-2" pref="19" max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="0" attributes="0">
-                          <Component id="txtDobUAD" min="-2" max="-2" attributes="0"/>
-                          <Component id="lblAge" min="-2" max="-2" attributes="0"/>
+                          <Group type="102" attributes="0">
+                              <EmptySpace min="-2" pref="19" max="-2" attributes="0"/>
+                              <Component id="txtDobUAD" min="-2" max="-2" attributes="0"/>
+                          </Group>
+                          <Group type="102" alignment="0" attributes="0">
+                              <EmptySpace type="separate" max="-2" attributes="0"/>
+                              <Component id="lblAge" min="-2" max="-2" attributes="0"/>
+                          </Group>
                       </Group>
                       <EmptySpace min="-2" pref="14" max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="3" attributes="0">
