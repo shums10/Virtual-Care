@@ -414,8 +414,10 @@ public class AdminPharmacy extends javax.swing.JPanel {
 
     private void btnDeliveredActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDeliveredActionPerformed
         // TODO add your handling code here:
-        if(tblMedicineRequests.getSelectedRow() < 0)
+        if(tblMedicineRequests.getSelectedRow() < 0){
+            JOptionPane.showMessageDialog(this, "Please select a record");
             return;
+        }
         int Row = tblMedicineRequests.getSelectedRow();
         String Medicine = tblMedicineRequests.getValueAt(Row, 1).toString();
         String Hospital = tblMedicineRequests.getValueAt(Row, 0).toString();
