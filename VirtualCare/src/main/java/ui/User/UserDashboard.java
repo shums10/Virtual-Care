@@ -1413,7 +1413,6 @@ public class UserDashboard extends javax.swing.JPanel {
     private void btnUpdateUADActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnUpdateUADActionPerformed
         // TODO add your handling code here:
         PullUserstoHashMap();
-        if(CheckBlankFields()){
             if(!checkduplicateentry()){
                 try{
                 if(Arrays.toString(txtOldPasswordUAD.getPassword()).equals(u.getPassword())){
@@ -1451,8 +1450,6 @@ public class UserDashboard extends javax.swing.JPanel {
             else{
                 JOptionPane.showMessageDialog(this, "Email already Exists");
             }
-        }
-       
     }//GEN-LAST:event_btnUpdateUADActionPerformed
 
     private void txtNewPasswordUADActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtNewPasswordUADActionPerformed
