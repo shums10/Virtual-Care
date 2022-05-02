@@ -1109,8 +1109,10 @@ public class AdminHospital extends javax.swing.JPanel {
 
     private void btnPhDeleteOrderActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPhDeleteOrderActionPerformed
         // TODO add your handling code here:
-        if(tblPharmacy.getSelectedRow() < 0)
-            return;
+        if(tblPharmacy.getSelectedRow() < 0){
+             JOptionPane.showMessageDialog(this, "Please select a record");
+             return;
+        }
         int row = tblPharmacy.getSelectedRow();
         String Pharmacy = tblPharmacy.getValueAt(row, 0).toString();
         String Medicine = tblPharmacy.getValueAt(row, 1).toString();
