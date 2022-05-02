@@ -41,8 +41,9 @@ public void sendMail(UserDetails user) {
     MimeMessage message = new MimeMessage(session);
     message.setFrom(new InternetAddress(sender));
     message.addRecipient(Message.RecipientType.TO, new InternetAddress(receiverEmail));
-    message.setSubject("Registration Successful");
+    
     if(user.isRegistrationForm()){
+    message.setSubject("Registration Successful");
     message.setText("Dear "+user.getFirstName()+", "
     + "\n\n Thank you for registering "
     + "\n\n Please find your login details- "
@@ -51,6 +52,7 @@ public void sendMail(UserDetails user) {
     + "\n\n\n Regards, "
     + "\n Virtual Care");
     }else{
+         message.setSubject("Virtual Appointment Confirmation");
          message.setText("Dear "+user.getFirstName()+", "
         + "\n\n Please find below link to join virtually"
         + "\n\n Zoom Link:"
