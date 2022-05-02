@@ -173,8 +173,10 @@ public class InsuranceCommittie extends javax.swing.JPanel {
 
     private void btnApproveICActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnApproveICActionPerformed
         // TODO add your handling code here:
-        if(tblViewInsuranceRequest.getSelectedRow() < 0)
+        if(tblViewInsuranceRequest.getSelectedRow() < 0){
+            JOptionPane.showMessageDialog(this, "Please select a record");
             return;
+        }
         int Row = tblViewInsuranceRequest.getSelectedRow();
         String PatientEmail = tblViewInsuranceRequest.getValueAt(Row, 1).toString();
         String Hospital = tblViewInsuranceRequest.getValueAt(Row, 0).toString();
@@ -206,8 +208,10 @@ public class InsuranceCommittie extends javax.swing.JPanel {
 
     private void btnDeclineICActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDeclineICActionPerformed
         // TODO add your handling code here:
-        if(tblViewInsuranceRequest.getSelectedRow() < 0)
+        if(tblViewInsuranceRequest.getSelectedRow() < 0){
+            JOptionPane.showMessageDialog(this, "Please select a record");
             return;
+        }
         int Row = tblViewInsuranceRequest.getSelectedRow();
         String PatientEmail = tblViewInsuranceRequest.getValueAt(Row, 1).toString();
         String Hospital = tblViewInsuranceRequest.getValueAt(Row, 0).toString();
