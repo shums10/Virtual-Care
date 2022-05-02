@@ -4,6 +4,7 @@
  */
 package ui.Admin;
 
+import CommonUtils.Validation;
 import com.db4o.ext.DatabaseClosedException;
 import com.db4o.ext.Db4oIOException;
 import java.awt.CardLayout;
@@ -178,25 +179,26 @@ public class AdminSystem extends javax.swing.JPanel {
         }
     }
     
-    boolean CheckBlankFields(){
-        if(txtNameOfOrganisationAS.getText().trim().equals("")){
-            JOptionPane.showMessageDialog(this, "Fields can't be blank");
+    boolean checkFields(){
+        Validation validate =new Validation();
+        if(!validate.isNotNullAndEmpty(txtNameOfOrganisationAS.getText())){
+            JOptionPane.showMessageDialog(this, "Please enter Organisation name");
             return false;
         }
-        else if(txtLocationAS.getText().trim().equals("")){
-            JOptionPane.showMessageDialog(this, "Fields can't be blank");
+        else if(!validate.isNotNullAndEmpty(txtLocationAS.getText()) || !validate.isAlphabetic(txtLocationAS.getText())){
+            JOptionPane.showMessageDialog(this, "Please enter valid location");
             return false;
         }
-        else if(txtRatingsAS.getText().trim().equals("")){
-            JOptionPane.showMessageDialog(this, "Fields can't be blank");
+        else if(!validate.isNotNullAndEmpty(txtRatingsAS.getText()) || !validate.isNumeric(txtRatingsAS.getText())){
+            JOptionPane.showMessageDialog(this, "Please enter valid rating");
             return false;
         }
-        else if(txtEmailIdAS.getText().trim().equals("")){
-            JOptionPane.showMessageDialog(this, "Fields can't be blank");
+        else if(!validate.isNotNullAndEmpty(txtEmailIdAS.getText()) || !validate.isValidEmail(txtEmailIdAS.getText())){
+            JOptionPane.showMessageDialog(this, "Please enter valid email");
             return false;
         }
-        else if(txtPasswordAS.getText().trim().equals("")){
-            JOptionPane.showMessageDialog(this, "Fields can't be blank");
+        else if(!validate.isNotNullAndEmpty(txtPasswordAS.getText())){
+            JOptionPane.showMessageDialog(this, "Please enter password");
             return false;
         }
         else
@@ -622,17 +624,17 @@ public class AdminSystem extends javax.swing.JPanel {
 
     private void jButton1ASActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ASActionPerformed
         // TODO add your handling code here:
-        if(CheckBlankFields()){
+        if(checkFields()){
             try{
                 AdminDetails a = makeAdmin();
                 AddAdmintoDB(a);
                 JOptionPane.showMessageDialog(this, "Organization Added");
+                clearorgfields();
             }
             catch(NumberFormatException E){
                 JOptionPane.showMessageDialog(this, "Ratings should be a number");
             }
-        }
-        clearorgfields();
+        }  
     }//GEN-LAST:event_jButton1ASActionPerformed
 
     private void btnLogOutActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLogOutActionPerformed
@@ -667,6 +669,10 @@ public class AdminSystem extends javax.swing.JPanel {
 
     private void btnDeleteUserActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDeleteUserActionPerformed
         // TODO add your handling code here:
+        if(UsersTable.getSelectedRow()<1){
+            JOptionPane.showMessageDialog(this, "Please select a record");
+            return;
+        }
         int Row = UsersTable.getSelectedRow();
         UserDetails u = UserMap.get(UsersTable.getValueAt(Row, 3).toString());
         RemoveuserfromDB(u);
@@ -677,6 +683,10 @@ public class AdminSystem extends javax.swing.JPanel {
 
     private void btnDeleteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDeleteActionPerformed
         // TODO add your handling code here:
+        if(tableViewOrganisations.getSelectedRow()<1){
+            JOptionPane.showMessageDialog(this, "Please select a record");
+            return;
+        }
         int Row = tableViewOrganisations.getSelectedRow();
         AdminDetails a = AdminMap.get(tableViewOrganisations.getValueAt(Row, 2).toString());
         RemoveAdminfromDB(a);
@@ -688,6 +698,10 @@ public class AdminSystem extends javax.swing.JPanel {
 
     private void btnEditActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEditActionPerformed
         // TODO add your handling code here:
+        if(tableViewOrganisations.getSelectedRow()<1){
+            JOptionPane.showMessageDialog(this, "Please select a record");
+            return;
+        }
         int Row = tableViewOrganisations.getSelectedRow();
         AdminDetails a = AdminMap.get(tableViewOrganisations.getValueAt(Row, 2).toString());
         a.setOrganization(tableViewOrganisations.getValueAt(Row, 0).toString().trim());
