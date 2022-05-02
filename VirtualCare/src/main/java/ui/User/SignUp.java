@@ -4,6 +4,8 @@
  */
 package ui.User;
 
+import CommonUtils.EmailUtility;
+import CommonUtils.Validation;
 import model.UserDetails;
 import com.db4o.ext.DatabaseClosedException;
 import com.db4o.ext.Db4oIOException;
@@ -110,37 +112,35 @@ public class SignUp extends javax.swing.JPanel {
         txtReenterPassword.setText("");
     }
 
-    boolean CheckBlankFields(){
-        if(txtCity.getText().trim().equals("")){
-            JOptionPane.showMessageDialog(this, "Fields can't be blank");
+    boolean checkRegistrationFields(){
+        Validation validate = new Validation();
+        if(!validate.isNotNullAndEmpty(txtFirstName.getText()) || !validate.isAlphabetic(txtFirstName.getText()) ){
+            JOptionPane.showMessageDialog(this, "Please enter valid first name");
             return false;
         }
-        else if(txtDoB.getDate().equals("")){
-            JOptionPane.showMessageDialog(this, "Fields can't be blank");
+        else if(!validate.isNotNullAndEmpty(txtLastName.getText()) || !validate.isAlphabetic(txtLastName.getText()) ){
+            JOptionPane.showMessageDialog(this, "Please enter valid last name");
             return false;
         }
-        else if(txtEmailId.getText().trim().equals("")){
-            JOptionPane.showMessageDialog(this, "Fields can't be blank");
+        else if(!validate.isNotNullAndEmpty(txtDoB.getDateFormatString())){
+            JOptionPane.showMessageDialog(this, "Please select a valid date");
             return false;
         }
-        else if(txtFirstName.getText().trim().equals("")){
-            JOptionPane.showMessageDialog(this, "Fields can't be blank");
+        else if(!validate.isNotNullAndEmpty(txtStreet.getText())){
+            JOptionPane.showMessageDialog(this, "Please enter street");
+            return false;
+        }else if(!validate.isNotNullAndEmpty(txtCity.getText()) || !validate.isAlphabetic(txtCity.getText())){
+            JOptionPane.showMessageDialog(this, "Please enter valid city");
             return false;
         }
-        else if(txtLastName.getText().trim().equals("")){
-            JOptionPane.showMessageDialog(this, "Fields can't be blank");
+        else if(!validate.isNotNullAndEmpty(txtPinCode.getText())|| !validate.isNumeric(txtPinCode.getText())){
+            JOptionPane.showMessageDialog(this, "Please enter valid pincode");
             return false;
-        }
-        else if(txtPinCode.getText().trim().equals("")){
-            JOptionPane.showMessageDialog(this, "Fields can't be blank");
+        }else if(!validate.isNotNullAndEmpty(txtEmailId.getText())|| !validate.isValidEmail(txtEmailId.getText())){
+            JOptionPane.showMessageDialog(this, "Please enter valid email");
             return false;
-        }
-        else if(txtStreet.getText().trim().equals("")){
-            JOptionPane.showMessageDialog(this, "Fields can't be blank");
-            return false;
-        }
-        else if(txtPassword.getText().trim().equals("")){
-            JOptionPane.showMessageDialog(this, "Fields can't be blank");
+        }else if(!validate.isNotNullAndEmpty(txtPassword.getText()) || !validate.isNotNullAndEmpty(txtReenterPassword.getText())){
+            JOptionPane.showMessageDialog(this, "Password cannot be empty");
             return false;
         }
         else{
@@ -390,11 +390,13 @@ public class SignUp extends javax.swing.JPanel {
 
     private void btnRegisterActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRegisterActionPerformed
         // TODO add your handling code here:
-        if(CheckBlankFields()){
+        if(checkRegistrationFields()){
             if(Arrays.toString(txtPassword.getPassword()).equals(Arrays.toString(txtReenterPassword.getPassword()))){
                 if(!checkduplicateentry()){
                     try{
                         UserDetails u = MakeUser();
+                        u.setRegistrationForm(true);
+                        new EmailUtility().sendMail(u);
                         AddUsertoDB(u);
                         ClearAllFields();
                         JOptionPane.showMessageDialog(this, "User Added.");
