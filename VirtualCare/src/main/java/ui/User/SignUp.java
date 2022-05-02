@@ -122,10 +122,6 @@ public class SignUp extends javax.swing.JPanel {
             JOptionPane.showMessageDialog(this, "Please enter valid last name");
             return false;
         }
-        else if(!validate.isNotNullAndEmpty(txtDoB.getDateFormatString())){
-            JOptionPane.showMessageDialog(this, "Please select a valid date");
-            return false;
-        }
         else if(!validate.isNotNullAndEmpty(txtStreet.getText())){
             JOptionPane.showMessageDialog(this, "Please enter street");
             return false;
@@ -298,7 +294,7 @@ public class SignUp extends javax.swing.JPanel {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 412, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addContainerGap(24, Short.MAX_VALUE))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                         .addComponent(lblVirtualCare, javax.swing.GroupLayout.PREFERRED_SIZE, 115, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(312, 312, 312))))
