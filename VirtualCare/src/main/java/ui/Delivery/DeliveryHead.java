@@ -173,8 +173,11 @@ public class DeliveryHead extends javax.swing.JPanel {
 
     private void btnDeliveredDHActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDeliveredDHActionPerformed
         // TODO add your handling code here:
-        if(tblMedicineRequests.getSelectedRow() < 0)
-            return;
+        if(tblMedicineRequests.getSelectedRow() < 0){
+             JOptionPane.showMessageDialog(this, "Please select a record");
+             return;
+        }
+           
         int Row = tblMedicineRequests.getSelectedRow();
         String Medicine = tblMedicineRequests.getValueAt(Row, 1).toString();
         String Hospital = tblMedicineRequests.getValueAt(Row, 0).toString();
