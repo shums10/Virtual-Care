@@ -52,7 +52,7 @@ public void sendMail(UserDetails user) {
     + "\n\n\n Regards, "
     + "\n Virtual Care");
     }else{
-         message.setSubject("Virtual Appointment Confirmation");
+         message.setSubject("Virtual Appointment Confirmation ");
          message.setText("Dear "+user.getFirstName()+", "
         + "\n\n Please find below link to join virtually"
         + "\n\n Zoom Link:"
