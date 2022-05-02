@@ -80,8 +80,10 @@ public class AdminSystem extends javax.swing.JPanel {
         AdminDetails a;
         try {
             List<AdminDetails> adminresult = UserSystem.Admindb.query(AdminDetails.class);
-            if(adminresult.isEmpty())
+            if(adminresult.isEmpty()){
+                this.AdminMap = AdminMap;
                 return;
+            }
             Iterator adminitr = adminresult.iterator();
             while(adminitr.hasNext()){
                 a = (AdminDetails)adminitr.next();
@@ -214,6 +216,7 @@ public class AdminSystem extends javax.swing.JPanel {
     boolean checkduplicateentry(){
         String Email = txtEmailIdAS.getText().trim();
         PullAdminstoHashMap();
+        
         if(AdminMap.get(Email) == null){
             return false;
         }

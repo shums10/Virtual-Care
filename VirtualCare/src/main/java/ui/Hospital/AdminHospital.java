@@ -345,8 +345,11 @@ public class AdminHospital extends javax.swing.JPanel {
         DoctorDetails d;
         try {
             List<DoctorDetails> doctorresult = UserSystem.Doctordb.query(DoctorDetails.class);
-            if(doctorresult.isEmpty())
+            if(doctorresult.isEmpty()){
+                this.DoctorMap = DoctorMap;
                 return;
+            }
+                
             Iterator doctoritr = doctorresult.iterator();
             while(doctoritr.hasNext()){
                 d = (DoctorDetails)doctoritr.next();
@@ -743,7 +746,7 @@ public class AdminHospital extends javax.swing.JPanel {
 
         lblLastName.setText("Last Name:");
 
-        cmbBoxDepartment.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Dentist", "Orthopedic", "Oncologist", "Coardiologist", "Neurologist", "General Physician", "" }));
+        cmbBoxDepartment.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Dentist", "Orthopedic", "Oncologist", "Coardiologist", "Neurologist", "General Physician" }));
 
         txtFirstNameAH.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {

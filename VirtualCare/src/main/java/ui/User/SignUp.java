@@ -44,8 +44,11 @@ public class SignUp extends javax.swing.JPanel {
         try {
             List<UserDetails> userresult = Userdb.query(UserDetails.class);
             
-            if(userresult.isEmpty())
+            if(userresult.isEmpty()){
+                this.UserMap = UserMap;
                 return;
+            }
+                
 
             Iterator useritr = userresult.iterator();
             while(useritr.hasNext()){
@@ -56,7 +59,7 @@ public class SignUp extends javax.swing.JPanel {
         catch(DatabaseClosedException | Db4oIOException E){
             JOptionPane.showMessageDialog(this, "Database Error.");
         }
-        this.UserMap = UserMap;
+        
     }
     
     public static void AddUsertoDB(UserDetails u){     

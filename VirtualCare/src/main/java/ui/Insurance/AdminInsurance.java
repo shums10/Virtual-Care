@@ -86,8 +86,11 @@ public class AdminInsurance extends javax.swing.JPanel {
         try {
             List<InsuranceAgentDetails> IAresult = UserSystem.InsAgentdb.query(InsuranceAgentDetails.class);
             
-            if(IAresult.isEmpty())
+            if(IAresult.isEmpty()){
+                this.InsAgentMap = InsAgentMap;
                 return;
+            }
+                
 
             Iterator IAitr = IAresult.iterator();
             while(IAitr.hasNext()){
@@ -98,7 +101,7 @@ public class AdminInsurance extends javax.swing.JPanel {
         catch(DatabaseClosedException | Db4oIOException E){
             JOptionPane.showMessageDialog(this, "Database Error.");
         }
-        this.InsAgentMap = InsAgentMap;
+        
     }
     
     boolean checkduplicateentry(){

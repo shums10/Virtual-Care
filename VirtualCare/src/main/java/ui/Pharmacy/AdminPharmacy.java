@@ -481,6 +481,7 @@ public class AdminPharmacy extends javax.swing.JPanel {
             if(!DHExists(DH)){
                 AddDelHeadtoDB(DH);
                 JOptionPane.showMessageDialog(this, "Delivery Head Added");
+                clearfields();
             }
             else{
                 JOptionPane.showMessageDialog(this, "Delivery Head " + DHlist.get(0).getFirstName() + "already exists for " + a.getOrganization());
