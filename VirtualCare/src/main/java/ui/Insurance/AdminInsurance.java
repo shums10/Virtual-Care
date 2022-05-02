@@ -118,7 +118,7 @@ public class AdminInsurance extends javax.swing.JPanel {
             JOptionPane.showMessageDialog(this, "Please enter valid email");
             return false;
         }else if(!validate.isNotNullAndEmpty(txtIAPassword.getText())){
-            JOptionPane.showMessageDialog(this, "Fill all the fields");
+            JOptionPane.showMessageDialog(this, "Please enter password");
             return false;
         }
         else{
@@ -428,8 +428,10 @@ public class AdminInsurance extends javax.swing.JPanel {
 
     private void btnfwdtoAgentActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnfwdtoAgentActionPerformed
         // TODO add your handling code here:
-        if(tblViewInsuranceRequest.getSelectedRow() < 0)
+        if(tblViewInsuranceRequest.getSelectedRow() < 0){
+            JOptionPane.showMessageDialog(this, "Please select a record");
             return;
+        }   
         int Row = tblViewInsuranceRequest.getSelectedRow();
         String PatientEmail = tblViewInsuranceRequest.getValueAt(Row, 1).toString();
         
@@ -450,8 +452,10 @@ public class AdminInsurance extends javax.swing.JPanel {
 
     private void btnDeclineActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDeclineActionPerformed
         // TODO add your handling code here:
-        if(tblViewInsuranceRequest.getSelectedRow() < 0)
+        if(tblViewInsuranceRequest.getSelectedRow() < 0){
+            JOptionPane.showMessageDialog(this, "Please select a record");
             return;
+        }
         int Row = tblViewInsuranceRequest.getSelectedRow();
         String PatientEmail = tblViewInsuranceRequest.getValueAt(Row, 1).toString();
         
